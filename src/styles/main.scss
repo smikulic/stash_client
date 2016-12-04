@@ -1,0 +1,17 @@
+// Settings
+@import "config/bootstrap.scss";
+@import "config/mixins.scss";
+@import "config/animations.scss";
+@import "config/settings.scss";
+@import "config/base.scss";
+@import "config/utilities.scss";
+
+// Layout - Server
+@import "layout/welcome.scss";
+// Layout - Client
+@import "layout/navigation.scss";
+
+// Modules
+@import "modules/overviewStatus.scss";
+@import "modules/savingsList.scss";
+@import "modules/incomesList.scss";
