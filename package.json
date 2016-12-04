@@ -11,6 +11,7 @@
   "scripts": {
     "start": "node server.js",
     "lint": "eslint src",
+    "test": "npm run lint",
     "build": "webpack"
   },
   "dependencies": {
