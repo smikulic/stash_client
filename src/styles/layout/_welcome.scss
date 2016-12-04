@@ -129,6 +129,7 @@
   padding: 10px;
   position: relative;
   width: 33.33%;
+  border: 0;
   color: $textPrimaryColor;
   background-color: $primaryColor;
   border-radius: $bRadius-default;
@@ -160,7 +161,8 @@
   border: 0;
 }
 
-.form-signin input[type="email"] {
+.form-signin input {
+  margin-bottom: 10px;
   padding-left: 10px;
   width: 33.33%;
   height: 40px;

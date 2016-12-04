@@ -1,12 +1,33 @@
+import request from 'superagent';
+
 module.exports = {
   login(email, pass, cb) {
-    cb = arguments[arguments.length - 1]
+    cb = arguments[arguments.length - 1];
     if (localStorage.token) {
       if (cb) cb(true)
       this.onChange(true)
       return
     }
-    pretendRequest(email, pass, (res) => {
+    apiLoginRequest(email, pass, (res) => {
+      if (res.authenticated) {
+        localStorage.token = res.token
+        if (cb) cb(true)
+        this.onChange(true)
+      } else {
+        if (cb) cb(false)
+        this.onChange(false)
+      }
+    })
+  },
+
+  register(email, pass, cb) {
+    cb = arguments[arguments.length - 1];
+    if (localStorage.token) {
+      if (cb) cb(true)
+      this.onChange(true)
+      return
+    }
+    apiRegisterRequest(email, pass, (res) => {
       if (res.authenticated) {
         localStorage.token = res.token
         if (cb) cb(true)
@@ -35,15 +56,39 @@ module.exports = {
   onChange() {}
 }
 
-function pretendRequest(email, pass, cb) {
-  setTimeout(() => {
-    if (email === 'joe@example.com' && pass === 'password1') {
-      cb({
-        authenticated: true,
-        token: Math.random().toString(36).substring(7)
-      })
-    } else {
-      cb({ authenticated: false })
-    }
-  }, 0)
+function apiLoginRequest(email, pass, cb) {
+  request
+    .post('http://localhost:3001/auth/sign_in')
+    .send({ email: email, password: pass })
+    .set('Accept', 'application/json')
+    .end(function(err, res){
+      if (err || !res.ok) {
+        cb({ authenticated: false });
+      } else {
+        console.log(JSON.stringify(res.body))
+        cb({
+          authenticated: true,
+          token: Math.random().toString(36).substring(7)
+        });
+      }
+    });
+}
+
+function apiRegisterRequest(email, pass, cb) {
+  request
+    .post('http://localhost:3001/auth')
+    .send({ email: email, password: pass, password_confirmation: pass,
+      confirm_success_url: 'http://localhost:3000/dashboard' })
+    .set('Accept', 'application/json')
+    .end(function(err, res){
+      if (err || !res.ok) {
+        cb({ authenticated: false });
+     } else {
+        console.log(JSON.stringify(res.body))
+        cb({
+          authenticated: true,
+          token: Math.random().toString(36).substring(7)
+        });
+     }
+   });
 }
