@@ -1,7 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, Link, withRouter, browserHistory } from 'react-router';
-import auth from './stores/authStore';
+import auth from './stores/auth_store';
+import WelcomePage from './pages/welcome_page';
+import LoginPage from './pages/login_page';
+
+require('./styles/main.scss');
 
 const App = React.createClass({
   getInitialState() {
@@ -23,23 +27,14 @@ const App = React.createClass({
 
   render() {
     return (
-      <div>
-        <ul>
-          <li>
-            {this.state.loggedIn ? (
-              <Link to="/logout">Log out</Link>
-            ) : (
-              <Link to="/login">Sign in</Link>
-            )}
-          </li>
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/dashboard">Dashboard</Link> (authenticated)</li>
-        </ul>
-        {this.props.children || <p>You are {!this.state.loggedIn && 'not'} logged in.</p>}
-      </div>
-    )
+      this.state.loggedIn ? (
+        <Link to="/logout">Log out</Link>
+      ) : (
+        <WelcomePage />
+      )
+    );
   }
-})
+});
 
 const Dashboard = React.createClass({
   render() {
@@ -52,56 +47,6 @@ const Dashboard = React.createClass({
         <p>{token}</p>
       </div>
     )
-  }
-})
-
-const Login = withRouter(
-  React.createClass({
-
-    getInitialState() {
-      return {
-        error: false
-      }
-    },
-
-    handleSubmit(event) {
-      event.preventDefault()
-
-      const email = this.refs.email.value
-      const pass = this.refs.pass.value
-
-      auth.login(email, pass, (loggedIn) => {
-        if (!loggedIn)
-          return this.setState({ error: true })
-
-        const { location } = this.props
-
-        if (location.state && location.state.nextPathname) {
-          this.props.router.replace(location.state.nextPathname)
-        } else {
-          this.props.router.replace('/')
-        }
-      })
-    },
-
-    render() {
-      return (
-        <form onSubmit={this.handleSubmit}>
-          <label><input ref="email" placeholder="email" defaultValue="joe@example.com" /></label>
-          <label><input ref="pass" placeholder="password" /></label> (hint: password1)<br />
-          <button type="submit">login</button>
-          {this.state.error && (
-            <p>Bad login information</p>
-          )}
-        </form>
-      )
-    }
-  })
-)
-
-const About = React.createClass({
-  render() {
-    return <h1>About</h1>
   }
 })
 
@@ -126,10 +71,9 @@ function requireAuth(nextState, replace) {
 
 render((
   <Router history={browserHistory}>
+    <Route path="login" component={LoginPage} />
     <Route path="/" component={App}>
-      <Route path="login" component={Login} />
       <Route path="logout" component={Logout} />
-      <Route path="about" component={About} />
       <Route path="dashboard" component={Dashboard} onEnter={requireAuth} />
     </Route>
   </Router>

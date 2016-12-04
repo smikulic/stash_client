@@ -1,0 +1,65 @@
+.savingsList-header-element {
+	margin-bottom: 20px;
+	padding: 10px 15px;
+	color: $secondaryTextColor;
+	border-bottom: 1px solid $dividerColor;
+}
+
+.savingsList-content-element {
+	@include m-height(40px);
+	color: $secondaryTextColor;
+	cursor: pointer;
+}
+.savingsList-content-element .completed-percentage,
+.savingsList-content-element .completed-value,
+.savingsList-content-element .due-date,
+.savingsList-content-element .due-in {
+	@include m-height(20px);
+}
+.savingsList-content-element .completed-percentage {
+	padding-top: 5px;
+	font-size: $fontSize-extraLarge;
+}
+.savingsList-content-element .completed-value {
+	font-size: $fontSize-extraSmall;
+}
+
+.savingsList-content-element .title {
+	font-size: $fontSize-medium;
+	color: $primaryTextColor;
+}
+
+.savingsList-content-element .monthly,
+.savingsList-content-element .due-date {
+	font-size: $fontSize-medium;
+}
+.savingsList-content-element .due-in {
+	font-size: $fontSize-small;
+}
+
+.savingsList-content-element--done .completed {
+	color: $primaryColor;
+}
+.savingsList-content-element--done .completed i {
+	position: absolute;
+	top: 5px;
+	left: 0;
+}
+
+.savingsList-content-element .deleteSaving {
+	display: none;
+	position: absolute;
+	top: 6px;
+	right: 30px;
+}
+
+// Hover effects
+.savingsList-content-element:hover {
+	background-color: $lightPrimaryColor;
+}
+.savingsList-content-element:hover .deleteSaving {
+	display: block;
+}
+.savingsList-content-element:hover .deleteSaving:hover {
+	color: $accentColor;
+}

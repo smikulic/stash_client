@@ -1,0 +1,18 @@
+.overviewStatus {
+  padding-bottom: 30px;
+  border-bottom: 1px solid gray;
+}
+.overviewStatus-title {
+	font-size: $fontSize-small;
+}
+.overviewStatus-value {
+	padding: 5px 0;
+	width: 100%;
+	font-size: $fontSize-extraLarge;
+	border: 0;
+  border-bottom: 1px solid $dividerColor;
+  outline: 0;
+}
+input.overviewStatus-value:focus {
+	border-bottom: 1px solid $darkPrimaryColor;
+}

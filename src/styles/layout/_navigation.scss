@@ -1,0 +1,16 @@
+.navigation {
+	@include m-height(50px);
+	background-color: $darkPrimaryColor;
+}
+
+.navigation-element {
+	display: inline-block;
+	width: 100px;
+    text-align: center;
+    color: $primaryTextColor;
+    cursor: pointer;
+}
+.navigation-element:hover,
+.navigation-element.active {
+	background-color: $primaryColor;
+}
