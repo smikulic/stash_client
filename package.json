@@ -4,6 +4,10 @@
   "description": "Stash Client application",
   "author": "Sinisa Mikulic <sinisa.mikulic@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/smikulic/stash_client.git"
+  },
   "scripts": {
     "start": "node server.js",
     "lint": "eslint src",
