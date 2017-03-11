@@ -6,7 +6,7 @@ import WelcomePage from './pages/welcome_page';
 import LoginPage from './pages/login_page';
 import RegisterPage from './pages/register_page';
 import DashboardPage from './pages/dashboard_page';
-
+import CreateSavingGoalPage from './pages/create_saving_goal_page';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -59,6 +59,7 @@ render((
     <Route path="signup" component={RegisterPage} />
     <Route path="/" component={App}>
       <Route path="dashboard" component={DashboardPage} onEnter={requireAuth} />
+      <Route path="/createSavingGoal" component={CreateSavingGoalPage} onEnter={requireAuth} />
     </Route>
   </Router>
 ), document.getElementById('root'));
