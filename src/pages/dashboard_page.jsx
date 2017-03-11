@@ -1,18 +1,33 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
-import authStore from '../stores/auth_store';
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
+import NavigationMenu from '../components/NavigationMenu';
+import SavingGoals from '../components/SavingGoals';
 
 class DashboardPage extends Component {
   render() {
-    const token = authStore.getToken()
+    const spendThisMonth = 'N/A';
 
     return (
-      <div>
-        <h1>Dashboard</h1>
-        <p>You made it!</p>
-        <p>{token}</p>
-        <Link to="/logout" className="btn-back">Logout</Link>
-      </div>
+      <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+        <div>
+          <AppBar
+            title="ScroogeVault"
+            iconElementLeft={<span></span>}
+            iconElementRight={<NavigationMenu />}
+          />
+          <h1>Financial overview</h1>
+          <FlatButton label="Create Saving Goal" />
+          <SavingGoals />
+          <div>
+            You can spend this month: {spendThisMonth}
+          </div>
+        </div>
+
+      </MuiThemeProvider>
     )
   }
 };

@@ -4,9 +4,14 @@ import { Router, Route, Link, withRouter, browserHistory } from 'react-router';
 import authStore from './stores/auth_store';
 import WelcomePage from './pages/welcome_page';
 import LoginPage from './pages/login_page';
-import LogoutPage from './pages/logout_page';
 import RegisterPage from './pages/register_page';
 import DashboardPage from './pages/dashboard_page';
+
+
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
 require('./styles/main.scss');
 
@@ -51,7 +56,6 @@ function requireAuth(nextState, replace) {
 render((
   <Router history={browserHistory}>
     <Route path="login" component={LoginPage} />
-    <Route path="logout" component={LogoutPage} />
     <Route path="signup" component={RegisterPage} />
     <Route path="/" component={App}>
       <Route path="dashboard" component={DashboardPage} onEnter={requireAuth} />
