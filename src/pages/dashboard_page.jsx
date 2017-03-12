@@ -10,7 +10,7 @@ import SavingGoalForm from '../components/SavingGoalForm';
 const floatingButtonStyle = {
   position: 'absolute',
   bottom: 15,
-  right: 15
+  right: 15,
 };
 
 const dashboardItemOneStyle = {
@@ -21,15 +21,23 @@ const dashboardItemOneStyle = {
   display: 'inline-block',
 };
 
-class DashboardPage extends Component {
-  constructor() {
-    super();
-    this.openSavingGoalForm = this.openSavingGoalForm.bind(this);
-  }
+const customDialogStyle = {
+  position: 'absolute',
+  top: '5%',
+  width: '80%',
+  maxWidth: 'none',
+  transform: 'translate(12.5%, 64px)',
+};
 
-  state = {
-    savingGoalFormActive: false,
-  };
+class DashboardPage extends Component {
+  constructor(props) {
+    super(props);
+    this.openSavingGoalForm = this.openSavingGoalForm.bind(this);
+
+    this.state = {
+      savingGoalFormActive: false,
+    };
+  }
 
   openSavingGoalForm = () => {
     this.setState({ savingGoalFormActive: true });
@@ -83,13 +91,14 @@ class DashboardPage extends Component {
         </FloatingActionButton>
 
         <Dialog
-          title="Dialog With Actions"
+          title="Enter savings goal"
           actions={actions}
           modal={false}
+          contentStyle={customDialogStyle}
           open={this.state.savingGoalFormActive}
           onRequestClose={this.closeSavingGoalForm}
         >
-          The actions in this window were passed in as an array of React objects.
+          <SavingGoalForm />
         </Dialog>
       </div>
     )
