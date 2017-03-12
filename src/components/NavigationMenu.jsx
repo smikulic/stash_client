@@ -6,6 +6,14 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
+const menuItemStyle = {
+  padding: 0,
+  fontSize: 14,
+  lineHeight: '40px',
+  minHeight: 38,
+  height: 40
+};
+
 require('../styles/modules/_navigationMenu.scss');
 
 class NavigationMenu extends Component {
@@ -27,13 +35,20 @@ class NavigationMenu extends Component {
         <span className="user-email">{userData.email.replace(/^"(.+(?="$))"$/, '$1')}</span>
         <IconMenu
           iconButtonElement={
-            <IconButton><MoreVertIcon /></IconButton>
+            <IconButton><MoreVertIcon className="user-dropdown-icon" /></IconButton>
           }
-          targetOrigin={{horizontal: 'right', vertical: 'top'}}
+          targetOrigin={{horizontal: 'right', vertical: 'middle'}}
           anchorOrigin={{horizontal: 'right', vertical: 'top'}}
         >
-          <MenuItem primaryText="Help" />
-          <MenuItem onClick={this.handleOnClick} primaryText="Sign out" />
+          <MenuItem
+            primaryText="Help"
+            style={menuItemStyle}
+          />
+          <MenuItem
+            onClick={this.handleOnClick}
+            primaryText="Sign out"
+            style={menuItemStyle}
+          />
         </IconMenu>
       </div>
     );

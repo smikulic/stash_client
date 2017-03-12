@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
-import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import AppBar from 'material-ui/AppBar';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import Paper from 'material-ui/Paper';
-import NavigationMenu from '../components/NavigationMenu';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 import SavingGoals from '../components/SavingGoals';
+import SavingGoalForm from '../components/SavingGoalForm';
 
 const floatingButtonStyle = {
   position: 'absolute',
@@ -16,58 +13,85 @@ const floatingButtonStyle = {
   right: 15
 };
 
-const dashboardItem = {
+const dashboardItemOneStyle = {
   height: 120,
-  width: 120,
-  margin: 10,
-  paddingTop: 25,
-  textAlign: 'center',
+  width: '100%',
+  margin: '10px auto',
+  padding: 5,
   display: 'inline-block',
 };
 
 class DashboardPage extends Component {
   constructor() {
     super();
-    this.handleCreateSavingGoal = this.handleCreateSavingGoal.bind(this);
+    this.openSavingGoalForm = this.openSavingGoalForm.bind(this);
   }
 
-  handleCreateSavingGoal() {
-    this.props.router.push('/createSavingGoal');
-  }
+  state = {
+    savingGoalFormActive: false,
+  };
+
+  openSavingGoalForm = () => {
+    this.setState({ savingGoalFormActive: true });
+  };
+
+  closeSavingGoalForm = () => {
+    this.setState({ savingGoalFormActive: false });
+  };
 
   render() {
     const spendThisMonth = 'N/A';
-    const spendNextMonth = 'N/A';
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.closeSavingGoalForm}
+      />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.closeSavingGoalForm}
+      />,
+    ];
 
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-        <div>
-          <AppBar
-            title="ScroogeVault"
-            iconElementLeft={<span></span>}
-            iconElementRight={<NavigationMenu />}
-          />
-          <h1>Financial overview</h1>
-          <Paper style={dashboardItem} zDepth={1}>
-            <div>Available this month:</div>
-            <div>{spendThisMonth}</div>
-          </Paper>
-          <Paper style={dashboardItem} zDepth={1}>
-            <div>Available next month:</div>
-            <div>{spendNextMonth}</div>
-          </Paper>
-          <Link to="/createSavingGoal">Repos</Link>
-          <FloatingActionButton
-            secondary={true}
-            style={floatingButtonStyle}
-            onClick={this.handleCreateSavingGoal}
-          >
-            <ContentAdd />
-          </FloatingActionButton>
-          <SavingGoals />
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-xs-12">
+            <Paper style={dashboardItemOneStyle} zDepth={1}>
+              <h3>Financial overview</h3>
+              <div>Available this month:</div>
+              <div>{spendThisMonth}</div>
+            </Paper>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-xs-12">
+            <Paper style={dashboardItemOneStyle} zDepth={1}>
+              <SavingGoals />
+            </Paper>
+          </div>
         </div>
 
-      </MuiThemeProvider>
+        <FloatingActionButton
+          secondary={true}
+          style={floatingButtonStyle}
+          onClick={this.openSavingGoalForm}
+        >
+          <ContentAdd />
+        </FloatingActionButton>
+
+        <Dialog
+          title="Dialog With Actions"
+          actions={actions}
+          modal={false}
+          open={this.state.savingGoalFormActive}
+          onRequestClose={this.closeSavingGoalForm}
+        >
+          The actions in this window were passed in as an array of React objects.
+        </Dialog>
+      </div>
     )
   }
 };

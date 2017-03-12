@@ -6,7 +6,12 @@ import WelcomePage from './pages/welcome_page';
 import LoginPage from './pages/login_page';
 import RegisterPage from './pages/register_page';
 import DashboardPage from './pages/dashboard_page';
-import CreateSavingGoalPage from './pages/create_saving_goal_page';
+import NavigationMenu from './components/NavigationMenu';
+
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import AppBar from 'material-ui/AppBar';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -36,7 +41,18 @@ const App = React.createClass({
   render() {
     return (
       this.state.loggedIn ? (
-        <DashboardPage />
+        <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+          <div>
+            <AppBar
+              style={{ background: 'white' }}
+              title="ScroogeVault"
+              titleStyle={{ color: '#697B8C', fontSize: 14 }}
+              iconElementLeft={<span></span>}
+              iconElementRight={<NavigationMenu />}
+            />
+            <DashboardPage />
+          </div>
+        </MuiThemeProvider>
       ) : (
         <WelcomePage />
       )
@@ -59,7 +75,6 @@ render((
     <Route path="signup" component={RegisterPage} />
     <Route path="/" component={App}>
       <Route path="dashboard" component={DashboardPage} onEnter={requireAuth} />
-      <Route path="/createSavingGoal" component={CreateSavingGoalPage} onEnter={requireAuth} />
     </Route>
   </Router>
 ), document.getElementById('root'));
