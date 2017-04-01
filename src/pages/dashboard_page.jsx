@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import moment from 'moment';
+import symbolFromCurrency from 'currency-symbol-map';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import Paper from 'material-ui/Paper';
@@ -6,6 +8,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import SavingGoals from '../components/SavingGoals';
 import SavingGoalForm from '../components/SavingGoalForm';
+import StatusOverview from '../components/status-overview';
 
 const floatingButtonStyle = {
   position: 'absolute',
@@ -14,7 +17,7 @@ const floatingButtonStyle = {
 };
 
 const dashboardItemOneStyle = {
-  height: 120,
+  height: 'auto',
   width: '100%',
   margin: '10px auto',
   padding: 5,
@@ -28,6 +31,64 @@ const customDialogStyle = {
   maxWidth: 'none',
   transform: 'translate(12.5%, 64px)',
 };
+
+// Data
+const fetchedUserSettingsData = {
+  fixed_income: 3000,
+  fixed_expenses: 1800,
+  currency: 'EUR'
+};
+
+const fetchedSavingGoalsData = [
+  {
+    id: '001',
+    name: 'Vacation - Croatian',
+    total_value: 1000,
+    start_date: '2017-03-01',
+    end_date: '2017-07-01',
+    category: 'want',
+  },
+  {
+    id: '002',
+    name: 'Weekend trip',
+    total_value: 150,
+    start_date: '2017-03-01',
+    end_date: '2017-04-01',
+    category: 'want',
+  },
+  {
+    id: '003',
+    name: 'New car',
+    total_value: 9000,
+    start_date: '2017-04-01',
+    end_date: '2019-10-01',
+    category: 'need',
+  },
+  {
+    id: '004',
+    name: 'New MacbookPro',
+    total_value: 1000,
+    start_date: '2017-04-01',
+    end_date: '2018-12-01',
+    category: 'need',
+  },
+  {
+    id: '005',
+    name: 'New Glasses (saved half already)',
+    total_value: 150,
+    start_date: '2017-04-01',
+    end_date: '2018-04-01',
+    category: 'need',
+  },
+  {
+    id: '006',
+    name: '2 new phones for wife and me',
+    total_value: 1000,
+    start_date: '2017-04-01',
+    end_date: '2019-04-01',
+    category: 'need',
+  }
+];
 
 class DashboardPage extends Component {
   constructor(props) {
@@ -48,7 +109,6 @@ class DashboardPage extends Component {
   };
 
   render() {
-    const spendThisMonth = 'N/A';
     const actions = [
       <FlatButton
         label="Cancel"
@@ -68,16 +128,20 @@ class DashboardPage extends Component {
         <div className="row">
           <div className="col-xs-12">
             <Paper style={dashboardItemOneStyle} zDepth={1}>
-              <h3>Financial overview</h3>
-              <div>Available this month:</div>
-              <div>{spendThisMonth}</div>
+              <StatusOverview
+                savingGoals={fetchedSavingGoalsData}
+                userData={fetchedUserSettingsData}
+              />
             </Paper>
           </div>
         </div>
         <div className="row">
           <div className="col-xs-12">
             <Paper style={dashboardItemOneStyle} zDepth={1}>
-              <SavingGoals />
+              <SavingGoals
+                savingGoals={fetchedSavingGoalsData}
+                userData={fetchedUserSettingsData}
+              />
             </Paper>
           </div>
         </div>
