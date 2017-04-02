@@ -10,7 +10,12 @@ module.exports = {
     }
     apiLoginRequest(email, pass, (res) => {
       if (res.authenticated) {
-        localStorage.token = res.token
+        let userData = {
+          'email': res.email,
+          'token': res.token
+        };
+        localStorage.token = res.token;
+        localStorage.setItem('SVuserData', JSON.stringify(userData));
         if (cb) cb(true)
         this.onChange(true)
       } else {
@@ -40,17 +45,21 @@ module.exports = {
   },
 
   getToken() {
-    return localStorage.token
+    return JSON.parse(localStorage.getItem('SVuserData')).token;
+  },
+
+  getUserData() {
+    return JSON.parse(localStorage.getItem('SVuserData'));
   },
 
   logout(cb) {
-    delete localStorage.token
+    delete localStorage.token;
     if (cb) cb()
     this.onChange(false)
   },
 
   loggedIn() {
-    return !!localStorage.token
+    return !!localStorage.token;
   },
 
   onChange() {}
@@ -68,7 +77,8 @@ function apiLoginRequest(email, pass, cb) {
         console.log(JSON.stringify(res.body))
         cb({
           authenticated: true,
-          token: Math.random().toString(36).substring(7)
+          token: Math.random().toString(36).substring(7),
+          email: JSON.stringify(res.body.data.email)
         });
       }
     });
