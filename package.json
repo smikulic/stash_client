@@ -9,10 +9,12 @@
     "url": "https://github.com/smikulic/stash_client.git"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "node server.development.js",
     "lint": "eslint src",
     "test": "npm run lint",
-    "build": "webpack"
+    "build:development": "webpack --config ./scripts/webpack.development.config.js",
+    "build:staging": "webpack -p --config ./scripts/webpack.staging.config.js",
+    "build:production": "webpack -p --config ./scripts/webpack.production.config.js"
   },
   "dependencies": {
     "currency-symbol-map": "^3.1.0",
