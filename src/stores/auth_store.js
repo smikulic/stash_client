@@ -1,4 +1,5 @@
 import request from 'superagent';
+import { apiPath, clientPath } from '../config/config';
 
 module.exports = {
   login(email, pass, cb) {
@@ -67,7 +68,7 @@ module.exports = {
 
 function apiLoginRequest(email, pass, cb) {
   request
-    .post('http://localhost:3001/auth/sign_in')
+    .post(apiPath() + '/auth/sign_in')
     .send({ email: email, password: pass })
     .set('Accept', 'application/json')
     .end(function(err, res){
@@ -86,9 +87,9 @@ function apiLoginRequest(email, pass, cb) {
 
 function apiRegisterRequest(email, pass, cb) {
   request
-    .post('http://localhost:3001/auth')
+    .post(apiPath() + '/auth')
     .send({ email: email, password: pass, password_confirmation: pass,
-      confirm_success_url: 'http://localhost:3000/dashboard' })
+      confirm_success_url: clientPath() + '/dashboard' })
     .set('Accept', 'application/json')
     .end(function(err, res){
       if (err || !res.ok) {
