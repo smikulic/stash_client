@@ -25,7 +25,7 @@ class SavingGoals extends Component {
     return (
       <Table style={{
         background: '#F5F5F5',
-        fontFamily: "'Khula', sans-serif",
+        fontFamily: '"Khula", sans-serif',
         fontWeight: '300',
       }}>
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
@@ -75,7 +75,7 @@ class SavingGoals extends Component {
                 return (
                   <TableRow key={item.id} style={{
                     height: '6rem',
-                    fontFamily: "'Khula', sans-serif",
+                    fontFamily: '"Khula", sans-serif',
                     fontWeight: '300',
                   }}>
                     <TableRowColumn colSpan="3">
