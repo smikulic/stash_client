@@ -6,7 +6,9 @@
       "node-sass",
       "sass-loader",
       "mobx",
-      "webpack-dev-server"
+      "mobx-react",
+      "webpack-dev-server",
+      "babel-loader"
     ]
   }
 }
