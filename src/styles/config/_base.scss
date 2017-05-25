@@ -6,3 +6,8 @@ body {
   background: #eef4f9;
   font-family: 'Khula', sans-serif;
 }
+
+.app-wrapper {
+  background: $background;
+  height: 100vh;
+}

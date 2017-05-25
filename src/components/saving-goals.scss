@@ -1,0 +1,33 @@
+.table-row--name {
+  color: #818C9D;
+  font-size: 2rem;
+}
+
+.table-row--due {
+  position: relative;
+  padding-left: 1.2rem;
+  color: #16A2E0;
+  font-size: 1.2rem;
+}
+
+.table-row--due .circle {
+  width: 5px;
+  height: 5px;
+  background: #59D9A4;
+  display: inline-block;
+  border-radius: 5px;
+  position: absolute;
+  left: 0;
+  top: 6px;
+}
+
+.table-row--saved,
+.table-row--monthly {
+  margin-top: 2rem;
+  color: #16A2E0;
+  font-size: 1.6rem;
+}
+
+.table-row--monthly {
+  font-size: 1.8rem;
+}

@@ -35,7 +35,7 @@ class StatusOverview extends Component {
 
   render() {
     return (
-      <span>
+      <span className="status-overview">
         <h3 className="status-overview--title">{moment().format('MMMM YYYY')}</h3>
         <div className="status-overview--box">
           <div className="status-overview--label">
