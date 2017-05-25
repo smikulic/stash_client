@@ -145,7 +145,6 @@
   top: 0;
   height: 100vh;
   background: $background;
-  font-family: 'Quicksand', sans-serif;
 }
 
 .btn-login {
@@ -189,6 +188,11 @@
 .form-wrapper h2 {
   margin: 0.9rem 0;
   font-size: $fontSize-large;
+  font-weight: 300;
+}
+
+.form-wrapper .welcome-back-message {
+  font-weight: 400;
 }
 
 .form-wrapper .sub-title {

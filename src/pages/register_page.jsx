@@ -33,20 +33,28 @@ const RegisterPage = withRouter(
 
     render() {
       return (
-        <div>
-          <div className="section-main login">
+        <div className="section-main login">
             <div className="content">
-              <form className="form-signin" onSubmit={this.handleSubmit}>
-                <br /><input ref="email" placeholder="Email" type="email" />
-                <br /><input ref="pass" placeholder="Password" type="password" />
-                <button className="btn-start" type="submit">Submit</button>
-                {this.state.error && (
-                  <p>Bad register information</p>
-                )}
-              </form>
+              <div className="form-wrapper">
+                <h2>Scroogevault</h2>
+                <div className="logo"></div>
+                <br />
+                <h2 className="sub-title">Sign up to continue to Scroogevault.</h2>
+                <form className="form-signin" onSubmit={this.handleSubmit}>
+                  <br /><input ref="email" placeholder="Email" type="email" />
+                  <br /><input ref="pass" placeholder="Password" type="password" />
+                  <button className="btn-login" type="submit">Sign up</button>
+                  {this.state.error && (
+                    <p className="error-message">Wrong signup information. Please Try again.</p>
+                  )}
+                </form>
+                <div className="sign-up-field">
+                  Already have an account?
+                  <Link to="/login" className="btn-login">Sign in</Link>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
       )
     }
   })
