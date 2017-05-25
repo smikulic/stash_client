@@ -22,6 +22,7 @@ const dashboardItemOneStyle = {
   margin: '10px auto',
   padding: 5,
   display: 'inline-block',
+  background: '#F5F5F5',
 };
 
 const customDialogStyle = {

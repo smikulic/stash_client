@@ -10,6 +10,7 @@ import {
   TableRowColumn
 } from 'material-ui/Table';
 
+require('./saving-goals.scss');
 
 class SavingGoals extends Component {
 
@@ -22,13 +23,12 @@ class SavingGoals extends Component {
 
   render() {
     return (
-      <Table>
+      <Table style={{background: '#F5F5F5'}}>
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
           <TableRow>
-            <TableHeaderColumn colSpan="3">Goal</TableHeaderColumn>
+            <TableHeaderColumn colSpan="4">Goal</TableHeaderColumn>
             <TableHeaderColumn colSpan="1">Saved</TableHeaderColumn>
             <TableHeaderColumn colSpan="1">Monthly</TableHeaderColumn>
-            <TableHeaderColumn colSpan="1">Due</TableHeaderColumn>
           </TableRow>
         </TableHeader>
         <TableBody displayRowCheckbox={false}>
@@ -44,11 +44,17 @@ class SavingGoals extends Component {
                 due = moment(item.end_date).diff(moment(), 'months') === 0 ? 'this month' : due;
 
                 return (
-                  <TableRow key={item.id}>
-                    <TableRowColumn colSpan="3">{item.name}</TableRowColumn>
-                    <TableRowColumn colSpan="1">{saved}%</TableRowColumn>
-                    <TableRowColumn colSpan="1">{monthly} {symbolFromCurrency(this.currency)}</TableRowColumn>
-                    <TableRowColumn colSpan="1">{due}</TableRowColumn>
+                  <TableRow key={item.id} style={{height: '6rem'}}>
+                    <TableRowColumn colSpan="4">
+                      <div className="table-row--name">{item.name}</div>
+                      <div className="table-row--due"><span className="circle"></span>{due}</div>
+                    </TableRowColumn>
+                    <TableRowColumn colSpan="1">
+                      <div className="table-row--saved">{saved.toFixed(2)}%</div>
+                    </TableRowColumn>
+                    <TableRowColumn colSpan="1">
+                      <div className="table-row--monthly">{monthly} {symbolFromCurrency(this.currency)}</div>
+                    </TableRowColumn>
                   </TableRow>
                 )
               })
