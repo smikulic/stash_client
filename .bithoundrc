@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "mute": [
+      "webpack",
+      "react-router",
+      "node-sass",
+      "sass-loader",
+      "mobx",
+      "webpack-dev-server"
+    ]
+  }
+}
