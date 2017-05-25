@@ -33,18 +33,26 @@ const LoginPage = withRouter(
 
     render() {
       return (
-        <div>
-          <div className="section-main login">
-            <div className="content">
+        <div className="section-main login">
+          <div className="content">
+            <div className="form-wrapper">
+              <h2>Scroogevault</h2>
+              <div className="logo"></div>
+              <br />
+              <h2 className="welcome-back-message">Welcome back!</h2>
+              <h2 className="sub-title">Sign in to continue to Scroogevault.</h2>
               <form className="form-signin" onSubmit={this.handleSubmit}>
                 <br /><input ref="email" placeholder="Email" type="email" />
                 <br /><input ref="pass" placeholder="Password" type="password" />
-                <button className="btn-start" type="submit">Sign in</button>
+                <button className="btn-login" type="submit">Login</button>
                 {this.state.error && (
-                  <p>Bad login information</p>
+                  <p className="error-message">Wrong login information. Please Try again.</p>
                 )}
               </form>
-              <Link to="/signup" className="btn-start">Register</Link>
+              <div className="sign-up-field">
+                Don't have an account?
+                <Link to="/signup" className="btn-login">Sign up</Link>
+              </div>
             </div>
           </div>
         </div>
