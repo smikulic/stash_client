@@ -1,6 +1,8 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router';
+import { withRouter } from 'react-router';
 import authStore from '../stores/auth_store';
+import FormSignIn from '../components/form-sign-in';
+import FormSignInQuestion from '../components/form-sign-in-question';
 
 const LoginPage = withRouter(
   React.createClass({
@@ -12,16 +14,16 @@ const LoginPage = withRouter(
     },
 
     handleSubmit(event) {
-      event.preventDefault()
+      event.preventDefault();
 
-      const email = this.refs.email.value
-      const pass = this.refs.pass.value
+      const email = this.emailInputElement.value;
+      const pass = this.passwordInputElement.value;
 
       authStore.login(email, pass, (loggedIn) => {
         if (!loggedIn)
           return this.setState({ error: true })
 
-        const { location } = this.props
+        const { location } = this.props;
 
         if (location.state && location.state.nextPathname) {
           this.props.router.replace(location.state.nextPathname)
@@ -41,18 +43,19 @@ const LoginPage = withRouter(
               <br />
               <h2 className="welcome-back-message">Welcome back!</h2>
               <h2 className="sub-title">Sign in to continue to Scroogevault.</h2>
-              <form className="form-signin" onSubmit={this.handleSubmit}>
-                <br /><input ref="email" placeholder="Email" type="email" />
-                <br /><input ref="pass" placeholder="Password" type="password" />
-                <button className="btn-login" type="submit">Login</button>
-                {this.state.error && (
-                  <p className="error-message">Wrong login information. Please Try again.</p>
-                )}
-              </form>
-              <div className="sign-up-field">
-                Don't have an account?
-                <Link to="/signup" className="btn-login">Sign up</Link>
-              </div>
+              <FormSignIn
+                handleSubmit={this.handleSubmit}
+                submitMessage="Login"
+                emailRef={el => this.emailInputElement = el}
+                passwordRef={el => this.passwordInputElement = el}
+                error={this.state.error}
+                errorMessage="Wrong login information. Please try again."
+              />
+              <FormSignInQuestion
+                question="Don't have an account?"
+                link="/signup"
+                linkMessage="Sign up"
+              />
             </div>
           </div>
         </div>

@@ -1,0 +1,35 @@
+@import "../../styles/config/settings.scss";
+
+.form-sign-in input {
+  outline: 0;
+  border: 0;
+  margin-bottom: 10px;
+  width: 100%;
+  height: 40px;
+  border-bottom: 1px solid $blue;
+}
+
+.form-sign-in input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset;
+    -webkit-text-fill-color: $blue !important;
+}
+
+.form-sign-in .form-sign-in--error-message {
+  color: $accentColor;
+  font-size: $fontSize-small;
+}
+
+.form-sign-in .btn-login {
+  display: block;
+  margin: 3rem 0;
+  position: relative;
+  border: 0;
+  background-color: white;
+  font-size: $fontSize-large;
+  color: $blue;
+  transition: background 0.2s ease-in-out;
+  cursor: pointer;
+}
+.form-sign-in .btn-login:active {
+  top: 1px;
+}
