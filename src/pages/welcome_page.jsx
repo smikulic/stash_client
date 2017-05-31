@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import FeatureBox from '../components/feature-box';
 
 class WelcomePage extends Component {
   render() {
@@ -17,18 +18,18 @@ class WelcomePage extends Component {
           </div>
         </div>
         <div className="features">
-          <div className="feature">
-            <h3>Not sure how much to spend this month?</h3>
-            <p>A bunch of apps out there offer expense/income/budget tracking but none give insight about how much should you actually save up.</p>
-          </div>
-          <div className="feature">
-            <h3>We have a better way.</h3>
-            <p>We are offering an easy way to organize future expenses/income and overview monthly savings or spending power!</p>
-          </div>
-          <div className="feature">
-            <h3>ScroogeVault is 100% free.</h3>
-            <p>Don't worry, there are no fees involved and no bank accounts information needed, we are just offering a glorified calculator and a way to unload the burden of financial planning.</p>
-          </div>
+          <FeatureBox
+            title="Not sure how much to spend this month?"
+            description="A bunch of apps out there offer expense/income/budget tracking but none give insight about how much should you actually save up."
+          />
+          <FeatureBox
+            title="We have a better way."
+            description="We are offering an easy way to organize future expenses/income and overview monthly savings or spending power!"
+          />
+          <FeatureBox
+            title="ScroogeVault is 100% free."
+            description="Don't worry, there are no fees involved and no bank accounts information needed, we are just offering a glorified calculator and a way to unload the burden of financial planning."
+          />
         </div>
       </div>
     );

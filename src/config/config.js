@@ -1,19 +1,30 @@
-function apiPath() {
+const apiPaths = [
+  'http://localhost:3001',
+  'http://api-staging.scroogevault.co',
+  'http://api.scroogevault.co',
+];
+
+const clientPaths = [
+  'http://localhost:3000',
+  'http://staging.scroogevault.co',
+  'http://scroogevault.co',
+];
+
+function switchPaths(paths) {
   switch (process.env.NODE_ENV) {
-    case 'development': return 'http://localhost:3001';
-    case 'staging':     return 'http://api-staging.scroogevault.co';
-    case 'production':  return 'http://api.scroogevault.co';
-    default:            return 'http://localhost:3001';
+    case 'development': return paths[0];
+    case 'staging':     return paths[1];
+    case 'production':  return paths[2];
+    default:            return paths[0];
   }
 }
 
+function apiPath() {
+  return switchPaths(apiPaths);
+}
+
 function clientPath() {
-  switch (process.env.NODE_ENV) {
-    case 'development': return 'http://localhost:3000';
-    case 'staging':     return 'http://staging.scroogevault.co';
-    case 'production':  return 'http://scroogevault.co';
-    default:            return 'http://localhost:3000';
-  }
+  return switchPaths(clientPaths);
 }
 
 export { apiPath, clientPath };
