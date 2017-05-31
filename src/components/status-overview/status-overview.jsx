@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import symbolFromCurrency from 'currency-symbol-map';
+import StatusOverviewBox from '../status-overview-box';
 
 require('./status-overview.scss');
 
@@ -37,38 +38,22 @@ class StatusOverview extends Component {
     return (
       <span className="status-overview">
         <h3 className="status-overview--title">{moment().format('MMMM YYYY')}</h3>
-        <div className="status-overview--box">
-          <div className="status-overview--label">
-            Income
-          </div>
-          <div className="status-overview--value">
-            {`${this.monthlyFixedIncome} ${symbolFromCurrency(this.currency)}`}
-          </div>
-        </div>
-        <div className="status-overview--box">
-          <div className="status-overview--label">
-            Expenses
-          </div>
-          <div className="status-overview--value">
-            {`${this.monthlyFixedExpenses} ${symbolFromCurrency(this.currency)}`}
-          </div>
-        </div>
-        <div className="status-overview--box">
-          <div className="status-overview--label">
-            Savings
-          </div>
-          <div className="status-overview--value">
-            {`${this.monthlySavingExpenses} ${symbolFromCurrency(this.currency)}`}
-          </div>
-        </div>
-        <div className="status-overview--box">
-          <div className="status-overview--label">
-            Available
-          </div>
-          <div className="status-overview--value">
-            {`${this.spendThisMonth} ${symbolFromCurrency(this.currency)}`}
-          </div>
-        </div>
+        <StatusOverviewBox
+          label="Income"
+          value={`${this.monthlyFixedIncome} ${symbolFromCurrency(this.currency)}`}
+        />
+        <StatusOverviewBox
+          label="Expenses"
+          value={`${this.monthlyFixedExpenses} ${symbolFromCurrency(this.currency)}`}
+        />
+        <StatusOverviewBox
+          label="Savings"
+          value={`${this.monthlySavingExpenses} ${symbolFromCurrency(this.currency)}`}
+        />
+        <StatusOverviewBox
+          label="Available"
+          value={`${this.spendThisMonth} ${symbolFromCurrency(this.currency)}`}
+        />
       </span>
     );
   }

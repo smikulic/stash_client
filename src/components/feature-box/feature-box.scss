@@ -1,0 +1,29 @@
+.feature-box {
+  position: relative;
+  left: 20px;
+  float: left;
+  width: 33.333%;
+  padding-right: 40px;
+}
+.feature-box .feature-box--title {
+  margin-bottom: 14px;
+  font-size: 20px;
+  line-height: 1.2;
+}
+.feature-box .feature-box--description {
+  margin: 0;
+  font-size: 18px;
+}
+@media screen and (max-width: 1023px) {
+  .feature-box .feature-box--description {
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .feature-box {
+    position: static;
+    float: none;
+    width: 100%;
+    padding: 0 20px;
+  }
+}
