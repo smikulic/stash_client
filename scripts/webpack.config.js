@@ -14,7 +14,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('staging')
+        'NODE_ENV': JSON.stringify(process.env.buildEnv)
       }
     }),
     new webpack.optimize.UglifyJsPlugin({
