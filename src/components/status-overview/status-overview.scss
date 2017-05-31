@@ -1,3 +1,5 @@
+@import "../../styles/config/settings.scss";
+
 .status-overview {
   font-family: 'Khula', sans-serif;
   font-weight: 300;
@@ -5,5 +7,21 @@
 
 .status-overview .status-overview--title {
   padding-left: 20px;
-  color: #818C9D;
+  color: $grayLight;
+}
+
+.status-overview .status-overview--box {
+  display: inline-block;
+  width: 25%;
+  padding-left: 20px;
+}
+
+.status-overview .status-overview--label {
+  font-size: $fontSize-medium;
+  color: $grayLight;
+}
+
+.status-overview .status-overview--value {
+  font-size: $fontSize-extraLarge;
+  color: $blue;
 }

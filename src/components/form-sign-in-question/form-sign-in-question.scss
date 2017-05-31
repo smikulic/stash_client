@@ -1,0 +1,14 @@
+@import "../../styles/config/settings.scss";
+
+.form-sign-in-question {
+  position: absolute;
+  bottom: 3rem;
+  font-size: $fontSize-small;
+  color: $grayLight;
+}
+
+.form-sign-in-question .btn-login {
+  display: inline;
+  margin-left: 3px;
+  font-size: $fontSize-small;
+}
