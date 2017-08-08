@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import symbolFromCurrency from 'currency-symbol-map';
+import { inject, observer } from 'mobx-react';
+import { withRouter } from 'react-router';
 import {
   Table,
   TableBody,
@@ -12,16 +14,22 @@ import {
 
 require('./saving-goals.scss');
 
+@inject('savingGoalsStore', 'userStore')
+@withRouter
+@observer
 class SavingGoals extends Component {
 
   constructor(props) {
     super(props);
-
-    this.savingGoals = this.props.savingGoals;
     this.currency = this.props.userData.currency;
   }
 
+  componentWillMount() {
+    this.props.savingGoalsStore.loadSavingGoals(this.props.userStore.userData.id);
+  }
+
   render() {
+    const { savingGoals } = this.props.savingGoalsStore;
     return (
       <Table style={{
         background: '#F5F5F5',
@@ -37,15 +45,15 @@ class SavingGoals extends Component {
         </TableHeader>
         <TableBody displayRowCheckbox={false}>
           {
-            this.savingGoals && (
-              this.savingGoals.map((item) => {
-                let durationMonthly = moment(item.end_date).diff(moment(item.start_date), 'months');
-                let monthly = Math.round(item.total_value / durationMonthly);
-                let durationSince = moment().diff(moment(item.start_date), 'months');
-                let due = moment(item.end_date).subtract(1, 'month').endOf('month').fromNow();
-                let percentage = monthly / item.total_value * 100;
+            savingGoals && (
+              savingGoals.map((item) => {
+                let durationMonthly = moment(item.deadline).diff(moment(item.created_at), 'months');
+                let monthly = Math.round(item.value / durationMonthly);
+                let durationSince = moment().diff(moment(item.created_at), 'months');
+                let due = moment(item.deadline).subtract(1, 'month').endOf('month').fromNow();
+                let percentage = monthly / item.value * 100;
                 let saved = durationSince * percentage;
-                let durationTillEnd = moment(item.end_date).diff(moment(), 'months');
+                let durationTillEnd = moment(item.deadline).diff(moment(), 'months');
 
                 due = durationTillEnd === 0 ? 'this month' : due;
 
@@ -79,7 +87,7 @@ class SavingGoals extends Component {
                     fontWeight: '300',
                   }}>
                     <TableRowColumn colSpan="3">
-                      <div className="table-row--name">{item.name}</div>
+                      <div className="table-row--name">{item.description}</div>
                       <div className="table-row--due"><span className="circle"></span>{due}</div>
                     </TableRowColumn>
                     <TableRowColumn colSpan="3">

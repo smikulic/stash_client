@@ -13,7 +13,8 @@ module.exports = {
       if (res.authenticated) {
         let userData = {
           'email': res.email,
-          'token': res.token
+          'token': res.token,
+          'id': res.id,
         };
         localStorage.token = res.token;
         localStorage.setItem('SVuserData', JSON.stringify(userData));
@@ -79,7 +80,8 @@ function apiLoginRequest(email, pass, cb) {
         cb({
           authenticated: true,
           token: Math.random().toString(36).substring(7),
-          email: JSON.stringify(res.body.data.email)
+          email: JSON.stringify(res.body.data.email),
+          id: JSON.stringify(res.body.data.id)
         });
       }
     });

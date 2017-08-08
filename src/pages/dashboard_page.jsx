@@ -40,57 +40,6 @@ const fetchedUserSettingsData = {
   currency: 'EUR'
 };
 
-const fetchedSavingGoalsData = [
-  {
-    id: '001',
-    name: 'Vacation - Croatian',
-    total_value: 1000,
-    start_date: '2017-03-01',
-    end_date: '2017-07-01',
-    category: 'want',
-  },
-  {
-    id: '002',
-    name: 'Weekend trip',
-    total_value: 150,
-    start_date: '2017-03-01',
-    end_date: '2017-04-01',
-    category: 'want',
-  },
-  {
-    id: '003',
-    name: 'New car',
-    total_value: 9000,
-    start_date: '2017-04-01',
-    end_date: '2019-10-01',
-    category: 'need',
-  },
-  {
-    id: '004',
-    name: 'New MacbookPro',
-    total_value: 1000,
-    start_date: '2017-04-01',
-    end_date: '2018-12-01',
-    category: 'need',
-  },
-  {
-    id: '005',
-    name: 'New Glasses (saved half already)',
-    total_value: 150,
-    start_date: '2017-04-01',
-    end_date: '2018-04-01',
-    category: 'need',
-  },
-  {
-    id: '006',
-    name: '2 new phones for wife and me',
-    total_value: 1000,
-    start_date: '2017-04-01',
-    end_date: '2019-04-01',
-    category: 'need',
-  }
-];
-
 class DashboardPage extends Component {
   constructor(props) {
     super(props);
@@ -129,20 +78,14 @@ class DashboardPage extends Component {
         <div className="row">
           <div className="col-xs-12">
             <Paper style={dashboardItemOneStyle} zDepth={1}>
-              <StatusOverview
-                savingGoals={fetchedSavingGoalsData}
-                userData={fetchedUserSettingsData}
-              />
+              <StatusOverview userData={fetchedUserSettingsData} />
             </Paper>
           </div>
         </div>
         <div className="row">
           <div className="col-xs-12">
             <Paper style={dashboardItemOneStyle} zDepth={1}>
-              <SavingGoals
-                savingGoals={fetchedSavingGoalsData}
-                userData={fetchedUserSettingsData}
-              />
+              <SavingGoals userData={fetchedUserSettingsData} />
             </Paper>
           </div>
         </div>

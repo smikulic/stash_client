@@ -1,7 +1,10 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, Link, withRouter, browserHistory } from 'react-router';
+import { Provider } from 'mobx-react';
 import authStore from './stores/auth_store';
+import savingGoalsStore from './stores/saving_goals_store';
+import userStore from './stores/user_store';
 import WelcomePage from './pages/welcome_page';
 import LoginPage from './pages/login_page';
 import RegisterPage from './pages/register_page';
@@ -23,6 +26,15 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 require('./styles/main.scss');
+
+const stores = {
+  savingGoalsStore,
+  authStore,
+  userStore,
+};
+
+// For easier debugging
+window._____APP_STATE_____ = stores;
 
 const App = React.createClass({
   getInitialState() {
@@ -60,7 +72,7 @@ const App = React.createClass({
                   iconButtonElement={
                     <IconButton><MoreVertIcon className="navigation--user-dropdown-icon" /></IconButton>
                   }
-                  targetOrigin={{horizontal: 'right', vertical: 'middle'}}
+                  targetOrigin={{horizontal: 'right', vertical: 'center'}}
                   anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                 >
                   <MenuItem
@@ -100,11 +112,13 @@ function requireAuth(nextState, replace) {
 }
 
 render((
-  <Router history={browserHistory}>
-    <Route path="login" component={LoginPage} />
-    <Route path="signup" component={RegisterPage} />
-    <Route path="/" component={App}>
-      <Route path="dashboard" component={DashboardPage} onEnter={requireAuth} />
-    </Route>
-  </Router>
+  <Provider {...stores}>
+    <Router history={browserHistory}>
+      <Route path="login" component={LoginPage} />
+      <Route path="signup" component={RegisterPage} />
+      <Route path="/" component={App}>
+        <Route path="dashboard" component={DashboardPage} onEnter={requireAuth} />
+      </Route>
+    </Router>
+  </Provider>
 ), document.getElementById('root'));
