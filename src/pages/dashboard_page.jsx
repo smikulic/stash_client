@@ -11,7 +11,7 @@ import SavingGoalForm from '../components/SavingGoalForm';
 import StatusOverview from '../components/status-overview';
 
 const floatingButtonStyle = {
-  position: 'absolute',
+  position: 'fixed',
   bottom: 15,
   right: 15,
 };
@@ -28,9 +28,17 @@ const dashboardItemOneStyle = {
 const customDialogStyle = {
   position: 'absolute',
   top: '5%',
-  width: '80%',
+  width: '50%',
   maxWidth: 'none',
-  transform: 'translate(12.5%, 64px)',
+  transform: 'translate(50%, 64px)',
+};
+
+const cancelButtonStyle = {
+  color: '#818C9D',
+};
+
+const confirmButtonStyle = {
+  color: '#16A2E0',
 };
 
 // Data
@@ -62,13 +70,12 @@ class DashboardPage extends Component {
     const actions = [
       <FlatButton
         label="Cancel"
-        primary={true}
+        style={cancelButtonStyle}
         onTouchTap={this.closeSavingGoalForm}
       />,
       <FlatButton
-        label="Submit"
-        primary={true}
-        keyboardFocused={true}
+        label="Confirm"
+        style={confirmButtonStyle}
         onTouchTap={this.closeSavingGoalForm}
       />,
     ];

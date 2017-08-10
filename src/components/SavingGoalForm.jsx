@@ -21,19 +21,19 @@ class SavingGoalForm extends Component {
     return (
       <div>
         <div className="row">
-          <div className="col-xs-6">
+          <div className="col-xs-12">
             <TextField
               fullWidth={true}
               floatingLabelText="Goal description"
             />
           </div>
-          <div className="col-xs-6">
+          <div className="col-xs-12">
             <TextField
               fullWidth={true}
               floatingLabelText="Goal value (estimated)"
             />
           </div>
-          <div className="col-xs-6">
+          <div className="col-xs-12">
             <DatePicker
               fullWidth={true}
               floatingLabelText="Date (select month for deadline)"
@@ -41,20 +41,6 @@ class SavingGoalForm extends Component {
               autoOk={this.state.autoOk}
               minDate={this.state.minDate}
               disableYearSelection={this.state.disableYearSelection}
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-xs-6">
-            <TextField
-              fullWidth={true}
-              floatingLabelText="Monthly income (estimated)"
-            />
-          </div>
-          <div className="col-xs-6">
-            <TextField
-              fullWidth={true}
-              floatingLabelText="Monthly fixed expenses (estimated)"
             />
           </div>
         </div>
