@@ -11,6 +11,7 @@ import FlatButton from 'material-ui/FlatButton';
 import SavingGoals from '../components/SavingGoals';
 import SavingGoalForm from '../components/SavingGoalForm';
 import StatusOverview from '../components/status-overview';
+import UserSettingsForm from '../components/user-settings-form';
 
 require('./dashboard-page.scss');
 
@@ -107,10 +108,10 @@ class DashboardPage extends Component {
           actions={actions}
           modal={false}
           contentStyle={customDialogStyle}
-          open={this.props.userStore.userSettings.default}
+          open={this.props.userStore.userSettings.length == 0}
           onRequestClose={this.closeSavingGoalForm}
         >
-          you need to enter details
+          <UserSettingsForm />
         </Dialog>
       </div>
     )
