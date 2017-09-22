@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import symbolFromCurrency from 'currency-symbol-map';
+import { inject, observer } from 'mobx-react';
+import { withRouter } from 'react-router';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import Paper from 'material-ui/Paper';
@@ -10,20 +12,7 @@ import SavingGoals from '../components/SavingGoals';
 import SavingGoalForm from '../components/SavingGoalForm';
 import StatusOverview from '../components/status-overview';
 
-const floatingButtonStyle = {
-  position: 'fixed',
-  bottom: 15,
-  right: 15,
-};
-
-const dashboardItemOneStyle = {
-  height: 'auto',
-  width: '100%',
-  margin: '10px auto',
-  padding: 5,
-  display: 'inline-block',
-  background: '#F5F5F5',
-};
+require('./dashboard-page.scss');
 
 const customDialogStyle = {
   position: 'absolute',
@@ -33,29 +22,22 @@ const customDialogStyle = {
   transform: 'translate(50%, 64px)',
 };
 
-const cancelButtonStyle = {
-  color: '#818C9D',
-};
-
-const confirmButtonStyle = {
-  color: '#16A2E0',
-};
-
-// Data
-const fetchedUserSettingsData = {
-  fixed_income: 3000,
-  fixed_expenses: 1800,
-  currency: 'EUR'
-};
-
+@inject('userStore')
+@withRouter
+@observer
 class DashboardPage extends Component {
   constructor(props) {
     super(props);
     this.openSavingGoalForm = this.openSavingGoalForm.bind(this);
+    this.userId = props.userStore.userData.id;
 
     this.state = {
       savingGoalFormActive: false,
     };
+  }
+
+  componentWillMount() {
+    this.props.userStore.loadUserSettings(this.userId);
   }
 
   openSavingGoalForm = () => {
@@ -65,17 +47,21 @@ class DashboardPage extends Component {
   closeSavingGoalForm = () => {
     this.setState({ savingGoalFormActive: false });
   };
+  
+  closeSettingsForm = () => {
+    this.props.userStore.setUserSettings(this.userId);
+  };
 
   render() {
     const actions = [
       <FlatButton
         label="Cancel"
-        style={cancelButtonStyle}
+        className="button--cancel"
         onTouchTap={this.closeSavingGoalForm}
       />,
       <FlatButton
         label="Confirm"
-        style={confirmButtonStyle}
+        className="button--confirm"
         onTouchTap={this.closeSavingGoalForm}
       />,
     ];
@@ -84,22 +70,22 @@ class DashboardPage extends Component {
       <div className="container-fluid">
         <div className="row">
           <div className="col-xs-12">
-            <Paper style={dashboardItemOneStyle} zDepth={1}>
-              <StatusOverview userData={fetchedUserSettingsData} />
+            <Paper className="dashboard-item" zDepth={1}>
+              <StatusOverview userData={this.props.userStore.userSettings} />
             </Paper>
           </div>
         </div>
         <div className="row">
           <div className="col-xs-12">
-            <Paper style={dashboardItemOneStyle} zDepth={1}>
-              <SavingGoals userData={fetchedUserSettingsData} />
+            <Paper className="dashboard-item" zDepth={1}>
+              <SavingGoals userData={this.props.userStore.userSettings} />
             </Paper>
           </div>
         </div>
 
         <FloatingActionButton
           secondary={true}
-          style={floatingButtonStyle}
+          className="button--floating"
           onClick={this.openSavingGoalForm}
         >
           <ContentAdd />
@@ -114,6 +100,17 @@ class DashboardPage extends Component {
           onRequestClose={this.closeSavingGoalForm}
         >
           <SavingGoalForm />
+        </Dialog>
+
+        <Dialog
+          title="Edit Settings"
+          actions={actions}
+          modal={false}
+          contentStyle={customDialogStyle}
+          open={this.props.userStore.userSettings.default}
+          onRequestClose={this.closeSavingGoalForm}
+        >
+          you need to enter details
         </Dialog>
       </div>
     )

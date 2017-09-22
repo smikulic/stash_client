@@ -1,0 +1,22 @@
+.button--floating {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+}
+
+.button--cancel {
+  color: #818C9D;
+}
+
+.button--confirm {
+  color: #16A2E0;
+}
+
+.dashboard-item {
+  margin: 10px auto;
+  padding: 5px;
+  width: 100%;
+  height: auto;
+  display: inline-block;
+  background-color: #F5F5F5;
+}

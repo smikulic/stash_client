@@ -31,11 +31,7 @@ class SavingGoals extends Component {
   render() {
     const { savingGoals } = this.props.savingGoalsStore;
     return (
-      <Table style={{
-        background: '#F5F5F5',
-        fontFamily: '"Khula", sans-serif',
-        fontWeight: '300',
-      }}>
+      <Table className="table">
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
           <TableRow>
             <TableHeaderColumn colSpan="3">Goal</TableHeaderColumn>
