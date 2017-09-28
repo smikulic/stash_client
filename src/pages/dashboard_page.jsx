@@ -30,6 +30,7 @@ class DashboardPage extends Component {
   constructor(props) {
     super(props);
     this.openSavingGoalForm = this.openSavingGoalForm.bind(this);
+    this.submitSettingsForm = this.submitSettingsForm.bind(this);
     this.userId = props.userStore.userData.id;
 
     this.state = {
@@ -49,8 +50,14 @@ class DashboardPage extends Component {
     this.setState({ savingGoalFormActive: false });
   };
   
-  closeSettingsForm = () => {
-    this.props.userStore.setUserSettings(this.userId);
+  submitSettingsForm (e) {
+    e.preventDefault();
+    const userSettings = {
+      average_monthly_incomes: e.target['avgIncome'].value,
+      average_monthly_expenses: e.target['avgExpenses'].value,
+      main_currency: e.target['currency'].value,
+    };
+    this.props.userStore.setUserSettings(this.userId, userSettings);
   };
 
   render() {
@@ -105,13 +112,15 @@ class DashboardPage extends Component {
 
         <Dialog
           title="Edit Settings"
-          actions={actions}
           modal={false}
           contentStyle={customDialogStyle}
           open={this.props.userStore.userSettings.length == 0}
           onRequestClose={this.closeSavingGoalForm}
         >
-          <UserSettingsForm />
+          <form onSubmit={this.submitSettingsForm}>
+            <UserSettingsForm />
+            <FlatButton label="Submit" type="submit" className="button--confirm button--right" />
+          </form>
         </Dialog>
       </div>
     )

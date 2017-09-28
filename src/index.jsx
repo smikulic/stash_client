@@ -2,7 +2,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, Link, withRouter, browserHistory } from 'react-router';
 import { Provider } from 'mobx-react';
-import { getParameterByName } from './helpers/utils';
 import authStore from './stores/auth_store';
 import savingGoalsStore from './stores/saving_goals_store';
 import userStore from './stores/user_store';
@@ -52,10 +51,6 @@ const App = React.createClass({
 
   componentWillMount() {
     authStore.onChange = this.updateAuth;
-    if (getParameterByName('account_confirmation_success')) {
-      console.log("WHAAT!");
-      //browserHistory.push('/');
-    }
   },
 
   handleOnClick() {
