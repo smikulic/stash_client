@@ -51,7 +51,6 @@ const App = React.createClass({
 
   componentWillMount() {
     authStore.onChange = this.updateAuth;
-    authStore.login();
   },
 
   handleOnClick() {
@@ -89,7 +88,7 @@ const App = React.createClass({
                 </IconMenu>
               </li>
               <li className="navigation-element navigation--user-email">
-                {authStore.getUserData().email.replace(/^"(.+(?="$))"$/, '$1')}
+                {authStore.getUserData() && authStore.getUserData().email.replace(/^"(.+(?="$))"$/, '$1')}
               </li>
             </ul>
             <DashboardPage />

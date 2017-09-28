@@ -8,25 +8,29 @@ export class UserStore {
 
   @action loadUserSettings(userId) {
     request
-      .get(`${apiPath()}/api/users/${userId}/settings/1`)
+      .get(`${apiPath()}/api/users/${userId}/settings/userSettings`)
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (err || !res.ok) {
           console.warn('error!');
         } else {
-          console.log("RESPONSE: ", res.body);
-          this.userSettings = res.body;
+          this.userSettings = res.body[0];
         }
       });
   }
 
-  @action setUserSettings(userId) {
-    console.log("object");
-    // this.userSettings = {
-    //   fixed_income: 0,
-    //   fixed_expenses: 0,
-    //   currency: 'EUR',
-    // }
+  @action setUserSettings(userId, userSettings) {
+    request
+      .post(`${apiPath()}/api/users/${userId}/settings`)
+      .send(userSettings)
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        if (err || !res.ok) {
+          console.warn('error!');
+        } else {
+          this.userSettings = res.body;
+        }
+      });
   }
 }
 
