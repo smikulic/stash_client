@@ -13,7 +13,7 @@ Stack:
 Webpack, ES6, React, Mobx
 
 
-# Deployment - Staging
-1. 'yarn build:staging'
+# Deployment - Production
+1. 'yarn build:production'
 2. sftp to server var/www
 3. put files from dist into dist (put 'filename')
