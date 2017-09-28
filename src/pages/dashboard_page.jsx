@@ -33,9 +33,7 @@ class DashboardPage extends Component {
     this.submitSettingsForm = this.submitSettingsForm.bind(this);
     this.userId = props.userStore.userData.id;
 
-    this.state = {
-      savingGoalFormActive: false,
-    };
+    this.state = { savingGoalFormActive: false };
   }
 
   componentWillMount() {

@@ -4,9 +4,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
 class UserSettingsForm extends Component {
-  state = {
-    value: "EUR",
-  };
+  state = { value: "EUR" };
 
   handleChange = (event, index, value) => this.setState({ value });
 
@@ -42,11 +40,6 @@ class UserSettingsForm extends Component {
               <MenuItem value="GBP" primaryText="(£) GBP" />
             </SelectField>
             <input name="currency" type="hidden" value={this.state.value} />
-            {/* <TextField
-              fullWidth={true}
-              floatingLabelText="Currency"
-              name="currency"
-            /> */}
           </div>
         </div>
       </div>
