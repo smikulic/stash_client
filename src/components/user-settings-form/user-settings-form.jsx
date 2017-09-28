@@ -4,7 +4,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
 class UserSettingsForm extends Component {
-  state = { value: "EUR" };
+  state = { value: 'EUR' };
 
   handleChange = (event, index, value) => this.setState({ value });
 
