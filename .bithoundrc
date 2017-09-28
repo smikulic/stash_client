@@ -8,7 +8,8 @@
       "mobx",
       "mobx-react",
       "webpack-dev-server",
-      "babel-loader"
+      "babel-loader",
+      "babel-preset-es2015"
     ]
   }
 }
