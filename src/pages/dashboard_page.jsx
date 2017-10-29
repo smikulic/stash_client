@@ -8,10 +8,11 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import Paper from 'material-ui/Paper';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import SavingGoals from '../components/SavingGoals';
-import SavingGoalForm from '../components/SavingGoalForm';
+import SavingGoalsIndex from '../components/saving-goals-index';
+import SavingGoalForm from '../components/saving-goal-form';
 import StatusOverview from '../components/status-overview';
 import UserSettingsForm from '../components/user-settings-form';
+import { isEmpty } from 'lodash';
 
 require('./dashboard-page.scss');
 
@@ -23,7 +24,7 @@ const customDialogStyle = {
   transform: 'translate(50%, 64px)',
 };
 
-@inject('userStore')
+@inject('savingGoalsStore', 'userStore')
 @withRouter
 @observer
 class DashboardPage extends Component {
@@ -31,6 +32,7 @@ class DashboardPage extends Component {
     super(props);
     this.openSavingGoalForm = this.openSavingGoalForm.bind(this);
     this.submitSettingsForm = this.submitSettingsForm.bind(this);
+    this.submitSavingGoalForm = this.submitSavingGoalForm.bind(this);
     this.userId = props.userStore.userData.id;
 
     this.state = { savingGoalFormActive: false };
@@ -58,20 +60,18 @@ class DashboardPage extends Component {
     this.props.userStore.setUserSettings(this.userId, userSettings);
   };
 
-  render() {
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        className="button--cancel"
-        onTouchTap={this.closeSavingGoalForm}
-      />,
-      <FlatButton
-        label="Confirm"
-        className="button--confirm"
-        onTouchTap={this.closeSavingGoalForm}
-      />,
-    ];
+  submitSavingGoalForm (e) {
+    e.preventDefault();
+    const savingGoal = {
+      description: e.target['description'].value,
+      deadline: e.target['deadline'].value,
+      value: e.target['value'].value,
+    };
+    this.props.savingGoalsStore.setSavingGoal(this.userId, savingGoal);
+    this.closeSavingGoalForm();
+  };
 
+  render() {
     return (
       <div className="container-fluid">
         <div className="row">
@@ -84,7 +84,7 @@ class DashboardPage extends Component {
         <div className="row">
           <div className="col-xs-12">
             <Paper className="dashboard-item" zDepth={1}>
-              <SavingGoals userData={this.props.userStore.userSettings} />
+              <SavingGoalsIndex userData={this.props.userStore.userSettings} />
             </Paper>
           </div>
         </div>
@@ -99,20 +99,22 @@ class DashboardPage extends Component {
 
         <Dialog
           title="Enter savings goal"
-          actions={actions}
           modal={false}
           contentStyle={customDialogStyle}
           open={this.state.savingGoalFormActive}
           onRequestClose={this.closeSavingGoalForm}
         >
-          <SavingGoalForm />
+          <form onSubmit={this.submitSavingGoalForm}>
+            <SavingGoalForm />
+            <FlatButton label="Submit" type="submit" className="button--confirm button--right" />
+          </form>
         </Dialog>
 
         <Dialog
           title="Edit Settings"
           modal={false}
           contentStyle={customDialogStyle}
-          open={this.props.userStore.userSettings.length == 0}
+          open={!this.props.userStore.userSettingsLoading && isEmpty(this.props.userStore.userSettings)}
           onRequestClose={this.closeSavingGoalForm}
         >
           <form onSubmit={this.submitSettingsForm}>

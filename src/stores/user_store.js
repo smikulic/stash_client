@@ -5,6 +5,7 @@ import { observable, action } from 'mobx';
 export class UserStore {
   @observable userData = JSON.parse(localStorage.SVuserData);
   @observable userSettings = [];
+  @observable userSettingsLoading = true;
 
   @action loadUserSettings(userId) {
     request
@@ -16,6 +17,7 @@ export class UserStore {
         } else {
           this.userSettings = res.body[0];
         }
+        this.userSettingsLoading = false;
       });
   }
 

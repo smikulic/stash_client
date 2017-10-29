@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
+import { inject, observer } from 'mobx-react';
+import { withRouter } from 'react-router';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
+import symbolFromCurrency from 'currency-symbol-map';
 
+require('./saving-goal-form.scss');
+
+@inject('userStore')
+@withRouter
+@observer
 class SavingGoalForm extends Component {
   constructor(props) {
     super(props);
+    
+    this.userSettings = props.userStore.userSettings;
 
     const minDate = new Date();
     minDate.setMonth(minDate.getMonth() + 1);
@@ -25,22 +35,27 @@ class SavingGoalForm extends Component {
             <TextField
               fullWidth={true}
               floatingLabelText="Goal description"
+              name="description"
             />
           </div>
-          <div className="col-xs-12">
+          <div className="col-xs-6">
             <TextField
               fullWidth={true}
-              floatingLabelText="Goal value (estimated)"
+              floatingLabelText="Goal budget"
+              name="value"
             />
+            <span className="currency">{symbolFromCurrency(this.userSettings.main_currency)}</span>
           </div>
-          <div className="col-xs-12">
+          <div className="col-xs-6">
             <DatePicker
               fullWidth={true}
-              floatingLabelText="Date (select month for deadline)"
+              floatingLabelText="Deadline date"
               container="inline"
               autoOk={this.state.autoOk}
               minDate={this.state.minDate}
               disableYearSelection={this.state.disableYearSelection}
+              hideCalendarDate
+              name="deadline"
             />
           </div>
         </div>
