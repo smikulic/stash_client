@@ -7,5 +7,5 @@ deployment:
     commands:
       - yarn build:production
       - echo 'deploying to production'
-      - scp -r dist/* DO_USER@DO_IP:/var/www/scroogevault.co/testing/
+      - scp -r dist/* DO_USER@46.101.192.190:/var/www/scroogevault.co/testing/
 #      - ssh -v $DO_USER@$DO_IP "cd ~/var/www/scroogevault.co/testing/; ./scripts/deploy_production.sh"
