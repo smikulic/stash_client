@@ -4,6 +4,5 @@ machine:
 deployment:
   release:
     tag: /release-.*/
-    owner: circleci
     commands:
       - ./deploy_master.sh
