@@ -6,4 +6,5 @@ deployment:
     tag: /release-.*/
     commands:
       - yarn build:production
-      - ./deploy_master.sh
+      - echo 'deploying to production'
+      - ssh -v $DO_USER@$DO_IP "cd ~/var/www/scroogevault.co/testing/; ./scripts/deploy_production.sh"
