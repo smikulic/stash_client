@@ -5,4 +5,5 @@ deployment:
   release:
     tag: /release-.*/
     commands:
+      - yarn build:production
       - ./deploy_master.sh
