@@ -1,3 +1,9 @@
 machine:
   node:
     version: 8.1.4
+deployment:
+  release:
+    tag: /release-.*/
+    owner: circleci
+    commands:
+      - ./deploy_master.sh
