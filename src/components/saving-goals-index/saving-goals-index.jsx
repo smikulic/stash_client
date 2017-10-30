@@ -11,13 +11,14 @@ import {
   TableRow,
   TableRowColumn
 } from 'material-ui/Table';
+import { isEmpty } from 'lodash';
 
-require('./saving-goals.scss');
+require('./saving-goals-index.scss');
 
 @inject('savingGoalsStore', 'userStore')
 @withRouter
 @observer
-class SavingGoals extends Component {
+class SavingGoalsIndex extends Component {
 
   constructor(props) {
     super(props);
@@ -43,7 +44,10 @@ class SavingGoals extends Component {
           {
             savingGoals && (
               savingGoals.map((item) => {
-                let durationMonthly = moment(item.deadline).diff(moment(item.created_at), 'months');
+                // reset created time to the start of the day for accurate calculation
+                let normalizedCreatedAt = moment(item.created_at).utcOffset(0);
+                normalizedCreatedAt.set({hour:0,minute:0,second:0,millisecond:0});
+                let durationMonthly = moment(item.deadline).diff(normalizedCreatedAt, 'months');
                 let monthly = Math.round(item.value / durationMonthly);
                 let durationSince = moment().diff(moment(item.created_at), 'months');
                 let due = moment(item.deadline).subtract(1, 'month').endOf('month').fromNow();
@@ -101,10 +105,19 @@ class SavingGoals extends Component {
               })
             )
           }
+          {
+            isEmpty(savingGoals) && (
+              <TableRow>
+                <TableRowColumn>
+                  No saving goals added yet!
+                </TableRowColumn>
+              </TableRow>
+            )
+          }
         </TableBody>
       </Table>
     );
   }
 }
 
-export default SavingGoals;
+export default SavingGoalsIndex;

@@ -11,7 +11,6 @@ require('./status-overview.scss');
 @withRouter
 @observer
 class StatusOverview extends Component {
-
   componentWillMount() {
     this.props.savingGoalsStore.loadSavingGoals(this.props.userStore.userData.id);
   }
@@ -20,7 +19,9 @@ class StatusOverview extends Component {
     const { savingGoals } = this.props.savingGoalsStore;
     let monthlySavingsTotal = 0;
     savingGoals.map((item) => {
-      let durationMonthly = moment(item.deadline).diff(moment(item.created_at), 'months');
+      let normalizedCreatedAt = moment(item.created_at).utcOffset(0);
+      normalizedCreatedAt.set({hour:0,minute:0,second:0,millisecond:0});
+      let durationMonthly = moment(item.deadline).diff(normalizedCreatedAt, 'months');
       let monthly = Math.round(item.value / durationMonthly);
 
       monthlySavingsTotal += monthly;
@@ -30,32 +31,34 @@ class StatusOverview extends Component {
   }
 
   render() {
-    let currency = this.props.userData.currency;
-    let monthlyFixedIncome = this.props.userData.fixed_income;
-    let monthlyFixedExpenses = this.props.userData.fixed_expenses;
+    const { userData } = this.props;
+    let currency = userData ? symbolFromCurrency(userData.main_currency) : '';
+    let monthlyFixedIncome = userData ? userData.average_monthly_incomes : 0;
+    let monthlyFixedExpenses = userData ? userData.average_monthly_expenses : 0;
     let monthlySavingExpenses = this._getMonthlySavingExpenses();
     let spendThisMonth =
       monthlyFixedIncome -
       monthlyFixedExpenses -
       monthlySavingExpenses;
+
     return (
       <span className="status-overview">
         <h3 className="status-overview--title">{moment().format('MMMM YYYY')}</h3>
         <StatusOverviewBox
           label="Income"
-          value={`${monthlyFixedIncome} ${symbolFromCurrency(currency)}`}
+          value={`${monthlyFixedIncome} ${currency}`}
         />
         <StatusOverviewBox
           label="Expenses"
-          value={`${monthlyFixedExpenses} ${symbolFromCurrency(currency)}`}
+          value={`${monthlyFixedExpenses} ${currency}`}
         />
         <StatusOverviewBox
           label="Savings"
-          value={`${monthlySavingExpenses} ${symbolFromCurrency(currency)}`}
+          value={`${monthlySavingExpenses} ${currency}`}
         />
         <StatusOverviewBox
           label="Available"
-          value={`${spendThisMonth} ${symbolFromCurrency(currency)}`}
+          value={`${spendThisMonth} ${currency}`}
         />
       </span>
     );

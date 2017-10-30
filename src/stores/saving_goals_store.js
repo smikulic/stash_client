@@ -17,6 +17,20 @@ export class SavingGoalsStore {
         }
       });
   }
+
+  @action setSavingGoal(userId, savingGoal) {
+    request
+      .post(`${apiPath()}/api/users/${userId}/saving_goals`)
+      .send(savingGoal)
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        if (err || !res.ok) {
+          console.warn('error!');
+        } else {
+          this.loadSavingGoals(userId);
+        }
+      });
+  }
 }
 
 export default new SavingGoalsStore();
