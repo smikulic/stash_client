@@ -20,11 +20,6 @@ require('./saving-goals-index.scss');
 @observer
 class SavingGoalsIndex extends Component {
 
-  constructor(props) {
-    super(props);
-    this.currency = this.props.userData.currency;
-  }
-
   componentWillMount() {
     this.props.savingGoalsStore.loadSavingGoals(this.props.userStore.userData.id);
   }
@@ -43,7 +38,7 @@ class SavingGoalsIndex extends Component {
         <TableBody displayRowCheckbox={false}>
           {
             savingGoals && (
-              savingGoals.map((item) => {
+              savingGoals.map((item, index) => {
                 // reset created time to the start of the day for accurate calculation
                 let normalizedCreatedAt = moment(item.created_at).utcOffset(0);
                 normalizedCreatedAt.set({hour:0,minute:0,second:0,millisecond:0});
@@ -56,6 +51,10 @@ class SavingGoalsIndex extends Component {
                 let durationTillEnd = moment(item.deadline).diff(moment(), 'months');
 
                 due = durationTillEnd === 0 ? 'this month' : due;
+                
+                let currency = this.props.userStore.userSettings ?
+                symbolFromCurrency(this.props.userStore.userSettings.main_currency) :
+                null;
 
                 let progressBarsCells = [];
                 for (var i = 0; i < 10; i++) {
@@ -73,7 +72,7 @@ class SavingGoalsIndex extends Component {
                       <li
                         key={`progress-bar--empty-cell${i}`}
                         className="progress-bar--empty-cell"
-                        >
+                      >
                         <div className="cell"></div>
                       </li>
                     );
@@ -81,11 +80,7 @@ class SavingGoalsIndex extends Component {
                 }
 
                 return (
-                  <TableRow key={item.id} style={{
-                    height: '6rem',
-                    fontFamily: '"Khula", sans-serif',
-                    fontWeight: '300',
-                  }}>
+                  <TableRow key={item.id} className={savingGoals.length === (index + 1) ? 'table-row last' : 'table-row'}>
                     <TableRowColumn colSpan="3">
                       <div className="table-row--name">{item.description}</div>
                       <div className="table-row--due"><span className="circle"></span>{due}</div>
@@ -98,7 +93,7 @@ class SavingGoalsIndex extends Component {
                       </div>
                     </TableRowColumn>
                     <TableRowColumn colSpan="1">
-                      <div className="table-row--monthly">{monthly} {symbolFromCurrency(this.currency)}</div>
+                      <div className="table-row--monthly">{monthly} {currency}</div>
                     </TableRowColumn>
                   </TableRow>
                 )
