@@ -6,5 +6,4 @@ deployment:
     tag: /release-.*/
     commands:
       - yarn build:production
-      - echo 'deploying to production'
-      - scp -r dist/* $DO_USER@$DO_IP:/var/www/scroogevault.co/
+      - scp -r dist/* $DO_USER@$DO_IP:/var/www/scroogevault.co/dist/
