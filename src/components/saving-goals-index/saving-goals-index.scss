@@ -1,7 +1,15 @@
-.table {
-  background-color: #F5F5F5;
+.table, .table-row {
   font-family: "Khula", sans-serif;
   font-weight: 300;
+  background-color: #F5F5F5 !important;
+}
+
+.table-row {
+  height: 6rem !important;
+}
+
+.table-row.last {
+  border-bottom: 1px solid transparent !important;
 }
 
 .table-row--name {
@@ -17,10 +25,10 @@
 }
 
 .table-row--due .circle {
+  display: inline-block;
   width: 5px;
   height: 5px;
   background: #59D9A4;
-  display: inline-block;
   border-radius: 5px;
   position: absolute;
   left: 0;
@@ -48,7 +56,6 @@
   list-style-type: none;
   padding: 0;
   margin: 0;
-  display: inline-block;
   float: left;
 }
 
