@@ -164,3 +164,14 @@
   background-position: top center;
   background-size: cover;
 }
+
+.section-main.login .message-unconfirmed {
+  padding: 8px;
+  background-color: $primaryColor;
+  position: fixed;
+  top: 2%;
+  left: 29%;
+  right: 29%;
+  color: white;
+  box-shadow: 2px 2px 3px 1px $grayLight;
+}

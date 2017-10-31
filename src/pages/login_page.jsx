@@ -3,13 +3,42 @@ import { withRouter } from 'react-router';
 import authStore from '../stores/auth_store';
 import FormSignIn from '../components/form-sign-in';
 import FormSignInQuestion from '../components/form-sign-in-question';
+import Dialog from 'material-ui/Dialog';
+
+const customDialogStyle = {
+  position: 'absolute',
+  top: '5%',
+  width: '50%',
+  maxWidth: 'none',
+  transform: 'translate(50%, 64px)',
+};
 
 const LoginPage = withRouter(
   React.createClass({
 
     getInitialState() {
       return {
-        error: false
+        error: false,
+      }
+    },
+
+    componentWillMount() {
+      const { location, router } = this.props;
+      if (location.query.account_confirmation_success === 'true' &&
+          location.query.uid &&
+          location.query.pass) {
+        authStore.login(location.query.uid, location.query.pass, (loggedIn) => {
+          if (!loggedIn)
+            return this.setState({ error: true })
+  
+          
+  
+          if (location.state && location.state.nextPathname) {
+            router.replace(location.state.nextPathname)
+          } else {
+            router.replace('/')
+          }
+        })
       }
     },
 
@@ -36,6 +65,9 @@ const LoginPage = withRouter(
     render() {
       return (
         <div className="section-main login">
+          { this.props.location.query.unconfirmed && (
+            <div className="message-unconfirmed">Please confirm your email to complete your registration!</div>
+          )}
           <div className="content">
             <div className="form-wrapper">
               <h2>Scroogevault</h2>

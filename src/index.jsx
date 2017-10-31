@@ -13,7 +13,6 @@ import DashboardPage from './pages/dashboard_page';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-//import AppBar from 'material-ui/AppBar';
 
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
@@ -39,7 +38,7 @@ window._____APP_STATE_____ = stores;
 const App = React.createClass({
   getInitialState() {
     return {
-      loggedIn: authStore.loggedIn()
+      loggedIn: authStore.loggedIn(),
     }
   },
 
@@ -56,11 +55,12 @@ const App = React.createClass({
   handleOnClick() {
     authStore.logout();
     browserHistory.push('/');
+    //window.location.reload();
   },
 
   render() {
-    return (
-      this.state.loggedIn ? (
+    if (this.state.loggedIn) {
+      return (
         <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
           <div className="app-wrapper">
             <ul className="navigation">
@@ -94,10 +94,9 @@ const App = React.createClass({
             <DashboardPage />
           </div>
         </MuiThemeProvider>
-      ) : (
-        <WelcomePage />
-      )
-    );
+      );
+    }
+    return <WelcomePage />;
   }
 });
 

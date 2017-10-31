@@ -36,7 +36,7 @@ module.exports = {
     }
     apiRegisterRequest(email, pass, (res) => {
       if (res.authenticated) {
-        localStorage.token = res.token
+        localStorage.token = res.token;
         if (cb) cb(true)
         this.onChange(true)
       } else {
@@ -62,7 +62,7 @@ module.exports = {
   },
 
   loggedIn() {
-    return !!localStorage.token;
+    return !!localStorage.SVuserData;
   },
   
   onChange() {}
@@ -91,7 +91,7 @@ function apiRegisterRequest(email, pass, cb) {
   request
     .post(apiPath() + '/auth')
     .send({ email: email, password: pass, password_confirmation: pass,
-      confirm_success_url: clientPath() + '/login' })
+      confirm_success_url: `${clientPath()}/login?pass=${pass}` })
     .set('Accept', 'application/json')
     .end(function(err, res){
       if (err || !res.ok) {

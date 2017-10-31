@@ -20,15 +20,16 @@ const RegisterPage = withRouter(
       const pass = this.passwordInputElement.value;
 
       authStore.register(email, pass, (registered) => {
-        if (!registered)
-          return this.setState({ error: true })
+        if (!registered) {
+          return this.setState({ error: true });
+        }
 
         const { location } = this.props;
 
         if (location.state && location.state.nextPathname) {
           this.props.router.replace(location.state.nextPathname)
         } else {
-          this.props.router.replace('/')
+          this.props.router.replace('/login?unconfirmed=true')
         }
       })
     },
