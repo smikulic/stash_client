@@ -5,7 +5,7 @@ const apiPaths = [
 
 const clientPaths = [
   'http://localhost:3000',
-  'http://scroogevault.co',
+  'http://www.scroogevault.co',
 ];
 
 function switchPaths(paths) {
