@@ -1,4 +1,5 @@
 import request from 'superagent';
+import { browserHistory } from 'react-router';
 import { apiPath } from '../config/config';
 import { observable, action } from 'mobx';
 
@@ -31,6 +32,21 @@ export class UserStore {
           console.warn('error!');
         } else {
           this.userSettings = res.body;
+        }
+      });
+  }
+
+  @action updateUserSettings(userId, settingsId, userSettings) {
+    request
+      .patch(`${apiPath()}/api/users/${userId}/settings/${settingsId}`)
+      .send(userSettings)
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        if (err || !res.ok) {
+          console.warn('error!');
+        } else {
+          this.userSettings = res.body;
+          browserHistory.push('/dashboard');
         }
       });
   }

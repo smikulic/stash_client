@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { Router, Route, browserHistory, IndexRedirect } from 'react-router';
+import { Router, Route, browserHistory } from 'react-router';
 import { Provider } from 'mobx-react';
 // Stores
 import authStore from './stores/auth_store';
@@ -35,27 +35,26 @@ const stores = {
 // For easier debugging
 window._____APP_STATE_____ = stores;
 
-const App = React.createClass({
-  getInitialState() {
-    return {
-      loggedIn: authStore.loggedIn(),
-    }
-  },
+class App extends Component {
+//const App = React.createClass({
+  state = {
+    loggedIn: authStore.loggedIn(),
+  }
 
   updateAuth(loggedIn) {
     this.setState({
       loggedIn
     })
-  },
+  }
 
   componentWillMount() {
     authStore.onChange = this.updateAuth;
-  },
+  }
 
   handleSignOut() {
     authStore.logout();
     browserHistory.push('/');
-  },
+  }
 
   render() {
     if (this.state.loggedIn && this.props.location.pathname === '/') {
@@ -73,7 +72,7 @@ const App = React.createClass({
     }
     return <WelcomePage />;
   }
-});
+};
 
 function requireAuth(nextState, replace) {
   if (!authStore.loggedIn()) {
@@ -90,7 +89,6 @@ render((
       <Route path="login" component={LoginPage} />
       <Route path="signup" component={RegisterPage} />
       <Route path="/" component={App}>
-        {/* <IndexRedirect to="/dashboard" /> */}
         <Route path="dashboard" component={DashboardPage} onEnter={requireAuth} />
         <Route path="settings" component={SettingsPage} onEnter={requireAuth} />
       </Route>
