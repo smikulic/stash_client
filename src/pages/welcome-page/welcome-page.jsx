@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import FeatureBox from '../components/feature-box';
+import FeatureBox from '../../components/feature-box';
 
 class WelcomePage extends Component {
   render() {
