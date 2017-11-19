@@ -1,0 +1,16 @@
+@import "../../styles/config/settings.scss";
+
+.settings-page {
+  margin: 10px auto;
+  padding: 25px;
+  width: 100%;
+  height: auto;
+  display: inline-block;
+  background-color: #F5F5F5 !important;
+  font-family: 'Khula', sans-serif;
+  font-weight: 300;
+}
+
+.settings-page--title {
+  color: $grayLight;
+}

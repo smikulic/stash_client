@@ -8,10 +8,10 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import Paper from 'material-ui/Paper';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import SavingGoalsIndex from '../components/saving-goals-index';
-import SavingGoalForm from '../components/saving-goal-form';
-import StatusOverview from '../components/status-overview';
-import UserSettingsForm from '../components/user-settings-form';
+import SavingGoalsIndex from '../../components/saving-goals-index';
+import SavingGoalForm from '../../components/saving-goal-form';
+import StatusOverview from '../../components/status-overview';
+import UserSettingsForm from '../../components/user-settings-form';
 import { isEmpty } from 'lodash';
 
 require('./dashboard-page.scss');
