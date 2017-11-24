@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router';
 import UserSettingsForm from '../../components/user-settings-form';
 import Paper from 'material-ui/Paper';
-import FlatButton from 'material-ui/FlatButton';
+import FormSubmit from '../../components/form-submit';
 
 require('./settings-page.scss');
 
@@ -44,7 +44,7 @@ class SettingsPage extends Component {
               <h3 className="settings-page--title">User Settings</h3>
               <form onSubmit={this.updateSettings}>
                 <UserSettingsForm defaultSettings={this.props.userStore.userSettings} />
-                <FlatButton label="Submit" type="submit" className="button--confirm button--right" />
+                <FormSubmit text="Save" />
               </form>
             </Paper>
           </div>

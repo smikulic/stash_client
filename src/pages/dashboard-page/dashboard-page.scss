@@ -1,5 +1,9 @@
 @import "../../styles/config/settings.scss";
 
+.dialog-body {
+  background-color: $darkPrimaryColor;
+}
+
 .dashboard-item {
   margin: 10px auto;
   padding: 5px;

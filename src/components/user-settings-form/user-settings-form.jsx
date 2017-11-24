@@ -26,39 +26,53 @@ class UserSettingsForm extends Component {
     return (
       <div>
         <div className="row">
-          <div className="col-xs-12">
-            <p>Enter average monthly values</p>
+        { this.props.title && (
+            <div className="row">
+              <div className="col-xs-8 col-xs-push-2">
+                <div className="saving-goal-form--title-wrapper">
+                  <div className="saving-goal-form--title">
+                    {this.props.title}
+                    </div>
+                </div>
+              </div>
+            </div>
+          )}
+          <div className="row">
+            <div className="col-xs-8 col-xs-push-2">
+              <TextField
+                fullWidth={true}
+                floatingLabelText="Income"
+                name="avgIncome"
+                value={this.state.avgIncomesValue}
+                onChange={this.handleChangeAvgIncomesValue}
+              />
+            </div>
           </div>
-          <div className="col-xs-6">
-            <TextField
-              fullWidth={true}
-              floatingLabelText="Income"
-              name="avgIncome"
-              value={this.state.avgIncomesValue}
-              onChange={this.handleChangeAvgIncomesValue}
-            />
+          <div className="row">
+            <div className="col-xs-8 col-xs-push-2">
+              <TextField
+                fullWidth={true}
+                floatingLabelText="Expenses"
+                name="avgExpenses"
+                value={this.state.avgExpensesValue}
+                onChange={this.handleChangeAvgExpensesValue}
+              />
+            </div>
           </div>
-          <div className="col-xs-6">
-            <TextField
-              fullWidth={true}
-              floatingLabelText="Expenses"
-              name="avgExpenses"
-              value={this.state.avgExpensesValue}
-              onChange={this.handleChangeAvgExpensesValue}
-            />
-          </div>
-          <div className="col-xs-6">
-            <SelectField
-              floatingLabelText="Currency"
-              fullWidth={true}
-              value={this.state.currencyValue}
-              onChange={this.handleChangeCurrency}
-            >
-              <MenuItem value="EUR" primaryText="(€) EUR" />
-              <MenuItem value="USD" primaryText="($) USD" />
-              <MenuItem value="GBP" primaryText="(£) GBP" />
-            </SelectField>
-            <input name="currency" type="hidden" value={this.state.currencyValue} />
+          <div className="row">
+            <div className="col-xs-8 col-xs-push-2">
+              <SelectField
+                floatingLabelText="Currency"
+                fullWidth={true}
+                value={this.state.currencyValue}
+                onChange={this.handleChangeCurrency}
+              >
+                <MenuItem value="EUR" primaryText="(€) EUR" />
+                <MenuItem value="USD" primaryText="($) USD" />
+                <MenuItem value="GBP" primaryText="(£) GBP" />
+              </SelectField>
+              <input name="currency" type="hidden" value={this.state.currencyValue} />
+            </div>
           </div>
         </div>
       </div>

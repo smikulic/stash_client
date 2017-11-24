@@ -32,9 +32,13 @@ class SavingGoalForm extends Component {
       <div>
         <div className="row">
           { this.props.title && (
-            <div className="saving-goal-form--title-box">
-              <div className="saving-goal-form--title">
-                {this.props.title}
+            <div className="row">
+              <div className="col-xs-8 col-xs-push-2">
+                <div className="saving-goal-form--title-wrapper">
+                  <div className="saving-goal-form--title">
+                    {this.props.title}
+                    </div>
+                </div>
               </div>
             </div>
           )}

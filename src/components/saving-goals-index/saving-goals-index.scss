@@ -2,7 +2,8 @@
 
 .table-toolbar {
   padding: 10px 25px;
-  background-color: $lightPrimaryColor;
+  height: 40px;
+  background-color: $blueLight;
 }
 
 .table-toolbar .table-toolbar--title,
@@ -11,7 +12,8 @@
 }
 
 .table-toolbar .table-toolbar--title {
-  color: $secondaryTextColor;
+  color: $textPrimaryColor;
+  font-size: $fontSize-normal;
 }
 
 .table-toolbar .table-toolbar--button {
@@ -20,14 +22,18 @@
   margin: -10px -25px 0 0;
   font-size: 20px;
   color: $textPrimaryColor;
-  background-color: $primaryColor;
+  background-color: $blue;
   transition: all 350ms ease-in-out;
   cursor: pointer;
 }
 
 .table-toolbar .table-toolbar--button:hover {
   color: $blue;
-  background-color: $lightPrimaryColor;
+  background-color: $blueLight;
+}
+
+.table-toolbar .table-toolbar--button:active {
+  color: $textPrimaryColor;
 }
 
 .table, .table-row {

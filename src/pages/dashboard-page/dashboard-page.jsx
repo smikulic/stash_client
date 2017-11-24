@@ -92,25 +92,32 @@ class DashboardPage extends Component {
 
         <Dialog
           modal={false}
+          bodyClassName="dialog-body"
           contentStyle={customDialogStyle}
           open={this.state.savingGoalFormActive}
           onRequestClose={this.closeSavingGoalForm}
         >
           <form onSubmit={this.submitSavingGoalForm}>
             <SavingGoalForm title="Create new goal" />
-            <FormSubmit text="Create" />
+            <div className="row">
+              <br/>
+              <div className="col-xs-5 col-xs-push-7">
+                <FormSubmit text="Create" />
+              </div>
+            </div>
           </form>
         </Dialog>
 
         <Dialog
-          title="Edit Settings"
           modal={false}
+          bodyClassName="dialog-body"
           contentStyle={customDialogStyle}
-          open={!this.props.userStore.userSettingsLoading && isEmpty(this.props.userStore.userSettings)}
+          //open={!this.props.userStore.userSettingsLoading && isEmpty(this.props.userStore.userSettings)}
+          open={true}
           onRequestClose={this.closeSavingGoalForm}
         >
           <form onSubmit={this.submitSettingsForm}>
-            <UserSettingsForm />
+            <UserSettingsForm title="Enter average monthly values" />
             <FormSubmit text="Start Saving" />
           </form>
         </Dialog>

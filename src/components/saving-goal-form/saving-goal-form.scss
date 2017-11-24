@@ -1,8 +1,8 @@
 @import "../../styles/config/settings.scss";
 
-.saving-goal-form--title-box {
-  padding: 0 15px 15px 15px;
-  font-size: 16px;
+.saving-goal-form--title-wrapper {
+  margin-bottom: 25px;
+  font-size: $fontSize-normal;
   color: $secondaryTextColor;
 }
 
