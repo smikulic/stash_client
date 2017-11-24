@@ -31,32 +31,50 @@ class SavingGoalForm extends Component {
     return (
       <div>
         <div className="row">
-          <div className="col-xs-12">
-            <TextField
-              fullWidth={true}
-              floatingLabelText="Goal description"
-              name="description"
-            />
+          { this.props.title && (
+            <div className="saving-goal-form--title-box">
+              <div className="saving-goal-form--title">
+                {this.props.title}
+              </div>
+            </div>
+          )}
+          <div className="row">
+            <div className="col-xs-8 col-xs-push-2">
+              <TextField
+                fullWidth={true}
+                hintText="Holiday dream house"
+                floatingLabelText="Goal description"
+                floatingLabelFixed={true}
+                name="description"
+              />
+            </div>
           </div>
-          <div className="col-xs-6">
-            <TextField
-              fullWidth={true}
-              floatingLabelText="Goal budget"
-              name="value"
-            />
-            <span className="currency">{symbolFromCurrency(this.userSettings.main_currency)}</span>
+          <div className="row">
+            <div className="col-xs-5 col-xs-push-2">
+              <TextField
+                fullWidth={true}
+                hintText="195,000"
+                floatingLabelText="Goal budget"
+                floatingLabelFixed={true}
+                name="value"
+              />
+              <span className="currency">{symbolFromCurrency(this.userSettings.main_currency)}</span>
+            </div>
           </div>
-          <div className="col-xs-6">
-            <DatePicker
-              fullWidth={true}
-              floatingLabelText="Deadline date"
-              container="inline"
-              autoOk={this.state.autoOk}
-              minDate={this.state.minDate}
-              disableYearSelection={this.state.disableYearSelection}
-              hideCalendarDate
-              name="deadline"
-            />
+          <div className="row">
+            <div className="col-xs-5 col-xs-push-2">
+              <DatePicker
+                fullWidth={true}
+                floatingLabelText="Deadline date"
+                floatingLabelFixed={true}
+                container="inline"
+                autoOk={this.state.autoOk}
+                minDate={this.state.minDate}
+                disableYearSelection={this.state.disableYearSelection}
+                hideCalendarDate
+                name="deadline"
+              />
+            </div>
           </div>
         </div>
       </div>

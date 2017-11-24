@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import moment from 'moment';
-import symbolFromCurrency from 'currency-symbol-map';
-import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router';
+import { inject, observer } from 'mobx-react';
+import symbolFromCurrency from 'currency-symbol-map';
+import moment from 'moment';
 import {
   Table,
   TableBody,
@@ -11,6 +11,7 @@ import {
   TableRow,
   TableRowColumn
 } from 'material-ui/Table';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 import { isEmpty } from 'lodash';
 
 require('./saving-goals-index.scss');
@@ -27,9 +28,19 @@ class SavingGoalsIndex extends Component {
   render() {
     const { savingGoals } = this.props.savingGoalsStore;
     return (
+      <span>
+      <div className="table-toolbar">
+        <div className="table-toolbar--title">Saving Goals</div>
+        <div
+          className="table-toolbar--button"
+          onClick={this.props.handleAddSavingGoal}
+        >
+          <i className="fa fa-plus"></i>
+        </div>
+      </div>
       <Table className="table">
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-          <TableRow>
+          <TableRow className="table-row-header">
             <TableHeaderColumn colSpan="3">Goal</TableHeaderColumn>
             <TableHeaderColumn colSpan="3">Saved</TableHeaderColumn>
             <TableHeaderColumn colSpan="1">Monthly</TableHeaderColumn>
@@ -111,6 +122,7 @@ class SavingGoalsIndex extends Component {
           }
         </TableBody>
       </Table>
+      </span>
     );
   }
 }
