@@ -3,16 +3,15 @@ import moment from 'moment';
 import symbolFromCurrency from 'currency-symbol-map';
 import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import Paper from 'material-ui/Paper';
 import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
 import SavingGoalsIndex from '../../components/saving-goals-index';
 import SavingGoalForm from '../../components/saving-goal-form';
 import StatusOverview from '../../components/status-overview';
 import UserSettingsForm from '../../components/user-settings-form';
+import FormSubmit from '../../components/form-submit';
 import { isEmpty } from 'lodash';
+import { sanitizeValue } from '../../helpers/utils';
 
 require('./dashboard-page.scss');
 
@@ -62,11 +61,13 @@ class DashboardPage extends Component {
 
   submitSavingGoalForm (e) {
     e.preventDefault();
+    const value = sanitizeValue(e.target['value'].value);
     const savingGoal = {
       description: e.target['description'].value,
       deadline: e.target['deadline'].value,
-      value: e.target['value'].value,
+      value: value,
     };
+
     this.props.savingGoalsStore.setSavingGoal(this.userId, savingGoal);
     this.closeSavingGoalForm();
   };
@@ -84,42 +85,41 @@ class DashboardPage extends Component {
         <div className="row">
           <div className="col-xs-12">
             <Paper className="dashboard-item" zDepth={1}>
-              <SavingGoalsIndex userData={this.props.userStore.userSettings} />
+              <SavingGoalsIndex
+                userData={this.props.userStore.userSettings}
+                handleAddSavingGoal={this.openSavingGoalForm}
+              />
             </Paper>
           </div>
         </div>
 
-        <FloatingActionButton
-          secondary={true}
-          className="button--floating"
-          onClick={this.openSavingGoalForm}
-        >
-          <ContentAdd />
-        </FloatingActionButton>
-
         <Dialog
-          title="Enter savings goal"
           modal={false}
+          bodyClassName="dialog-body"
           contentStyle={customDialogStyle}
           open={this.state.savingGoalFormActive}
           onRequestClose={this.closeSavingGoalForm}
         >
           <form onSubmit={this.submitSavingGoalForm}>
-            <SavingGoalForm />
-            <FlatButton label="Submit" type="submit" className="button--confirm button--right" />
+            <SavingGoalForm title="Create new goal" />
+            <div className="row">
+              <div className="col-xs-5 col-xs-push-7">
+                <FormSubmit text="Create" />
+              </div>
+            </div>
           </form>
         </Dialog>
 
         <Dialog
-          title="Edit Settings"
           modal={false}
+          bodyClassName="dialog-body"
           contentStyle={customDialogStyle}
           open={!this.props.userStore.userSettingsLoading && isEmpty(this.props.userStore.userSettings)}
           onRequestClose={this.closeSavingGoalForm}
         >
           <form onSubmit={this.submitSettingsForm}>
-            <UserSettingsForm />
-            <FlatButton label="Submit" type="submit" className="button--confirm button--right" />
+            <UserSettingsForm title="Welcome! Let's get started!" />
+            <FormSubmit text="Start Saving" />
           </form>
         </Dialog>
       </div>

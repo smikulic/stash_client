@@ -1,0 +1,49 @@
+@import "../../styles/config/settings.scss";
+
+.submit-wrapper {
+  margin-top: 2.5rem;
+  float: right;
+  position: relative;
+  width: 12rem;
+  height: 4.4rem;
+}
+
+.submit-wrapper .button--submit-icon,
+.submit-wrapper .button--submit {
+  position: absolute;
+  transition: all 350ms ease-in-out;
+}
+
+.submit-wrapper .button--submit-icon {
+  opacity: 0;
+  top: 13px;
+  right: 20px;
+  font-size: $fontSize-normal;
+  color: $darkPrimaryColor;
+}
+
+.submit-wrapper .button--submit {
+  right: 0;
+  padding: 10px 25px;
+  color: $blue;
+  font-size: $fontSize-normal;
+  outline: 0;
+  border: 1px solid $blue;
+  border-radius: 15px;
+  background-color: $darkPrimaryColor;
+  -webkit-appearance: none !important;
+}
+
+.submit-wrapper:hover .button--submit {
+  padding: 10px 45px 10px 25px;
+  background-color: $blue;
+  color: $darkPrimaryColor;
+}
+.submit-wrapper:hover .button--submit-icon {
+  opacity: 1;
+}
+
+.submit-wrapper:active .button--submit {
+  background-color: $primaryColor;
+  color: $darkPrimaryColor;
+}

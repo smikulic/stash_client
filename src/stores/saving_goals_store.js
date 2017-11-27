@@ -31,6 +31,33 @@ export class SavingGoalsStore {
         }
       });
   }
+
+  @action updateSavingGoal(userId, savingGoalId, savingGoal) {
+    request
+      .put(`${apiPath()}/api/users/${userId}/saving_goals/${savingGoalId}`)
+      .send(savingGoal)
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        if (err || !res.ok) {
+          console.warn('error!');
+        } else {
+          this.loadSavingGoals(userId);
+        }
+      });
+  }
+
+  @action removeSavingGoal(userId, savingGoalId) {
+    request
+      .delete(`${apiPath()}/api/users/${userId}/saving_goals/${savingGoalId}`)
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        if (err || !res.ok) {
+          console.warn('error!');
+        } else {
+          this.loadSavingGoals(userId);
+        }
+      });
+  }
 }
 
 export default new SavingGoalsStore();

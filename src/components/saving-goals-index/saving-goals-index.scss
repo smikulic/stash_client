@@ -1,78 +1,116 @@
+@import "../../styles/config/settings.scss";
+
+.table-toolbar {
+  padding: 10px 25px;
+  height: 40px;
+  background-color: $blueLight;
+}
+
+.table-toolbar .table-toolbar--title,
+.table-toolbar .table-toolbar--btn {
+  display: inline-block;
+}
+
+.table-toolbar .table-toolbar--title {
+  color: $textPrimaryColor;
+  font-size: $fontSize-normal;
+}
+
+.table-toolbar .table-toolbar--button {
+  float: right;
+  padding: 6px 24px;
+  margin: -10px -25px 0 0;
+  font-size: $fontSize-large;
+  color: $textPrimaryColor;
+  background-color: $blue;
+  transition: all 350ms ease-in-out;
+  cursor: pointer;
+}
+
+.table-toolbar .table-toolbar--button:hover {
+  color: $blue;
+  background-color: $blueLight;
+}
+
+.table-toolbar .table-toolbar--button:active {
+  color: $textPrimaryColor;
+}
+
 .table, .table-row {
   font-family: "Khula", sans-serif;
   font-weight: 300;
-  background-color: #F5F5F5 !important;
+  background-color: $darkPrimaryColor !important;
 }
 
-.table-row {
+.table .table-row-header,
+.table .table-row-header th {
+  height: 4rem !important;
+}
+
+.table .table-row {
   height: 6rem !important;
 }
 
-.table-row.last {
+.table .table-row--actions {
+  padding-left: 0 !important;
+}
+
+.table .table-row.last {
   border-bottom: 1px solid transparent !important;
 }
 
-.table-row--name {
-  color: #818C9D;
+.table .table-row .table-row--name {
+  color: $grayLight;
   font-size: 2rem;
 }
 
-.table-row--due {
+.table .table-row--edit {
+  opacity: 0;
+  margin-left: 10px;
+  position: relative;
+  top: -1px;
+  font-size: $fontSize-normal;
+  cursor: pointer;
+}
+
+.table .table-row .table-row--name:hover .table-row--edit {
+  opacity: 1;
+}
+
+.table .table-row .table-row--due {
   position: relative;
   padding-left: 1.2rem;
-  color: #16A2E0;
+  color: $blue;
   font-size: 1.2rem;
 }
 
-.table-row--due .circle {
+.table .table-row .table-row--due .circle {
   display: inline-block;
   width: 5px;
   height: 5px;
-  background: #59D9A4;
+  background: $lightPrimaryColor;
   border-radius: 5px;
   position: absolute;
   left: 0;
   top: 6px;
 }
 
-.table-row--saved,
-.table-row--monthly {
+.table .table-row .table-row--saved,
+.table .table-row .table-row--value {
   margin-top: 2rem;
-  color: #16A2E0;
+  color: $blue;
   font-size: 1.6rem;
 }
 
-.table-row--monthly {
+.table .table-row .table-row--value {
   font-size: 1.8rem;
 }
 
-.progress {
-  padding: 0;
-  margin: 0;
-  width: 100%;
+.table .table-row--example {
+  opacity: 0.5;
+  cursor: default;
 }
 
-.progress li {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  float: left;
-}
-
-.progress .progress-bar--filled-cell,
-.progress .progress-bar--empty-cell {
-  width: 25px;
-  padding-right: 2px;
-  height: 10px;
-}
-
-.progress .progress-bar--filled-cell .cell,
-.progress .progress-bar--empty-cell .cell {
-  border: 1px solid #59D9A4;
-  background-color: white;
-  height: 10px;
-}
-
-.progress .progress-bar--filled-cell .cell {
-  background-color: #59D9A4;
+.dialog-body {
+  background-color: $darkPrimaryColor;
 }
