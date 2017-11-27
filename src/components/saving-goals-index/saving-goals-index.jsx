@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import { inject, observer } from 'mobx-react';
 import symbolFromCurrency from 'currency-symbol-map';
 import moment from 'moment';
+import accounting from 'accounting';
 import {
   Table,
   TableBody,
@@ -11,7 +12,6 @@ import {
   TableRow,
   TableRowColumn
 } from 'material-ui/Table';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import { isEmpty } from 'lodash';
 
 require('./saving-goals-index.scss');
@@ -104,7 +104,7 @@ class SavingGoalsIndex extends Component {
                       </div>
                     </TableRowColumn>
                     <TableRowColumn colSpan="1">
-                      <div className="table-row--monthly">{monthly} {currency}</div>
+                      <div className="table-row--monthly">{accounting.formatNumber(monthly)} {currency}</div>
                     </TableRowColumn>
                   </TableRow>
                 )

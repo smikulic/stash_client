@@ -1,6 +1,7 @@
 @import "../../styles/config/settings.scss";
 
 .submit-wrapper {
+  margin-top: 2rem;
   float: right;
   position: relative;
   width: 12rem;
@@ -43,4 +44,5 @@
 
 .submit-wrapper:active .button--submit {
   background-color: $primaryColor;
+  color: $darkPrimaryColor;
 }

@@ -70,6 +70,8 @@ class UserSettingsForm extends Component {
                 <MenuItem value="EUR" primaryText="(€) EUR" />
                 <MenuItem value="USD" primaryText="($) USD" />
                 <MenuItem value="GBP" primaryText="(£) GBP" />
+                <MenuItem value="CAD" primaryText="($) CAD" />
+                <MenuItem value="JPY" primaryText="(¥) JPY" />
               </SelectField>
               <input name="currency" type="hidden" value={this.state.currencyValue} />
             </div>

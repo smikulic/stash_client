@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import symbolFromCurrency from 'currency-symbol-map';
+import accounting from 'accounting';
 import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router';
 import StatusOverviewBox from '../status-overview-box';
@@ -46,19 +47,19 @@ class StatusOverview extends Component {
         <h3 className="status-overview--title">{moment().format('MMMM YYYY')}</h3>
         <StatusOverviewBox
           label="Income"
-          value={`${monthlyFixedIncome} ${currency}`}
+          value={`${accounting.formatNumber(monthlyFixedIncome)} ${currency}`}
         />
         <StatusOverviewBox
           label="Expenses"
-          value={`${monthlyFixedExpenses} ${currency}`}
+          value={`${accounting.formatNumber(monthlyFixedExpenses)} ${currency}`}
         />
         <StatusOverviewBox
           label="Savings"
-          value={`${monthlySavingExpenses} ${currency}`}
+          value={`${accounting.formatNumber(monthlySavingExpenses)} ${currency}`}
         />
         <StatusOverviewBox
           label="Available"
-          value={`${spendThisMonth} ${currency}`}
+          value={`${accounting.formatNumber(spendThisMonth)} ${currency}`}
         />
       </span>
     );

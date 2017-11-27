@@ -11,6 +11,7 @@ import StatusOverview from '../../components/status-overview';
 import UserSettingsForm from '../../components/user-settings-form';
 import FormSubmit from '../../components/form-submit';
 import { isEmpty } from 'lodash';
+import { sanitizeValue } from '../../helpers/utils';
 
 require('./dashboard-page.scss');
 
@@ -60,11 +61,13 @@ class DashboardPage extends Component {
 
   submitSavingGoalForm (e) {
     e.preventDefault();
+    const value = sanitizeValue(e.target['value'].value);
     const savingGoal = {
       description: e.target['description'].value,
       deadline: e.target['deadline'].value,
-      value: e.target['value'].value,
+      value: value,
     };
+
     this.props.savingGoalsStore.setSavingGoal(this.userId, savingGoal);
     this.closeSavingGoalForm();
   };
@@ -100,7 +103,6 @@ class DashboardPage extends Component {
           <form onSubmit={this.submitSavingGoalForm}>
             <SavingGoalForm title="Create new goal" />
             <div className="row">
-              <br/>
               <div className="col-xs-5 col-xs-push-7">
                 <FormSubmit text="Create" />
               </div>
@@ -112,8 +114,7 @@ class DashboardPage extends Component {
           modal={false}
           bodyClassName="dialog-body"
           contentStyle={customDialogStyle}
-          //open={!this.props.userStore.userSettingsLoading && isEmpty(this.props.userStore.userSettings)}
-          open={true}
+          open={!this.props.userStore.userSettingsLoading && isEmpty(this.props.userStore.userSettings)}
           onRequestClose={this.closeSavingGoalForm}
         >
           <form onSubmit={this.submitSettingsForm}>
