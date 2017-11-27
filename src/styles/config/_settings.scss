@@ -14,6 +14,7 @@ $primaryColor:                  #009696;
 $lightPrimaryColor:             #B2DFDB;
 $textPrimaryColor:              #FFFFFF;
 $accentColor:                   #FF5252;
+$lightAccentColor:              rgba($accentColor, 0.5);
 $primaryTextColor:              #212121;
 $secondaryTextColor:            #727272;
 $dividerColor:                  #B6B6B6;
@@ -34,3 +35,7 @@ $bRadius-default:               3px;
 // Box shadow
 $boxShadow-default:             0 3px 12px -2px $dividerColor;
 $boxShadow-hover:               0 6px 14px -2px $dividerColor;
+
+// Settings
+$fontSize-button:               1.4rem;
+$fontSize-modal-title:          $fontSize-large;

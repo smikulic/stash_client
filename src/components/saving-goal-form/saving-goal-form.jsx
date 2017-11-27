@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router';
+import symbolFromCurrency from 'currency-symbol-map';
+import accounting from 'accounting';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
-import symbolFromCurrency from 'currency-symbol-map';
+import FormTitle from '../form-title';
 
 require('./saving-goal-form.scss');
 
@@ -24,29 +26,20 @@ class SavingGoalForm extends Component {
       minDate: minDate,
       autoOk: true,
       disableYearSelection: false,
+      presetValues: props.presetValues || false,
     };
   }
 
   render() {
     return (
       <div>
-        <div className="row">
-          { this.props.title && (
-            <div className="row">
-              <div className="col-xs-8 col-xs-push-2">
-                <div className="saving-goal-form--title-wrapper">
-                  <div className="saving-goal-form--title">
-                    {this.props.title}
-                    </div>
-                </div>
-              </div>
-            </div>
-          )}
+        <div className="col-xs-12">
+          <FormTitle title={this.props.title} />
           <div className="row">
             <div className="col-xs-8 col-xs-push-2">
               <TextField
                 fullWidth={true}
-                hintText="Holiday dream house"
+                hintText={this.state.presetValues.description || 'Holiday dream house'}
                 floatingLabelText="Goal description"
                 floatingLabelFixed={true}
                 name="description"
@@ -57,7 +50,7 @@ class SavingGoalForm extends Component {
             <div className="col-xs-5 col-xs-push-2">
               <TextField
                 fullWidth={true}
-                hintText="195,000"
+                hintText={accounting.formatNumber(this.state.presetValues.value || '195,000')}
                 floatingLabelText="Goal budget"
                 floatingLabelFixed={true}
                 name="value"
@@ -76,6 +69,7 @@ class SavingGoalForm extends Component {
                 minDate={this.state.minDate}
                 disableYearSelection={this.state.disableYearSelection}
                 hideCalendarDate
+                hintText={this.state.presetValues.deadline || ''}
                 name="deadline"
               />
             </div>

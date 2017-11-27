@@ -1,0 +1,12 @@
+@import "../../styles/config/settings.scss";
+
+.form--title-wrapper {
+  margin-bottom: 25px;
+  color: $secondaryTextColor;
+}
+
+.form--title {
+  padding: 0 0 5px 0;
+  font-size: $fontSize-modal-title;
+  border-bottom: 1px solid $blue;
+}

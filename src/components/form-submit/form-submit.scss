@@ -1,7 +1,7 @@
 @import "../../styles/config/settings.scss";
 
 .submit-wrapper {
-  margin-top: 2rem;
+  margin-top: 2.5rem;
   float: right;
   position: relative;
   width: 12rem;
@@ -26,6 +26,7 @@
   right: 0;
   padding: 10px 25px;
   color: $blue;
+  font-size: $fontSize-normal;
   outline: 0;
   border: 1px solid $blue;
   border-radius: 15px;

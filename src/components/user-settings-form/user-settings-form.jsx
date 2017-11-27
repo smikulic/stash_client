@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import FormTitle from '../form-title';
 
 class UserSettingsForm extends Component {
   state = {
@@ -26,17 +27,7 @@ class UserSettingsForm extends Component {
     return (
       <div>
         <div className="row">
-        { this.props.title && (
-            <div className="row">
-              <div className="col-xs-8 col-xs-push-2">
-                <div className="saving-goal-form--title-wrapper">
-                  <div className="saving-goal-form--title">
-                    {this.props.title}
-                    </div>
-                </div>
-              </div>
-            </div>
-          )}
+        <FormTitle title={this.props.title} />
           <div className="row">
             <div className="col-xs-8 col-xs-push-2">
               <TextField

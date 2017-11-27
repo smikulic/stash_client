@@ -118,7 +118,7 @@ class DashboardPage extends Component {
           onRequestClose={this.closeSavingGoalForm}
         >
           <form onSubmit={this.submitSettingsForm}>
-            <UserSettingsForm title="Enter average monthly values" />
+            <UserSettingsForm title="Welcome! Let's get started!" />
             <FormSubmit text="Start Saving" />
           </form>
         </Dialog>

@@ -1,0 +1,23 @@
+@import "../../styles/config/settings.scss";
+
+.table-actions {
+  opacity: 0;
+  position: relative;
+  right: -20px;
+  width: 60px;
+  height: 60px;
+  background-color: $lightPrimaryColor;
+  transition: right 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.table-actions i {
+  margin: 16px 0 0 20px;
+  font-size: $fontSize-extraLarge;
+  color: $primaryColor;
+}
+
+.table-actions:hover {
+  opacity: 1;
+  right: 0;
+}
