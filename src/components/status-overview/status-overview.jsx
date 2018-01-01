@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import symbolFromCurrency from 'currency-symbol-map';
 import accounting from 'accounting';
+import {
+  deadlineInPast,
+  normalizeCreatedDate,
+  normalizeDeadlineDate,
+  monthlyValue,
+} from '../../helpers/utils';
 import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router';
 import StatusOverviewBox from '../status-overview-box';
@@ -16,25 +22,17 @@ class StatusOverview extends Component {
     this.props.savingGoalsStore.loadSavingGoals(this.props.userStore.userData.id);
   }
 
-  deadlineIsBeforeNow(deadline) {
-    return moment(deadline).isBefore(moment());
-  }
-
   _getMonthlySavingExpenses() {
     const { savingGoals } = this.props.savingGoalsStore;
     let monthlySavingsTotal = 0;
     savingGoals.map((item) => {
-      let normalizedCreatedAt = moment(item.created_at).utcOffset(0);
-      normalizedCreatedAt.set({hour:0,minute:0,second:0,millisecond:0});
-      let normalizedDeadline = moment(item.deadline).startOf('month').add(1, 'days');
-      let durationMonthly = moment(normalizedDeadline).diff(normalizedCreatedAt, 'months');
-      let monthly = Math.round(item.value / durationMonthly);
+      // reset created time to the start of the day for accurate calculation
+      let normalizedCreatedAt = normalizeCreatedDate(item.created_at);
+      let normalizedDeadline = normalizeDeadlineDate(item.deadline);
+      // calculate amount to save per month
+      const monthly = monthlyValue(normalizedDeadline, normalizedCreatedAt, item.value);
 
-      if (this.deadlineIsBeforeNow(normalizedDeadline)) {
-        monthly = 0;
-      }
-
-      monthlySavingsTotal += monthly;
+      monthlySavingsTotal += deadlineInPast(normalizedDeadline) ? 0 : monthly;
     });
 
     return monthlySavingsTotal;

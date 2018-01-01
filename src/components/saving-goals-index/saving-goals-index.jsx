@@ -5,7 +5,14 @@ import symbolFromCurrency from 'currency-symbol-map';
 import moment from 'moment';
 import accounting from 'accounting';
 import { isEmpty } from 'lodash';
-import { sanitizeValue } from '../../helpers/utils';
+import {
+  sanitizeValue,
+  deadlineInPast,
+  normalizeCreatedDate,
+  normalizeDeadlineDate,
+  monthlyValue,
+  savedUntilNowValue,
+} from '../../helpers/utils';
 import {
   Table,
   TableBody,
@@ -80,10 +87,6 @@ class SavingGoalsIndex extends Component {
     this.closeSavingGoalForm();
   };
 
-  deadlineIsBeforeNow(deadline) {
-    return moment(deadline).isBefore(moment());
-  }
-
   render() {
     const { savingGoals } = this.props.savingGoalsStore;
     const currency = this.props.userStore.userSettings ?
@@ -120,19 +123,16 @@ class SavingGoalsIndex extends Component {
                 let tableRowClass = 'table-row';
 
                 // reset created time to the start of the day for accurate calculation
-                let normalizedCreatedAt = moment(item.created_at).utcOffset(0);
-                normalizedCreatedAt.set({hour:0,minute:0,second:0,millisecond:0});
-                let normalizedDeadline = moment(item.deadline).startOf('month').add(1, 'days');
-
-                let durationMonthly = moment(normalizedDeadline).diff(normalizedCreatedAt, 'months');
-                let monthly = Math.round(item.value / durationMonthly);
-                let durationSince = moment().diff(moment(item.created_at), 'months');
+                let normalizedCreatedAt = normalizeCreatedDate(item.created_at);
+                let normalizedDeadline = normalizeDeadlineDate(item.deadline);
+                // calculate amount to save per month
+                const monthly = monthlyValue(normalizedDeadline, normalizedCreatedAt, item.value);
+                // calculate how much per goal have you saved so far
+                const saved = savedUntilNowValue(normalizedCreatedAt, monthly, item.value);
+                const durationTillEnd = moment(normalizedDeadline).diff(moment(), 'months');
                 let due = moment(normalizedDeadline).subtract(1, 'month').endOf('month').fromNow();
-                let percentage = monthly / item.value * 100;
-                let saved = durationSince * percentage;
-                let durationTillEnd = moment(normalizedDeadline).diff(moment(), 'months');
                 
-                if (this.deadlineIsBeforeNow(normalizedDeadline)) {
+                if (deadlineInPast(normalizedDeadline)) {
                   due = `Goal achieved - ${moment(normalizedDeadline).format('DD MMM YY')}`;
                   tableRowClass += ' achieved';
                 } else {
