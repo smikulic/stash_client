@@ -8,8 +8,7 @@ class ProgressBar extends Component {
     for (var i = 0; i < 10; i++) {
       if (this.props.savedValue && (i < Math.round(10 * this.props.savedValue.toFixed(2) / 100))) {
         progressBarsCells.push(
-          <li
-            key={`progress-bar--filled-cell${i}`}
+          <li key={`progress-bar--filled-cell${i}`}
             className="progress-bar--filled-cell"
             >
             <div className="cell"></div>
@@ -17,8 +16,7 @@ class ProgressBar extends Component {
         );
       } else {
         progressBarsCells.push(
-          <li
-            key={`progress-bar--empty-cell${i}`}
+          <li key={`progress-bar--empty-cell${i}`}
             className="progress-bar--empty-cell"
           >
             <div className="cell"></div>

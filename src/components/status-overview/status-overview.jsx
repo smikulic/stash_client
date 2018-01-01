@@ -44,29 +44,22 @@ class StatusOverview extends Component {
     let monthlyFixedIncome = userData ? userData.average_monthly_incomes : 0;
     let monthlyFixedExpenses = userData ? userData.average_monthly_expenses : 0;
     let monthlySavingExpenses = this._getMonthlySavingExpenses();
-    let spendThisMonth =
-      monthlyFixedIncome -
-      monthlyFixedExpenses -
-      monthlySavingExpenses;
+    let freeToSpendThisMonth = monthlyFixedIncome - monthlyFixedExpenses - monthlySavingExpenses;
 
     return (
       <span className="status-overview">
         <h3 className="status-overview--title">{moment().format('MMMM YYYY')}</h3>
-        <StatusOverviewBox
-          label="Income"
+        <StatusOverviewBox label="Income"
           value={`${accounting.formatNumber(monthlyFixedIncome)} ${currency}`}
         />
-        <StatusOverviewBox
-          label="Expenses"
+        <StatusOverviewBox label="Expenses"
           value={`${accounting.formatNumber(monthlyFixedExpenses)} ${currency}`}
         />
-        <StatusOverviewBox
-          label="Savings"
+        <StatusOverviewBox label="Savings"
           value={`${accounting.formatNumber(monthlySavingExpenses)} ${currency}`}
         />
-        <StatusOverviewBox
-          label="Available"
-          value={`${accounting.formatNumber(spendThisMonth)} ${currency}`}
+        <StatusOverviewBox label="Available"
+          value={`${accounting.formatNumber(freeToSpendThisMonth)} ${currency}`}
         />
       </span>
     );
