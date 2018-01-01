@@ -17,19 +17,15 @@ class Navigation extends Component {
         </Link>
         <li className="navigation-element navigation--dropdown">
           <IconMenu
-            iconButtonElement={
-              <IconButton><MoreVertIcon className="navigation--user-dropdown-icon" /></IconButton>
-            }
+            iconButtonElement={ <IconButton><MoreVertIcon className="navigation--user-dropdown-icon" /></IconButton> }
             targetOrigin={{horizontal: 'middle', vertical: 'top'}}
             anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
           >
-            <MenuItem
-              onClick={() => browserHistory.push('/settings')}
+            <MenuItem onClick={() => browserHistory.push('/settings')}
               className="navigation--menu-item"
               primaryText="Settings"
             />
-            <MenuItem
-              onClick={this.props.handleSignOut}
+            <MenuItem onClick={this.props.handleSignOut}
               className="navigation--menu-item"
               primaryText="Sign out"
             />

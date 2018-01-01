@@ -26,6 +26,7 @@ import ProgressBar from '../../components/progress-bar';
 import TableActions from '../../components/table-actions';
 import SavingGoalForm from '../../components/saving-goal-form';
 import FormSubmit from '../../components/form-submit';
+import EmptySavingGoal from '../empty-saving-goal';
 
 require('./saving-goals-index.scss');
 
@@ -139,9 +140,7 @@ class SavingGoalsIndex extends Component {
                   due = durationTillEnd === 0 ? 'this month' : due;
                 }
 
-                if (lastItem) {
-                  tableRowClass += ' last';
-                }
+                tableRowClass += lastItem ? ' last' : '';
                 
                 return (
                   <TableRow key={item.id} className={tableRowClass}>
@@ -174,28 +173,7 @@ class SavingGoalsIndex extends Component {
               })
             )
           }
-          {
-            isEmpty(savingGoals) && (
-              <TableRow className="table-row table-row--example last">
-                <TableRowColumn colSpan="4">
-                  <div className="table-row--name">Holiday Dream House</div>
-                  <div className="table-row--due"><span className="circle"></span>in 10 months</div>
-                </TableRowColumn>
-                <TableRowColumn colSpan="4">
-                  <div className="table-row--saved">
-                    <ProgressBar savedValue={90} />
-                  </div>
-                </TableRowColumn>
-                <TableRowColumn colSpan="2">
-                  <div className="table-row--value">170,000 {currency}</div>
-                </TableRowColumn>
-                <TableRowColumn colSpan="2">
-                  <div className="table-row--value">1,700 {currency}</div>
-                </TableRowColumn>
-                <TableRowColumn colSpan="1"></TableRowColumn>
-              </TableRow>
-            )
-          }
+          { isEmpty(savingGoals) && <EmptySavingGoal currency={currency} /> }
         </TableBody>
       </Table>
 
