@@ -16,14 +16,23 @@ class StatusOverview extends Component {
     this.props.savingGoalsStore.loadSavingGoals(this.props.userStore.userData.id);
   }
 
+  deadlineIsBeforeNow(deadline) {
+    return moment(deadline).isBefore(moment());
+  }
+
   _getMonthlySavingExpenses() {
     const { savingGoals } = this.props.savingGoalsStore;
     let monthlySavingsTotal = 0;
     savingGoals.map((item) => {
       let normalizedCreatedAt = moment(item.created_at).utcOffset(0);
       normalizedCreatedAt.set({hour:0,minute:0,second:0,millisecond:0});
-      let durationMonthly = moment(item.deadline).diff(normalizedCreatedAt, 'months');
+      let normalizedDeadline = moment(item.deadline).startOf('month').add(1, 'days');
+      let durationMonthly = moment(normalizedDeadline).diff(normalizedCreatedAt, 'months');
       let monthly = Math.round(item.value / durationMonthly);
+
+      if (this.deadlineIsBeforeNow(normalizedDeadline)) {
+        monthly = 0;
+      }
 
       monthlySavingsTotal += monthly;
     });

@@ -59,9 +59,15 @@
   border-bottom: 1px solid transparent !important;
 }
 
+.table .table-row.achieved {
+  opacity: 0.4;
+}
+
 .table .table-row .table-row--name {
   color: $grayLight;
   font-size: 2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .table .table-row--edit {

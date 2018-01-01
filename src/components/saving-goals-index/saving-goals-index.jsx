@@ -80,6 +80,10 @@ class SavingGoalsIndex extends Component {
     this.closeSavingGoalForm();
   };
 
+  deadlineIsBeforeNow(deadline) {
+    return moment(deadline).isBefore(moment());
+  }
+
   render() {
     const { savingGoals } = this.props.savingGoalsStore;
     const currency = this.props.userStore.userSettings ?
@@ -112,21 +116,35 @@ class SavingGoalsIndex extends Component {
           {
             savingGoals && (
               savingGoals.map((item, index) => {
+                const lastItem = savingGoals.length === (index + 1);
+                let tableRowClass = 'table-row';
+
                 // reset created time to the start of the day for accurate calculation
                 let normalizedCreatedAt = moment(item.created_at).utcOffset(0);
                 normalizedCreatedAt.set({hour:0,minute:0,second:0,millisecond:0});
-                let durationMonthly = moment(item.deadline).diff(normalizedCreatedAt, 'months');
+                let normalizedDeadline = moment(item.deadline).startOf('month').add(1, 'days');
+
+                let durationMonthly = moment(normalizedDeadline).diff(normalizedCreatedAt, 'months');
                 let monthly = Math.round(item.value / durationMonthly);
                 let durationSince = moment().diff(moment(item.created_at), 'months');
-                let due = moment(item.deadline).subtract(1, 'month').endOf('month').fromNow();
+                let due = moment(normalizedDeadline).subtract(1, 'month').endOf('month').fromNow();
                 let percentage = monthly / item.value * 100;
                 let saved = durationSince * percentage;
-                let durationTillEnd = moment(item.deadline).diff(moment(), 'months');
+                let durationTillEnd = moment(normalizedDeadline).diff(moment(), 'months');
+                
+                if (this.deadlineIsBeforeNow(normalizedDeadline)) {
+                  due = `Goal achieved - ${moment(normalizedDeadline).format('DD MMM YY')}`;
+                  tableRowClass += ' achieved';
+                } else {
+                  due = durationTillEnd === 0 ? 'this month' : due;
+                }
 
-                due = durationTillEnd === 0 ? 'this month' : due;
+                if (lastItem) {
+                  tableRowClass += ' last';
+                }
                 
                 return (
-                  <TableRow key={item.id} className={savingGoals.length === (index + 1) ? 'table-row last' : 'table-row'}>
+                  <TableRow key={item.id} className={tableRowClass}>
                     <TableRowColumn colSpan="4">
                       <div className="table-row--name">
                         {item.description}
