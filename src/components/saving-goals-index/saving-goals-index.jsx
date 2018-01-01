@@ -5,7 +5,14 @@ import symbolFromCurrency from 'currency-symbol-map';
 import moment from 'moment';
 import accounting from 'accounting';
 import { isEmpty } from 'lodash';
-import { sanitizeValue } from '../../helpers/utils';
+import {
+  sanitizeValue,
+  deadlineInPast,
+  normalizeCreatedDate,
+  normalizeDeadlineDate,
+  monthlyValue,
+  savedUntilNowValue,
+} from '../../helpers/utils';
 import {
   Table,
   TableBody,
@@ -112,21 +119,32 @@ class SavingGoalsIndex extends Component {
           {
             savingGoals && (
               savingGoals.map((item, index) => {
-                // reset created time to the start of the day for accurate calculation
-                let normalizedCreatedAt = moment(item.created_at).utcOffset(0);
-                normalizedCreatedAt.set({hour:0,minute:0,second:0,millisecond:0});
-                let durationMonthly = moment(item.deadline).diff(normalizedCreatedAt, 'months');
-                let monthly = Math.round(item.value / durationMonthly);
-                let durationSince = moment().diff(moment(item.created_at), 'months');
-                let due = moment(item.deadline).subtract(1, 'month').endOf('month').fromNow();
-                let percentage = monthly / item.value * 100;
-                let saved = durationSince * percentage;
-                let durationTillEnd = moment(item.deadline).diff(moment(), 'months');
+                const lastItem = savingGoals.length === (index + 1);
+                let tableRowClass = 'table-row';
 
-                due = durationTillEnd === 0 ? 'this month' : due;
+                // reset created time to the start of the day for accurate calculation
+                let normalizedCreatedAt = normalizeCreatedDate(item.created_at);
+                let normalizedDeadline = normalizeDeadlineDate(item.deadline);
+                // calculate amount to save per month
+                const monthly = monthlyValue(normalizedDeadline, normalizedCreatedAt, item.value);
+                // calculate how much per goal have you saved so far
+                const saved = savedUntilNowValue(normalizedCreatedAt, monthly, item.value);
+                const durationTillEnd = moment(normalizedDeadline).diff(moment(), 'months');
+                let due = moment(normalizedDeadline).subtract(1, 'month').endOf('month').fromNow();
+                
+                if (deadlineInPast(normalizedDeadline)) {
+                  due = `Goal achieved - ${moment(normalizedDeadline).format('DD MMM YY')}`;
+                  tableRowClass += ' achieved';
+                } else {
+                  due = durationTillEnd === 0 ? 'this month' : due;
+                }
+
+                if (lastItem) {
+                  tableRowClass += ' last';
+                }
                 
                 return (
-                  <TableRow key={item.id} className={savingGoals.length === (index + 1) ? 'table-row last' : 'table-row'}>
+                  <TableRow key={item.id} className={tableRowClass}>
                     <TableRowColumn colSpan="4">
                       <div className="table-row--name">
                         {item.description}
