@@ -3,28 +3,3 @@
   margin: 0;
   width: 100%;
 }
-
-.progress li {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  float: left;
-}
-
-.progress .progress-bar--filled-cell,
-.progress .progress-bar--empty-cell {
-  width: 25px;
-  padding-right: 2px;
-  height: 10px;
-}
-
-.progress .progress-bar--filled-cell .cell,
-.progress .progress-bar--empty-cell .cell {
-  border: 1px solid #59D9A4;
-  background-color: white;
-  height: 10px;
-}
-
-.progress .progress-bar--filled-cell .cell {
-  background-color: #59D9A4;
-}

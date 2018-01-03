@@ -27,3 +27,11 @@ export function savedUntilNowValue(createdDate, monthlyValue, goalValue) {
   const percentage = monthlyValue / goalValue * 100;
   return durationSince * percentage;
 }
+
+export function transformUserSettingsFormData(eventTarget) {
+  return {
+    average_monthly_incomes: eventTarget['avgIncome'].value,
+    average_monthly_expenses: eventTarget['avgExpenses'].value,
+    main_currency: eventTarget['currency'].value,
+  };
+}
