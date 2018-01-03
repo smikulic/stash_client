@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ProgressBarCell from '../progress-bar-cell';
 require('./progress-bar.scss');
 
 class ProgressBar extends Component {
@@ -7,21 +8,9 @@ class ProgressBar extends Component {
     
     for (var i = 0; i < 10; i++) {
       if (this.props.savedValue && (i < Math.round(10 * this.props.savedValue.toFixed(2) / 100))) {
-        progressBarsCells.push(
-          <li key={`progress-bar--filled-cell${i}`}
-            className="progress-bar--filled-cell"
-            >
-            <div className="cell"></div>
-          </li>
-        );
+        progressBarsCells.push(<ProgressBarCell key={`progress-bar--cell${i}`} filled />);
       } else {
-        progressBarsCells.push(
-          <li key={`progress-bar--empty-cell${i}`}
-            className="progress-bar--empty-cell"
-          >
-            <div className="cell"></div>
-          </li>
-        );
+        progressBarsCells.push(<ProgressBarCell key={`progress-bar--cell${i}`} />);
       }
     }
 
