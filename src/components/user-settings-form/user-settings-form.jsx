@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
+// import TextField from 'material-ui/TextField';
+// import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import FormTitle from '../form-title';
+import FormField from '../form-field';
 
 class UserSettingsForm extends Component {
   state = {
@@ -28,45 +29,31 @@ class UserSettingsForm extends Component {
       <div>
         <div className="row">
         <FormTitle title={this.props.title} />
-          <div className="row">
-            <div className="col-xs-8 col-xs-push-2">
-              <TextField
-                fullWidth={true}
-                floatingLabelText="Income"
-                name="avgIncome"
-                value={this.state.avgIncomesValue}
-                onChange={this.handleChangeAvgIncomesValue}
-              />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-xs-8 col-xs-push-2">
-              <TextField
-                fullWidth={true}
-                floatingLabelText="Expenses"
-                name="avgExpenses"
-                value={this.state.avgExpensesValue}
-                onChange={this.handleChangeAvgExpensesValue}
-              />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-xs-8 col-xs-push-2">
-              <SelectField
-                floatingLabelText="Currency"
-                fullWidth={true}
-                value={this.state.currencyValue}
-                onChange={this.handleChangeCurrency}
-              >
-                <MenuItem value="EUR" primaryText="(€) EUR" />
-                <MenuItem value="USD" primaryText="($) USD" />
-                <MenuItem value="GBP" primaryText="(£) GBP" />
-                <MenuItem value="CAD" primaryText="($) CAD" />
-                <MenuItem value="JPY" primaryText="(¥) JPY" />
-              </SelectField>
-              <input name="currency" type="hidden" value={this.state.currencyValue} />
-            </div>
-          </div>
+        <FormField
+          label="Income"
+          targetName="avgIncome"
+          value={this.state.avgIncomesValue}
+          onChangeEvent={this.handleChangeAvgIncomesValue}
+        />
+        <FormField
+          label="Expenses"
+          targetName="avgExpenses"
+          value={this.state.avgExpensesValue}
+          onChangeEvent={this.handleChangeAvgExpensesValue}
+        />
+        <FormField
+          label="Currency"
+          targetName="currency"
+          value={this.state.currencyValue}
+          onChangeEvent={this.handleChangeCurrency}
+          selectField
+        >
+          <MenuItem value="EUR" primaryText="(€) EUR" />
+          <MenuItem value="USD" primaryText="($) USD" />
+          <MenuItem value="GBP" primaryText="(£) GBP" />
+          <MenuItem value="CAD" primaryText="($) CAD" />
+          <MenuItem value="JPY" primaryText="(¥) JPY" />
+        </FormField>
         </div>
       </div>
     );
