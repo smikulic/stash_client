@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import UserSettingsForm from '../../components/user-settings-form';
 import Paper from 'material-ui/Paper';
 import FormSubmit from '../../components/form-submit';
+import { transformUserSettingsFormData } from '../../helpers/utils';
 
 require('./settings-page.scss');
 
@@ -23,11 +24,7 @@ class SettingsPage extends Component {
 
   updateSettings (e) {
     e.preventDefault();
-    const userSettings = {
-      average_monthly_incomes: e.target['avgIncome'].value,
-      average_monthly_expenses: e.target['avgExpenses'].value,
-      main_currency: e.target['currency'].value,
-    };
+    const userSettings = transformUserSettingsFormData(e.target);
     this.props.userStore.updateUserSettings(
       this.userId,
       this.props.userStore.userSettings.id,

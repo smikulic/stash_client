@@ -11,7 +11,7 @@ import StatusOverview from '../../components/status-overview';
 import UserSettingsForm from '../../components/user-settings-form';
 import FormSubmit from '../../components/form-submit';
 import { isEmpty } from 'lodash';
-import { sanitizeValue } from '../../helpers/utils';
+import { sanitizeValue, transformUserSettingsFormData } from '../../helpers/utils';
 
 require('./dashboard-page.scss');
 
@@ -51,11 +51,7 @@ class DashboardPage extends Component {
   
   submitSettingsForm (e) {
     e.preventDefault();
-    const userSettings = {
-      average_monthly_incomes: e.target['avgIncome'].value,
-      average_monthly_expenses: e.target['avgExpenses'].value,
-      main_currency: e.target['currency'].value,
-    };
+    const userSettings = transformUserSettingsFormData(e.target);
     this.props.userStore.setUserSettings(this.userId, userSettings);
   };
 
