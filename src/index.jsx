@@ -36,15 +36,15 @@ const stores = {
 window._____APP_STATE_____ = stores;
 
 class App extends Component {
-//const App = React.createClass({
   state = {
     loggedIn: authStore.loggedIn(),
   }
 
   updateAuth(loggedIn) {
-    this.setState({
-      loggedIn
-    })
+    // When commented out no bugs detected in development stage
+    // this.setState({
+    //   loggedIn
+    // })
   }
 
   componentWillMount() {
