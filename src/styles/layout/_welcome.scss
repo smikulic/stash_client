@@ -16,36 +16,32 @@
     height: 100%;
   }
   .title, .subtitle {
-    float: left;
+    margin: 17% auto 0 auto;
     padding: 15px;
     color: $darkPrimaryColor;
     background: rgba($primaryColor, 0.5);
   }
   h1.title {
-    margin: 16% 30px 0 30px;
-    padding: 15px;
+    width: 70%;
     line-height: 45px;
     font-size: 42px;
     
   }
   h2.subtitle {
-    margin: 22% 30px 0 30%;
+    margin-top: -15px;
+    width: 50%;
     line-height: 27px;
     font-size: 24px;
   }
 
-  // @media screen and (max-width: 767px) {
-  //   bottom: 54px;
-  //   .content {
-  //     padding: 54px 0 115px;
-  //   }
-  //   h1.title {
-  //     font-size: 32px;
-  //   }
-  //   h2.subtitle {
-  //     font-size: 20px;
-  //   }
-  // }
+  @media screen and (max-width: 767px) {
+    h1.title {
+      font-size: 32px;
+    }
+    h2.subtitle {
+      font-size: 16px;
+    }
+  }
 }
 
 .features {
@@ -59,17 +55,9 @@
 
 @media screen and (max-height: 800px) {
   .features {
-    padding: 0px 0 50px;
+    padding: 0 0 50px;
   }
 }
-
-// @media screen and (max-width: 767px) {
-//   .section-main {
-//     .content {
-//       padding-bottom: 50px !important;
-//     }
-//   }
-// }
 
 .btn-start,
 .btn-get-started {
@@ -80,6 +68,7 @@
 
 .btn-start {
   position: absolute;
+  top: 20px;
   right: 20px;
   width: 100px;
   height: 34px;
