@@ -9,8 +9,8 @@ class WelcomePage extends Component {
         <div className="section-main">
           <div className="content">
             <h1 className="title"><span>Track your financial goals and savings.</span></h1>
+            <Link to="/login" className="btn-start">Sign In</Link>
             <h2 className="subtitle"><span>Spending each month without the financial stress.</span></h2>
-            <Link to="/login" className="btn-start">Start stashing</Link>
           </div>
         </div>
         <div className="features">
@@ -23,6 +23,9 @@ class WelcomePage extends Component {
           <FeatureBox title="ScroogeVault is 100% free."
             description="Don't worry, there are no fees involved and no bank accounts information needed, we are just offering a glorified calculator and a way to unload the burden of financial planning."
           />
+          <FeatureBox>
+            <Link to="/login" className="btn-get-started">Get Started</Link>
+          </FeatureBox>
         </div>
       </div>
     );

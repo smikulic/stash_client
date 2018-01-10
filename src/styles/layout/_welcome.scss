@@ -1,7 +1,8 @@
+@import "../../styles/config/settings.scss";
+
 .section-main {
   position: relative;
-  bottom: 60px;
-  height: 580px;
+  height: 100vh;
   width: 100%;
   text-align: center;
   background-image: url('../../assets/welcome.jpg');
@@ -9,42 +10,42 @@
   background-size: cover;
   .content {
     position: relative;
-    padding-top: 60px;
+    padding-top: 20px;
     margin: 0 auto;
     width: 100%;
     height: 100%;
   }
+  .title, .subtitle {
+    float: left;
+    padding: 15px;
+    color: $darkPrimaryColor;
+    background: rgba($primaryColor, 0.5);
+  }
   h1.title {
-    padding-top: 230px;
-    font-size: 54px;
+    margin: 16% 30px 0 30px;
+    padding: 15px;
+    line-height: 45px;
+    font-size: 42px;
+    
   }
   h2.subtitle {
-    padding-bottom: 12px;
-    font-size: 26px;
+    margin: 22% 30px 0 30%;
+    line-height: 27px;
+    font-size: 24px;
   }
 
-  @media screen and (max-width: 1023px) {
-    h1.title {
-      font-size: 48px;
-    }
-  }
-
-  @media screen and (max-width: 767px) {
-    bottom: 54px;
-    height: auto !important;
-    .content {
-      padding: 54px 0 115px;
-    }
-    h1.title {
-      padding-top: 54px !important;
-      font-size: 32px;
-      line-height: 1.2;
-    }
-    h2.subtitle {
-      font-size: 20px;
-      line-height: 1.2;
-    }
-  }
+  // @media screen and (max-width: 767px) {
+  //   bottom: 54px;
+  //   .content {
+  //     padding: 54px 0 115px;
+  //   }
+  //   h1.title {
+  //     font-size: 32px;
+  //   }
+  //   h2.subtitle {
+  //     font-size: 20px;
+  //   }
+  // }
 }
 
 .features {
@@ -53,62 +54,67 @@
   width: 100%;
   max-width: 1280px;
   overflow: hidden;
+  background-color: white;
 }
 
 @media screen and (max-height: 800px) {
-  .section-main {
-    height: 540px;
-    h1.title {padding-top: 130px;}
-  }
   .features {
     padding: 0px 0 50px;
   }
 }
-@media screen and (max-height: 740px) {
-  .section-main {
-    height: 480px;
-    h1.title {padding-top: 100px;}
-  }
-}
-@media screen and (max-height: 700px) {
-  .section-main {
-    height: 440px;
-  }
-}
 
-@media screen and (max-width: 767px) {
-  .section-main {
-    height: auto;
-    h1.title {
-      padding-top: 50px !important;
-    }
-    .content {
-      padding-bottom: 50px !important;
-    }
-  }
+// @media screen and (max-width: 767px) {
+//   .section-main {
+//     .content {
+//       padding-bottom: 50px !important;
+//     }
+//   }
+// }
+
+.btn-start,
+.btn-get-started {
+  display: block;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
 }
 
 .btn-start {
-  display: block;
-  margin: 15px auto;
-  padding: 10px;
-  position: relative;
-  width: 33.33%;
-  border: 0;
-  color: $textPrimaryColor;
-  background-color: $primaryColor;
+  position: absolute;
+  right: 20px;
+  width: 100px;
+  height: 34px;
+  line-height: 33px;
+  border: 2px solid $primaryColor;
+  color: $primaryColor;
   border-radius: $bRadius-default;
-  transition: background 0.2s ease-in-out;
-  cursor: pointer;
 }
 .btn-start:hover, .btn-start:active, .btn-start:focus {
-  color: $textPrimaryColor;
+  color: $darkPrimaryColor;
+  border-color: $darkPrimaryColor;
   text-decoration: none;
-  background-color: rgba($primaryColor, 0.8);
 }
-.btn-start:active {
+
+.btn-get-started {
+  position: relative;
+  margin: 0 auto;
+  width: 120px;
+  height: 44px;
+  line-height: 43px;
+  text-align: center;
+  color: $darkPrimaryColor;
+  background: $primaryColor;
+  border-radius: 25px;
+  border: 2px solid $primaryColor;
+}
+.btn-get-started:hover, .btn-get-started:active, .btn-get-started:focus {
+  background: $darkPrimaryColor;
+  color: $primaryColor;
+  text-decoration: none;
+}
+.btn-get-started:active {
   top: 1px;
 }
+
 
 // LOGIN & REGISTRATION
 .section-main.login {
@@ -158,8 +164,8 @@
   position: absolute;
   top: 3.8rem;
   right: 5rem;
-  width: 28px;
-  height: 28px;
+  width: 42px;
+  height: 38px;
   background-image: url('../../dist/favicon.png');
   background-position: top center;
   background-size: cover;
