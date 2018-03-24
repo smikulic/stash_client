@@ -2610,6 +2610,10 @@ js-base64@^2.1.8, js-base64@^2.1.9:
   version "2.1.9"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.1.9.tgz#f0e80ae039a4bd654b5f281fc93f04a914a7fcce"
 
+js-loc@^0.2.6:
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/js-loc/-/js-loc-0.2.6.tgz#663c910ccbca233369fbd158b76d7cfc2e6962dd"
+
 js-tokens@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-2.0.0.tgz#79903f5563ee778cc1162e6dcf1a0027c97f9cb5"
