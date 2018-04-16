@@ -19,7 +19,7 @@ export function normalizeDeadlineDate(date) {
 
 export function monthlyValue(deadlineDate, createdDate, goalValue) {
   const durationMonthly = moment(deadlineDate).diff(createdDate, 'months');
-  return Math.round(goalValue / (durationMonthly + 1));
+  return Math.round(goalValue / durationMonthly);
 }
 
 export function savedUntilNowValue(createdDate, monthlyValue, goalValue) {
