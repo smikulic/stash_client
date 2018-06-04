@@ -13,6 +13,7 @@ import WelcomePage from './pages/welcome-page';
 import LoginPage from './pages/login-page';
 import RegisterPage from './pages/register-page';
 import DashboardPage from './pages/dashboard-page';
+import AccountsPage from './pages/accounts-page';
 import SettingsPage from './pages/settings-page';
 // Third party components
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
@@ -90,6 +91,7 @@ render((
       <Route path="signup" component={RegisterPage} />
       <Route path="/" component={App}>
         <Route path="dashboard" component={DashboardPage} onEnter={requireAuth} />
+        <Route path="accounts" component={AccountsPage} onEnter={requireAuth} />
         <Route path="settings" component={SettingsPage} onEnter={requireAuth} />
       </Route>
     </Router>
