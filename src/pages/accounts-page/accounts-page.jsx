@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import symbolFromCurrency from 'currency-symbol-map';
 import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router';
-import Paper from 'material-ui/Paper';
-// import SavingGoalsIndex from '../../components/saving-goals-index';
+import PageItemWrapper from '../../components/page-item-wrapper';
+import AccountsIndex from '../../components/accounts-index';
 
 require('./accounts-page.scss');
 
@@ -15,8 +15,7 @@ const customDialogStyle = {
   transform: 'translate(50%, 64px)',
 };
 
-// @inject('accountsStore', 'userStore')
-@inject('userStore')
+@inject('accountsStore', 'userStore')
 @withRouter
 @observer
 class AccountsPage extends Component {
@@ -57,16 +56,12 @@ class AccountsPage extends Component {
   render() {
     return (
       <div className="container-fluid">
-        <div className="row">
-          <div className="col-xs-12">
-            <Paper className="account-item" zDepth={1}>
-              {/* <AccountIndex
-                userData={this.props.userStore.userSettings}
-                handleAddAccount={this.openAccountForm}
-              /> */}
-            </Paper>
-          </div>
-        </div>
+        <PageItemWrapper>
+          <AccountsIndex
+            userData={this.props.userStore.userSettings}
+            handleAddAccount={this.openAccountForm}
+          />
+        </PageItemWrapper>
 
         {/* <Dialog
           modal={false}

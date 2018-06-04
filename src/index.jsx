@@ -5,6 +5,7 @@ import { Provider } from 'mobx-react';
 // Stores
 import authStore from './stores/auth_store';
 import savingGoalsStore from './stores/saving_goals_store';
+import accountsStore from './stores/accounts_store';
 import userStore from './stores/user_store';
 // Components
 import Navigation from './components/navigation';
@@ -29,6 +30,7 @@ injectTapEventPlugin();
 
 const stores = {
   savingGoalsStore,
+  accountsStore,
   authStore,
   userStore,
 };

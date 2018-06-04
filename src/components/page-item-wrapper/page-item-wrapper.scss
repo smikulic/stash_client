@@ -1,0 +1,10 @@
+@import "../../styles/config/settings.scss";
+
+.page-item--wrapper {
+  margin: 10px auto;
+  padding: 5px;
+  width: 100%;
+  height: auto;
+  display: inline-block;
+  background-color: $darkPrimaryColor !important;
+}

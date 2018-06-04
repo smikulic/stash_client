@@ -28,7 +28,7 @@ import SavingGoalForm from '../../components/saving-goal-form';
 import FormSubmit from '../../components/form-submit';
 import EmptySavingGoal from '../empty-saving-goal';
 
-require('./saving-goals-index.scss');
+require('./accounts-index.scss');
 
 const customDialogStyle = {
   position: 'absolute',
@@ -38,57 +38,58 @@ const customDialogStyle = {
   transform: 'translate(50%, 64px)',
 };
 
-@inject('savingGoalsStore', 'userStore')
+@inject('accountsStore', 'userStore')
 @withRouter
 @observer
-class SavingGoalsIndex extends Component {
+class AccountsIndex extends Component {
   constructor(props) {
     super(props);
-    this.updateSavingGoal = this.updateSavingGoal.bind(this);
+    this.updateAccount = this.updateAccount.bind(this);
     this.userId = props.userStore.userData.id;
 
     this.state = {
-      savingGoalFormActive: false,
-      selectedSavingGoal: {},
+      accountFormActive: false,
+      selectedAccount: {},
     };
   }
 
   componentWillMount() {
-    this.props.savingGoalsStore.loadSavingGoals(this.userId);
+    this.props.accountsStore.loadAccounts(this.userId);
   }
 
-  closeSavingGoalForm = () => {
-    this.setState({ savingGoalFormActive: false });
+  closeAccountForm = () => {
+    this.setState({ accountFormActive: false });
   };
 
-  handleOnRemoveSavingGoal(savingGoalId) {
-    this.props.savingGoalsStore.removeSavingGoal(this.userId, savingGoalId);
+  handleOnRemoveAccount(accountlId) {
+    this.props.accountsStore.removeAccount(this.userId, accountlId);
   }
 
-  handleOnUpdateSavingGoal(savingGoal) {
+  handleOnUpdateAccount(account) {
     this.setState({
-      savingGoalFormActive: true,
-      selectedSavingGoal: savingGoal,
+      accountFormActive: true,
+      selectedAccount: account,
     });
   }
 
-  updateSavingGoal(e) {
+  updateAccount(e) {
     e.preventDefault();
     const value = sanitizeValue(e.target['value'].value);
-    const savingGoal = {
-      description: e.target['description'].value,
-      deadline: e.target['deadline'].value,
+    const account = {
+      // description: e.target['description'].value,
+      // deadline: e.target['deadline'].value,
       value: value,
     };
-    if (savingGoal.deadline || savingGoal.description || savingGoal.value) {
-      this.props.savingGoalsStore.updateSavingGoal(this.userId, this.state.selectedSavingGoal.id, savingGoal);
+    if (account.value) {
+      //console.log(this.userId, this.state.selectedAccount.id, account);
+      this.props.accountsStore.updateAccount(this.userId, this.state.selectedAccount.id, account);
     }
 
-    this.closeSavingGoalForm();
+    this.closeAccountForm();
   };
 
   render() {
-    const { savingGoals } = this.props.savingGoalsStore;
+    const { accounts } = this.props.accountsStore;
     const currency = this.props.userStore.userSettings ?
     symbolFromCurrency(this.props.userStore.userSettings.main_currency) :
     null;
@@ -96,10 +97,10 @@ class SavingGoalsIndex extends Component {
     return (
       <span>
       <div className="table-toolbar">
-        <div className="table-toolbar--title">Saving Goals</div>
+        <div className="table-toolbar--title">Accounts</div>
         <div
           className="table-toolbar--button"
-          onClick={this.props.handleAddSavingGoal}
+          onClick={this.props.handleAddAccount}
         >
           <i className="fa fa-plus"></i>
         </div>
@@ -117,9 +118,9 @@ class SavingGoalsIndex extends Component {
         </TableHeader>
         <TableBody displayRowCheckbox={false}>
           {
-            savingGoals && (
-              savingGoals.map((item, index) => {
-                const lastItem = savingGoals.length === (index + 1);
+            accounts && (
+              accounts.map((item, index) => {
+                const lastItem = accounts.length === (index + 1);
                 let tableRowClass = 'table-row';
 
                 // reset created time to the start of the day for accurate calculation
@@ -148,7 +149,7 @@ class SavingGoalsIndex extends Component {
                         {item.description}
                         <i
                           className="table-row--edit fa fa-pencil"
-                          onClick={this.handleOnUpdateSavingGoal.bind(this, item)}
+                          onClick={this.handleOnUpdateAccount.bind(this, item)}
                         />
                       </div>
                       <div className="table-row--due"><span className="circle"></span>{due}</div>
@@ -165,36 +166,36 @@ class SavingGoalsIndex extends Component {
                       <div className="table-row--value">{accounting.formatNumber(monthly)} {currency}</div>
                     </TableRowColumn>
                     <TableRowColumn colSpan="1" className="table-row--actions">
-                      <TableActions handleOnRemove={this.handleOnRemoveSavingGoal.bind(this, item.id)} />
+                      <TableActions handleOnRemove={this.handleOnRemoveAccount.bind(this, item.id)} />
                     </TableRowColumn>
                   </TableRow>
                 )
               })
             )
           }
-          { isEmpty(savingGoals) && <EmptySavingGoal currency={currency} /> }
+          { isEmpty(accounts) && <EmptySavingGoal currency={currency} /> }
         </TableBody>
       </Table>
 
-      <Dialog
+      {/* <Dialog
           modal={false}
           bodyClassName="dialog-body"
           contentStyle={customDialogStyle}
-          open={this.state.savingGoalFormActive}
-          onRequestClose={this.closeSavingGoalForm}
+          open={this.state.accountFormActive}
+          onRequestClose={this.closeAccountForm}
         >
-          <form onSubmit={this.updateSavingGoal}>
-            <SavingGoalForm title="Update goal" presetValues={this.state.selectedSavingGoal} />
+          <form onSubmit={this.updateAccount}>
+            <SavingGoalForm title="Update goal" presetValues={this.state.selectedAccount} />
             <div className="row">
               <div className="col-xs-5 col-xs-push-7">
                 <FormSubmit text="Update" />
               </div>
             </div>
           </form>
-        </Dialog>
+        </Dialog> */}
       </span>
     );
   }
 }
 
-export default SavingGoalsIndex;
+export default AccountsIndex;
