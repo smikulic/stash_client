@@ -17,6 +17,7 @@ import {
   TableRowColumn
 } from 'material-ui/Table';
 import Dialog from 'material-ui/Dialog';
+import TableHeaderWrapper from '../table-header-wrapper';
 import ProgressBar from '../progress-bar';
 import TableActions from '../table-actions';
 import SavingGoalForm from '../saving-goal-form';
@@ -103,14 +104,7 @@ class AccountsIndex extends Component {
 
       <Table className="table">
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-          <TableRow className="table-row-header">
-            <TableHeaderColumn colSpan="4">Bank name</TableHeaderColumn>
-            <TableHeaderColumn colSpan="3">Balance</TableHeaderColumn>
-            {/* TODO: Make status with icon and tooltip to describe */}
-            <TableHeaderColumn colSpan="2">Status</TableHeaderColumn>
-            <TableHeaderColumn colSpan="3">Last update</TableHeaderColumn>
-            <TableHeaderColumn colSpan="1"></TableHeaderColumn>
-          </TableRow>
+          <TableHeaderWrapper columns={{'Bank name': 4, 'Balance': 3, 'Status': 2, 'Last update': 3 }} />
         </TableHeader>
         <TableBody displayRowCheckbox={false}>
           {
@@ -139,6 +133,7 @@ class AccountsIndex extends Component {
                       </div>
                     </TableRowColumn>
                     <TableRowColumn colSpan="2">
+                      {/* TODO: Make status with icon and tooltip to describe */}
                       <div className="table-row--value">{item.status}</div>
                     </TableRowColumn>
                     <TableRowColumn colSpan="3">
