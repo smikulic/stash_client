@@ -6,12 +6,7 @@ import moment from 'moment';
 import accounting from 'accounting';
 import { isEmpty } from 'lodash';
 import {
-  sanitizeValue,
-  deadlineInPast,
   normalizeCreatedDate,
-  normalizeDeadlineDate,
-  monthlyValue,
-  savedUntilNowValue,
 } from '../../helpers/utils';
 import {
   Table,
@@ -22,11 +17,11 @@ import {
   TableRowColumn
 } from 'material-ui/Table';
 import Dialog from 'material-ui/Dialog';
-import ProgressBar from '../../components/progress-bar';
-import TableActions from '../../components/table-actions';
-import SavingGoalForm from '../../components/saving-goal-form';
-import FormSubmit from '../../components/form-submit';
-import EmptySavingGoal from '../empty-saving-goal';
+import ProgressBar from '../progress-bar';
+import TableActions from '../table-actions';
+import SavingGoalForm from '../saving-goal-form';
+import FormSubmit from '../form-submit';
+import EmptyAccount from '../empty-account';
 
 require('./accounts-index.scss');
 
@@ -97,7 +92,7 @@ class AccountsIndex extends Component {
     return (
       <span>
       <div className="table-toolbar">
-        <div className="table-toolbar--title">Accounts</div>
+        <div className="table-toolbar--title">Bank Accounts</div>
         <div
           className="table-toolbar--button"
           onClick={this.props.handleAddAccount}
@@ -109,10 +104,11 @@ class AccountsIndex extends Component {
       <Table className="table">
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
           <TableRow className="table-row-header">
-            <TableHeaderColumn colSpan="4">Goal</TableHeaderColumn>
-            <TableHeaderColumn colSpan="4">Goal progress</TableHeaderColumn>
-            <TableHeaderColumn colSpan="2">Total budget</TableHeaderColumn>
-            <TableHeaderColumn colSpan="2">Each month</TableHeaderColumn>
+            <TableHeaderColumn colSpan="4">Bank name</TableHeaderColumn>
+            <TableHeaderColumn colSpan="3">Balance</TableHeaderColumn>
+            {/* TODO: Make status with icon and tooltip to describe */}
+            <TableHeaderColumn colSpan="2">Status</TableHeaderColumn>
+            <TableHeaderColumn colSpan="3">Last update</TableHeaderColumn>
             <TableHeaderColumn colSpan="1"></TableHeaderColumn>
           </TableRow>
         </TableHeader>
@@ -123,47 +119,32 @@ class AccountsIndex extends Component {
                 const lastItem = accounts.length === (index + 1);
                 let tableRowClass = 'table-row';
 
-                // reset created time to the start of the day for accurate calculation
-                let normalizedCreatedAt = normalizeCreatedDate(item.created_at);
-                let normalizedDeadline = normalizeDeadlineDate(item.deadline);
-                // calculate amount to save per month
-                const monthly = monthlyValue(normalizedDeadline, normalizedCreatedAt, item.value);
-                // calculate how much per goal have you saved so far
-                const saved = savedUntilNowValue(normalizedCreatedAt, monthly, item.value);
-                const durationTillEnd = moment(normalizedDeadline).diff(moment(), 'months');
-                let due = moment(normalizedDeadline).subtract(1, 'month').endOf('month').fromNow();
-                
-                if (deadlineInPast(normalizedDeadline)) {
-                  due = `Goal achieved - ${moment(normalizedDeadline).format('DD MMM YY')}`;
-                  tableRowClass += ' achieved';
-                } else {
-                  due = durationTillEnd === 0 ? 'this month' : due;
-                }
-
                 tableRowClass += lastItem ? ' last' : '';
                 
                 return (
                   <TableRow key={item.id} className={tableRowClass}>
                     <TableRowColumn colSpan="4">
                       <div className="table-row--name">
-                        {item.description}
+                        {item.name}
                         <i
                           className="table-row--edit fa fa-pencil"
                           onClick={this.handleOnUpdateAccount.bind(this, item)}
                         />
                       </div>
-                      <div className="table-row--due"><span className="circle"></span>{due}</div>
+                      <div className="table-row--due"><span className="circle"></span>{item.description}</div>
                     </TableRowColumn>
-                    <TableRowColumn colSpan="4">
-                      <div className="table-row--saved">
-                        <ProgressBar savedValue={saved} />
+                    <TableRowColumn colSpan="3">
+                      <div className="table-row--value">
+                      {symbolFromCurrency(item.currency)} {accounting.formatNumber(item.balance)}
                       </div>
                     </TableRowColumn>
                     <TableRowColumn colSpan="2">
-                      <div className="table-row--value">{accounting.formatNumber(item.value)} {currency}</div>
+                      <div className="table-row--value">{item.status}</div>
                     </TableRowColumn>
-                    <TableRowColumn colSpan="2">
-                      <div className="table-row--value">{accounting.formatNumber(monthly)} {currency}</div>
+                    <TableRowColumn colSpan="3">
+                      <div className="table-row--value">
+                        {moment(item.updated_at, 'YYYYMMDD').subtract(1, 'hours').fromNow()}
+                      </div>
                     </TableRowColumn>
                     <TableRowColumn colSpan="1" className="table-row--actions">
                       <TableActions handleOnRemove={this.handleOnRemoveAccount.bind(this, item.id)} />
@@ -173,7 +154,7 @@ class AccountsIndex extends Component {
               })
             )
           }
-          { isEmpty(accounts) && <EmptySavingGoal currency={currency} /> }
+          { isEmpty(accounts) && <EmptyAccount /> }
         </TableBody>
       </Table>
 

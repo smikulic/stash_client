@@ -159,10 +159,10 @@ class SavingGoalsIndex extends Component {
                       </div>
                     </TableRowColumn>
                     <TableRowColumn colSpan="2">
-                      <div className="table-row--value">{accounting.formatNumber(item.value)} {currency}</div>
+                      <div className="table-row--value">{currency} {accounting.formatNumber(item.value)}</div>
                     </TableRowColumn>
                     <TableRowColumn colSpan="2">
-                      <div className="table-row--value">{accounting.formatNumber(monthly)} {currency}</div>
+                      <div className="table-row--value">{currency} {accounting.formatNumber(monthly)}</div>
                     </TableRowColumn>
                     <TableRowColumn colSpan="1" className="table-row--actions">
                       <TableActions handleOnRemove={this.handleOnRemoveSavingGoal.bind(this, item.id)} />

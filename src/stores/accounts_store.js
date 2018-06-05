@@ -7,7 +7,7 @@ export class AccountsStore {
 
   @action loadAccounts(userId) {
     request
-      .get(`${apiPath()}/api/users/${userId}/accounts`)
+      .get(`${apiPath()}/api/users/${userId}/bank_accounts`)
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (err || !res.ok) {
@@ -20,7 +20,7 @@ export class AccountsStore {
 
   @action setAccount(userId, account) {
     request
-      .post(`${apiPath()}/api/users/${userId}/accounts`)
+      .post(`${apiPath()}/api/users/${userId}/bank_accounts`)
       .send(account)
       .set('Accept', 'application/json')
       .end((err, res) => {
@@ -34,7 +34,7 @@ export class AccountsStore {
 
   @action updateAccount(userId, accountId, account) {
     request
-      .put(`${apiPath()}/api/users/${userId}/accounts/${accountId}`)
+      .put(`${apiPath()}/api/users/${userId}/bank_accounts/${accountId}`)
       .send(account)
       .set('Accept', 'application/json')
       .end((err, res) => {
@@ -48,7 +48,7 @@ export class AccountsStore {
 
   @action removeAccount(userId, accountId) {
     request
-      .delete(`${apiPath()}/api/users/${userId}/accounts/${accountId}`)
+      .delete(`${apiPath()}/api/users/${userId}/bank_accounts/${accountId}`)
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (err || !res.ok) {
