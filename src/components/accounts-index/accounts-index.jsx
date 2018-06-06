@@ -12,12 +12,10 @@ import {
   Table,
   TableBody,
   TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn
 } from 'material-ui/Table';
 import Dialog from 'material-ui/Dialog';
 import TableHeaderWrapper from '../table-header-wrapper';
+import TableRowWrapper from '../table-row-wrapper';
 import ProgressBar from '../progress-bar';
 import TableActions from '../table-actions';
 import SavingGoalForm from '../saving-goal-form';
@@ -111,40 +109,39 @@ class AccountsIndex extends Component {
             accounts && (
               accounts.map((item, index) => {
                 const lastItem = accounts.length === (index + 1);
-                let tableRowClass = 'table-row';
-
-                tableRowClass += lastItem ? ' last' : '';
+                const itemId = item.id;
                 
                 return (
-                  <TableRow key={item.id} className={tableRowClass}>
-                    <TableRowColumn colSpan="4">
-                      <div className="table-row--name">
-                        {item.name}
-                        <i
-                          className="table-row--edit fa fa-pencil"
-                          onClick={this.handleOnUpdateAccount.bind(this, item)}
-                        />
-                      </div>
-                      <div className="table-row--due"><span className="circle"></span>{item.description}</div>
-                    </TableRowColumn>
-                    <TableRowColumn colSpan="3">
-                      <div className="table-row--value">
-                      {symbolFromCurrency(item.currency)} {accounting.formatNumber(item.balance)}
-                      </div>
-                    </TableRowColumn>
-                    <TableRowColumn colSpan="2">
-                      {/* TODO: Make status with icon and tooltip to describe */}
-                      <div className="table-row--value">{item.status}</div>
-                    </TableRowColumn>
-                    <TableRowColumn colSpan="3">
-                      <div className="table-row--value">
-                        {moment(item.updated_at, 'YYYYMMDD').subtract(1, 'hours').fromNow()}
-                      </div>
-                    </TableRowColumn>
-                    <TableRowColumn colSpan="1" className="table-row--actions">
-                      <TableActions handleOnRemove={this.handleOnRemoveAccount.bind(this, item.id)} />
-                    </TableRowColumn>
-                  </TableRow>
+                  <TableRowWrapper
+                    key={itemId}
+                    lastItem={lastItem}
+                    columns={[
+                      {
+                        type: 'name',
+                        value: item.name,
+                        size: 4,
+                        onEditClick: this.handleOnUpdateAccount.bind(this, item),
+                        extraInfo: item.description,
+                      },
+                      {
+                        type: 'default',
+                        value: `${symbolFromCurrency(item.currency)} ${accounting.formatNumber(item.balance)}`,
+                        size: 3,
+                      },
+                      {
+                        type: 'default',
+                        /* TODO: Make status with icon and tooltip to describe */
+                        value: item.status,
+                        size: 2,
+                      },
+                      {
+                        type: 'default',
+                        value: moment(item.updated_at, 'YYYYMMDD').subtract(1, 'hours').fromNow(),
+                        size: 3,
+                      },
+                    ]}
+                    onRemoveClick={this.handleOnRemoveAccount.bind(this, itemId)}
+                  />
                 )
               })
             )

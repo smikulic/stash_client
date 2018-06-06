@@ -1,0 +1,68 @@
+@import "../../styles/config/settings.scss";
+
+.table, .table-row {
+  font-family: "Khula", sans-serif;
+  font-weight: 300;
+  background-color: $darkPrimaryColor !important;
+}
+
+.table .table-row {
+  height: 6rem !important;
+}
+
+.table .table-row.last {
+  border-bottom: 1px solid transparent !important;
+}
+
+.table .table-row.inactive {
+  opacity: 0.4;
+}
+
+.table .table-row .table-row--name {
+  color: $grayLight;
+  font-size: 2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table .table-row--edit {
+  opacity: 0;
+  margin-left: 10px;
+  position: relative;
+  top: -1px;
+  font-size: $fontSize-normal;
+  cursor: pointer;
+}
+
+.table .table-row .table-row--name:hover .table-row--edit {
+  opacity: 1;
+}
+
+.table .table-row .table-row--extra-info {
+  position: relative;
+  padding-left: 1.2rem;
+  color: $blue;
+  font-size: 1.2rem;
+}
+
+.table .table-row .table-row--extra-info .circle {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  background: $lightPrimaryColor;
+  border-radius: 5px;
+  position: absolute;
+  left: 0;
+  top: 6px;
+}
+
+.table .table-row .table-row--progress,
+.table .table-row .table-row--default {
+  margin-top: 2rem;
+  color: $blue;
+  font-size: 1.6rem;
+}
+
+.table .table-row .table-row--default {
+  font-size: 1.8rem;
+}

@@ -14,9 +14,9 @@ class TableHeaderWrapper extends Component {
       <TableRow className="table-row-header">
         {
           columns && (
-            Object.keys(columns).map((columnName) => {
+            Object.keys(columns).map((columnName, index) => {
               return (
-                <TableHeaderColumn key={`col_${columnName}`} colSpan={columns[columnName]}>
+                <TableHeaderColumn key={columnName + index} colSpan={columns[columnName]}>
                   {columnName}
                 </TableHeaderColumn>
               );

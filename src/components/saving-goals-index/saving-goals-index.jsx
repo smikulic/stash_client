@@ -17,14 +17,10 @@ import {
   Table,
   TableBody,
   TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
 } from 'material-ui/Table';
 import Dialog from 'material-ui/Dialog';
 import TableHeaderWrapper from '../table-header-wrapper';
-import ProgressBar from '../../components/progress-bar';
-import TableActions from '../../components/table-actions';
+import TableRowWrapper from '../table-row-wrapper';
 import SavingGoalForm from '../../components/saving-goal-form';
 import FormSubmit from '../../components/form-submit';
 import EmptySavingGoal from '../empty-saving-goal';
@@ -115,7 +111,7 @@ class SavingGoalsIndex extends Component {
             savingGoals && (
               savingGoals.map((item, index) => {
                 const lastItem = savingGoals.length === (index + 1);
-                let tableRowClass = 'table-row';
+                const itemId = item.id;
 
                 // reset created time to the start of the day for accurate calculation
                 let normalizedCreatedAt = normalizeCreatedDate(item.created_at);
@@ -129,40 +125,41 @@ class SavingGoalsIndex extends Component {
                 
                 if (deadlineInPast(normalizedDeadline)) {
                   due = `Goal achieved - ${moment(normalizedDeadline).format('DD MMM YY')}`;
-                  tableRowClass += ' achieved';
                 } else {
                   due = durationTillEnd === 0 ? 'this month' : due;
                 }
-
-                tableRowClass += lastItem ? ' last' : '';
                 
                 return (
-                  <TableRow key={item.id} className={tableRowClass}>
-                    <TableRowColumn colSpan="4">
-                      <div className="table-row--name">
-                        {item.description}
-                        <i
-                          className="table-row--edit fa fa-pencil"
-                          onClick={this.handleOnUpdateSavingGoal.bind(this, item)}
-                        />
-                      </div>
-                      <div className="table-row--due"><span className="circle"></span>{due}</div>
-                    </TableRowColumn>
-                    <TableRowColumn colSpan="4">
-                      <div className="table-row--saved">
-                        <ProgressBar savedValue={saved} />
-                      </div>
-                    </TableRowColumn>
-                    <TableRowColumn colSpan="2">
-                      <div className="table-row--value">{currency} {accounting.formatNumber(item.value)}</div>
-                    </TableRowColumn>
-                    <TableRowColumn colSpan="2">
-                      <div className="table-row--value">{currency} {accounting.formatNumber(monthly)}</div>
-                    </TableRowColumn>
-                    <TableRowColumn colSpan="1" className="table-row--actions">
-                      <TableActions handleOnRemove={this.handleOnRemoveSavingGoal.bind(this, item.id)} />
-                    </TableRowColumn>
-                  </TableRow>
+                  <TableRowWrapper
+                    key={itemId}
+                    lastItem={lastItem}
+                    inactive={deadlineInPast(normalizedDeadline)}
+                    columns={[
+                      {
+                        type: 'name',
+                        value: item.description,
+                        size: 4,
+                        onEditClick: this.handleOnUpdateSavingGoal.bind(this, item),
+                        extraInfo: due,
+                      },
+                      {
+                        type: 'progress',
+                        value: saved,
+                        size: 4,
+                      },
+                      {
+                        type: 'default',
+                        value: `${currency} ${accounting.formatNumber(item.value)}`,
+                        size: 2,
+                      },
+                      {
+                        type: 'default',
+                        value: `${currency} ${accounting.formatNumber(monthly)}`,
+                        size: 2,
+                      },
+                    ]}
+                    onRemoveClick={this.handleOnRemoveSavingGoal.bind(this, itemId)}
+                  />
                 )
               })
             )
