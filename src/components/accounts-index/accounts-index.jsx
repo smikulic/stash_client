@@ -5,20 +5,19 @@ import symbolFromCurrency from 'currency-symbol-map';
 import moment from 'moment';
 import accounting from 'accounting';
 import { isEmpty } from 'lodash';
-import {
-  normalizeCreatedDate,
-} from '../../helpers/utils';
+import { normalizeCreatedDate } from '../../helpers/utils';
 import {
   Table,
   TableBody,
   TableHeader,
 } from 'material-ui/Table';
 import Dialog from 'material-ui/Dialog';
+import TableToolbarWrapper from '../table-toolbar-wrapper';
 import TableHeaderWrapper from '../table-header-wrapper';
 import TableRowWrapper from '../table-row-wrapper';
 import ProgressBar from '../progress-bar';
 import TableActions from '../table-actions';
-import SavingGoalForm from '../saving-goal-form';
+import AccountForm from '../account-form';
 import FormSubmit from '../form-submit';
 import EmptyAccount from '../empty-account';
 
@@ -90,16 +89,7 @@ class AccountsIndex extends Component {
 
     return (
       <span>
-      <div className="table-toolbar">
-        <div className="table-toolbar--title">Bank Accounts</div>
-        <div
-          className="table-toolbar--button"
-          onClick={this.props.handleAddAccount}
-        >
-          <i className="fa fa-plus"></i>
-        </div>
-      </div>
-
+      <TableToolbarWrapper title="Bank Accounts" onPlusClick={this.props.handleAddAccount} />
       <Table className="table">
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
           <TableHeaderWrapper columns={{'Bank name': 4, 'Balance': 3, 'Status': 2, 'Last update': 3 }} />
@@ -150,7 +140,7 @@ class AccountsIndex extends Component {
         </TableBody>
       </Table>
 
-      {/* <Dialog
+      <Dialog
           modal={false}
           bodyClassName="dialog-body"
           contentStyle={customDialogStyle}
@@ -158,14 +148,14 @@ class AccountsIndex extends Component {
           onRequestClose={this.closeAccountForm}
         >
           <form onSubmit={this.updateAccount}>
-            <SavingGoalForm title="Update goal" presetValues={this.state.selectedAccount} />
+            <AccountForm title="Update account" presetValues={this.state.selectedAccount} />
             <div className="row">
               <div className="col-xs-5 col-xs-push-7">
                 <FormSubmit text="Update" />
               </div>
             </div>
           </form>
-        </Dialog> */}
+        </Dialog>
       </span>
     );
   }

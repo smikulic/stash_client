@@ -19,6 +19,7 @@ import {
   TableHeader,
 } from 'material-ui/Table';
 import Dialog from 'material-ui/Dialog';
+import TableToolbarWrapper from '../table-toolbar-wrapper';
 import TableHeaderWrapper from '../table-header-wrapper';
 import TableRowWrapper from '../table-row-wrapper';
 import SavingGoalForm from '../../components/saving-goal-form';
@@ -92,16 +93,7 @@ class SavingGoalsIndex extends Component {
 
     return (
       <span>
-      <div className="table-toolbar">
-        <div className="table-toolbar--title">Saving Goals</div>
-        <div
-          className="table-toolbar--button"
-          onClick={this.props.handleAddSavingGoal}
-        >
-          <i className="fa fa-plus"></i>
-        </div>
-      </div>
-
+      <TableToolbarWrapper title="Saving Goals" onPlusClick={this.props.handleAddSavingGoal} />
       <Table className="table">
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
           <TableHeaderWrapper columns={{'Goal': 4, 'Goal progress': 4, 'Total budget': 2, 'Each month': 2 }} />
