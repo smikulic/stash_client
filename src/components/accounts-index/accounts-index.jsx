@@ -124,7 +124,7 @@ class AccountsIndex extends Component {
                       },
                       {
                         type: 'default',
-                        value: moment(item.updated_at, 'YYYYMMDD').subtract(1, 'hours').fromNow(),
+                        value: moment(item.updated_at).fromNow(),
                         size: 3,
                       },
                     ]}
@@ -146,7 +146,7 @@ class AccountsIndex extends Component {
           onRequestClose={this.closeAccountForm}
         >
           <form onSubmit={this.updateAccount}>
-            <AccountForm title="Update account" presetValues={this.state.selectedAccount} />
+            <AccountForm title="Update account" defaultSettings={this.state.selectedAccount} />
             <div className="row">
               <div className="col-xs-5 col-xs-push-7">
                 <FormSubmit text="Update" />

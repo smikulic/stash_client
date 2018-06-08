@@ -9,29 +9,31 @@ import FormField from '../form-field';
 require('./account-form.scss');
 
 class AccountForm extends Component {
-  state = {
-    descriptionValue: '',
-    currencyValue: 'EUR',
-    balanceValue: '',
-    statusValue: 'Primary',
-    nameValue: '',
-  };
+  constructor(props) {
+    super(props);
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      descriptionValue: nextProps.defaultSettings.description,
-      currencyValue: nextProps.defaultSettings.currency,
-      balanceValue: nextProps.defaultSettings.balance,
-      statusValue: nextProps.defaultSettings.status,
-      nameValue: nextProps.defaultSettings.name,
-    });
+    const defaultSettings = props.defaultSettings;
+    const descriptionValue = defaultSettings ? defaultSettings.description : '';
+    const currencyValue = defaultSettings ? defaultSettings.currency : 'EUR';
+    const balanceValue = defaultSettings ? defaultSettings.balance : '';
+    const statusValue = defaultSettings ? defaultSettings.status : 'Primary';
+    const nameValue = defaultSettings ? defaultSettings.name : '';
+
+    this.state = {
+      descriptionValue,
+      currencyValue,
+      balanceValue,
+      statusValue,
+      nameValue,
+    };
   }
 
-  handleChangeDescription = (event, index, descriptionValue) => this.setState({ descriptionValue });
+  handleChangeDescription = (event) => this.setState({ descriptionValue: event.target.value });
+  handleChangeBalance = (event) => this.setState({ balanceValue: event.target.value });
+  handleChangeName = (event) => this.setState({ nameValue: event.target.value });
+
   handleChangeCurrency = (event, index, currencyValue) => this.setState({ currencyValue });
-  handleChangeBalance = (event, index, balanceValue) => this.setState({ balanceValue });
   handleChangeStatus = (event, index, statusValue) => this.setState({ statusValue });
-  handleChangeName = (event, index, nameValue) => this.setState({ nameValue });
 
   render() {
     return (
