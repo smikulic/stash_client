@@ -60,8 +60,6 @@ workflows:
     jobs:
       - build-and-test
       - build-and-deploy-production:
-          requires:
-            - build-and-test
           filters:
             tags:
               only: /^release-.*/
