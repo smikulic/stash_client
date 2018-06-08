@@ -1,15 +1,36 @@
+aliases:
+  - &restore-yarn-cache
+    keys:
+      - v1-yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      # Fallback in case checksum fails
+      - v1-yarn-{{ .Branch }}-
+
+  - &save-yarn-cache
+    paths:
+      - node_modules
+      - ~/.cache/yarn
+    key: v1-yarn-{{ .Branch }}-{{ checksum "yarn.lock" }}
+
+  - &yarn
+    |
+      yarn install --non-interactive --cache-folder ~/.cache/yarn --frozen-lockfile
+
+defaults: &defaults
+  docker:
+    - image: circleci/node:8.1.4
+
 version: 2
 jobs:
   build-and-test:
-    docker:
-      - image: circleci/node:8.1.4
+    <<: *defaults
+    working_directory: ~/stash_client
     steps:
       - checkout
+      - restore-cache: *restore-yarn-cache
+      - run: *yarn
+      - save-cache: *save-yarn-cache
       - run:
-          name: Step - Yarn Install
-          command: yarn install
-      - run:
-          name: Step - Build Production
+          name: Step - Test Build Production
           command: yarn build:production
       - run:
           name: Step - Lint
@@ -17,33 +38,30 @@ jobs:
       - run:
           name: Step - Test
           command: yarn test
-  build-test-and-deploy:
-    docker:
-      - image: circleci/node:8.1.4
+
+  build-and-deploy-production:
+    <<: *defaults
+    working_directory: ~/stash_client
     steps:
+      - checkout
+      - restore-cache: *restore-yarn-cache
+      - run: *yarn
+      - save-cache: *save-yarn-cache
       - run:
           name: Step - Build Production
-          command: echo "Hello, world!"
+          command: yarn build:production
+      - run:
+          name: Step - Deploy (Copy Production Build To Server)
+          command: scp -r dist/* $DO_USER@$DO_IP:/var/www/scroogevault.co/dist/
 
 workflows:
   version: 2
   build-and-test:
     jobs:
       - build-and-test
-  # build-test-and-deploy:
-  #   jobs:
-  #     - build-test-and-deploy
-  #       filters:
-  #         tags:
-  #           only: /^release-.*/
-        
-  # deployment:
-  #   release:
-  #     tag: /release-.*/
-  #     steps:
-  #       - run:
-  #           name: Step - Build Production
-  #           command: yarn build:production
-  #       - run:
-  #           name: Step - Copy Production Build To Server
-  #           command: scp -r dist/* $DO_USER@$DO_IP:/var/www/scroogevault.co/dist/
+  build-and-deploy-production:
+    jobs:
+      - build-and-deploy-production
+        filters:
+          tags:
+            only: /^release-.*/
