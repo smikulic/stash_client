@@ -5,6 +5,7 @@ import { Provider } from 'mobx-react';
 // Stores
 import authStore from './stores/auth_store';
 import savingGoalsStore from './stores/saving_goals_store';
+import accountsStore from './stores/accounts_store';
 import userStore from './stores/user_store';
 // Components
 import Navigation from './components/navigation';
@@ -13,6 +14,7 @@ import WelcomePage from './pages/welcome-page';
 import LoginPage from './pages/login-page';
 import RegisterPage from './pages/register-page';
 import DashboardPage from './pages/dashboard-page';
+import AccountsPage from './pages/accounts-page';
 import SettingsPage from './pages/settings-page';
 // Third party components
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
@@ -28,6 +30,7 @@ injectTapEventPlugin();
 
 const stores = {
   savingGoalsStore,
+  accountsStore,
   authStore,
   userStore,
 };
@@ -90,6 +93,7 @@ render((
       <Route path="signup" component={RegisterPage} />
       <Route path="/" component={App}>
         <Route path="dashboard" component={DashboardPage} onEnter={requireAuth} />
+        <Route path="accounts" component={AccountsPage} onEnter={requireAuth} />
         <Route path="settings" component={SettingsPage} onEnter={requireAuth} />
       </Route>
     </Router>

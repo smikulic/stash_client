@@ -29,10 +29,10 @@ class EmptySavingGoal extends Component {
           </div>
         </TableRowColumn>
         <TableRowColumn colSpan="2">
-          <div className="table-row--value">170,000 {this.currency}</div>
+          <div className="table-row--value">{this.currency} 170,000</div>
         </TableRowColumn>
         <TableRowColumn colSpan="2">
-          <div className="table-row--value">1,700 {this.currency}</div>
+          <div className="table-row--value">{this.currency} 1,700</div>
         </TableRowColumn>
         <TableRowColumn colSpan="1"></TableRowColumn>
       </TableRow>

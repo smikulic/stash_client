@@ -51,19 +51,19 @@ class StatusOverview extends Component {
       <span className="status-overview">
         <h3 className="status-overview--title">{moment().format('MMMM YYYY')}</h3>
         <StatusOverviewBox label="Income per month"
-          value={`${accounting.formatNumber(monthlyFixedIncome)} ${currency}`}
+          value={`${currency} ${accounting.formatNumber(monthlyFixedIncome)}`}
         />
         <StatusOverviewBox label="Expenses per month"
-          value={`${accounting.formatNumber(monthlyFixedExpenses)} ${currency}`}
+          value={`${currency} ${accounting.formatNumber(monthlyFixedExpenses)}`}
         />
         <StatusOverviewBox label="Reserved for goals"
-          value={`${accounting.formatNumber(monthlySavingExpenses)} ${currency}`}
+          value={`${currency} ${accounting.formatNumber(monthlySavingExpenses)}`}
         />
         <StatusOverviewBox label="Available this month"
-          value={`${accounting.formatNumber(freeToSpendThisMonth)} ${currency}`}
+          value={`${currency} ${accounting.formatNumber(freeToSpendThisMonth)}`}
         />
         <StatusOverviewBox label="Total savings"
-          value={`${accounting.formatNumber(totalSavings)} ${currency}`}
+          value={`${currency} ${accounting.formatNumber(totalSavings)}`}
         />
       </span>
     );

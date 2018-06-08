@@ -17,13 +17,11 @@ import {
   Table,
   TableBody,
   TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn
 } from 'material-ui/Table';
 import Dialog from 'material-ui/Dialog';
-import ProgressBar from '../../components/progress-bar';
-import TableActions from '../../components/table-actions';
+import TableToolbarWrapper from '../table-toolbar-wrapper';
+import TableHeaderWrapper from '../table-header-wrapper';
+import TableRowWrapper from '../table-row-wrapper';
 import SavingGoalForm from '../../components/saving-goal-form';
 import FormSubmit from '../../components/form-submit';
 import EmptySavingGoal from '../empty-saving-goal';
@@ -81,7 +79,6 @@ class SavingGoalsIndex extends Component {
       value: value,
     };
     if (savingGoal.deadline || savingGoal.description || savingGoal.value) {
-      console.log(this.userId, this.state.selectedSavingGoal.id, savingGoal);
       this.props.savingGoalsStore.updateSavingGoal(this.userId, this.state.selectedSavingGoal.id, savingGoal);
     }
 
@@ -96,32 +93,17 @@ class SavingGoalsIndex extends Component {
 
     return (
       <span>
-      <div className="table-toolbar">
-        <div className="table-toolbar--title">Saving Goals</div>
-        <div
-          className="table-toolbar--button"
-          onClick={this.props.handleAddSavingGoal}
-        >
-          <i className="fa fa-plus"></i>
-        </div>
-      </div>
-
+      <TableToolbarWrapper title="Saving Goals" onPlusClick={this.props.handleAddSavingGoal} />
       <Table className="table">
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-          <TableRow className="table-row-header">
-            <TableHeaderColumn colSpan="4">Goal</TableHeaderColumn>
-            <TableHeaderColumn colSpan="4">Goal progress</TableHeaderColumn>
-            <TableHeaderColumn colSpan="2">Total budget</TableHeaderColumn>
-            <TableHeaderColumn colSpan="2">Each month</TableHeaderColumn>
-            <TableHeaderColumn colSpan="1"></TableHeaderColumn>
-          </TableRow>
+          <TableHeaderWrapper columns={{'Goal': 4, 'Goal progress': 4, 'Total budget': 2, 'Each month': 2 }} />
         </TableHeader>
         <TableBody displayRowCheckbox={false}>
           {
             savingGoals && (
               savingGoals.map((item, index) => {
                 const lastItem = savingGoals.length === (index + 1);
-                let tableRowClass = 'table-row';
+                const itemId = item.id;
 
                 // reset created time to the start of the day for accurate calculation
                 let normalizedCreatedAt = normalizeCreatedDate(item.created_at);
@@ -135,40 +117,41 @@ class SavingGoalsIndex extends Component {
                 
                 if (deadlineInPast(normalizedDeadline)) {
                   due = `Goal achieved - ${moment(normalizedDeadline).format('DD MMM YY')}`;
-                  tableRowClass += ' achieved';
                 } else {
                   due = durationTillEnd === 0 ? 'this month' : due;
                 }
-
-                tableRowClass += lastItem ? ' last' : '';
                 
                 return (
-                  <TableRow key={item.id} className={tableRowClass}>
-                    <TableRowColumn colSpan="4">
-                      <div className="table-row--name">
-                        {item.description}
-                        <i
-                          className="table-row--edit fa fa-pencil"
-                          onClick={this.handleOnUpdateSavingGoal.bind(this, item)}
-                        />
-                      </div>
-                      <div className="table-row--due"><span className="circle"></span>{due}</div>
-                    </TableRowColumn>
-                    <TableRowColumn colSpan="4">
-                      <div className="table-row--saved">
-                        <ProgressBar savedValue={saved} />
-                      </div>
-                    </TableRowColumn>
-                    <TableRowColumn colSpan="2">
-                      <div className="table-row--value">{accounting.formatNumber(item.value)} {currency}</div>
-                    </TableRowColumn>
-                    <TableRowColumn colSpan="2">
-                      <div className="table-row--value">{accounting.formatNumber(monthly)} {currency}</div>
-                    </TableRowColumn>
-                    <TableRowColumn colSpan="1" className="table-row--actions">
-                      <TableActions handleOnRemove={this.handleOnRemoveSavingGoal.bind(this, item.id)} />
-                    </TableRowColumn>
-                  </TableRow>
+                  <TableRowWrapper
+                    key={itemId}
+                    lastItem={lastItem}
+                    inactive={deadlineInPast(normalizedDeadline)}
+                    columns={[
+                      {
+                        type: 'name',
+                        value: item.description,
+                        size: 4,
+                        onEditClick: this.handleOnUpdateSavingGoal.bind(this, item),
+                        extraInfo: due,
+                      },
+                      {
+                        type: 'progress',
+                        value: saved,
+                        size: 4,
+                      },
+                      {
+                        type: 'default',
+                        value: `${currency} ${accounting.formatNumber(item.value)}`,
+                        size: 2,
+                      },
+                      {
+                        type: 'default',
+                        value: `${currency} ${accounting.formatNumber(monthly)}`,
+                        size: 2,
+                      },
+                    ]}
+                    onRemoveClick={this.handleOnRemoveSavingGoal.bind(this, itemId)}
+                  />
                 )
               })
             )

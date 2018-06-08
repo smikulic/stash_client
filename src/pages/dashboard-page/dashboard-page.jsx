@@ -3,8 +3,8 @@ import moment from 'moment';
 import symbolFromCurrency from 'currency-symbol-map';
 import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router';
-import Paper from 'material-ui/Paper';
 import Dialog from 'material-ui/Dialog';
+import PageItemWrapper from '../../components/page-item-wrapper';
 import SavingGoalsIndex from '../../components/saving-goals-index';
 import SavingGoalForm from '../../components/saving-goal-form';
 import StatusOverview from '../../components/status-overview';
@@ -71,23 +71,17 @@ class DashboardPage extends Component {
   render() {
     return (
       <div className="container-fluid">
-        <div className="row">
-          <div className="col-xs-12">
-            <Paper className="dashboard-item" zDepth={1}>
-              <StatusOverview userData={this.props.userStore.userSettings} />
-            </Paper>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-xs-12">
-            <Paper className="dashboard-item" zDepth={1}>
-              <SavingGoalsIndex
-                userData={this.props.userStore.userSettings}
-                handleAddSavingGoal={this.openSavingGoalForm}
-              />
-            </Paper>
-          </div>
-        </div>
+        <PageItemWrapper>
+          <StatusOverview
+            userData={this.props.userStore.userSettings}
+          />
+        </PageItemWrapper>
+        <PageItemWrapper>
+          <SavingGoalsIndex
+            userData={this.props.userStore.userSettings}
+            handleAddSavingGoal={this.openSavingGoalForm}
+          />
+        </PageItemWrapper>
 
         <Dialog
           modal={false}

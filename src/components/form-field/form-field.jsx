@@ -10,6 +10,7 @@ class FormField extends Component {
       floatingLabelText: this.props.label,
       value: this.props.value,
       onChange: this.props.onChangeEvent,
+      floatingLabelFixed: true,
     };
   }
 
