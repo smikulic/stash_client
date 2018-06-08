@@ -54,26 +54,12 @@ jobs:
           name: Step - Deploy (Copy Production Build To Server)
           command: scp -r dist/* $DO_USER@$DO_IP:/var/www/scroogevault.co/dist/
 
-# workflows:
-#   version: 2
-#   build-and-test:
-#     jobs:
-#       - build-and-test
-#   build-and-deploy-production:
-#     jobs:
-#       - build-and-deploy-production
-#         filters:
-#           branches:
-#             ignore: /.*/
-#           tags:
-#             only: /^release-.*/
-
 workflows:
   version: 2
-  build-and-test:
+  build-test-and-deploy:
     jobs:
       - build-and-test
-      - deploy:
+      - build-and-deploy-production:
           requires:
             - build-and-test
           filters:
