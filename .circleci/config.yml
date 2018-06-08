@@ -1,6 +1,8 @@
-machine:
-  node:
-    version: 8.1.4
+version: 2
+jobs:
+  build:
+    node:
+      version: 8.1.4
 deployment:
   release:
     tag: /release-.*/
