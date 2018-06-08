@@ -7,21 +7,22 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Step - Build
-          command: |
-            yarn install
-            yarn build:production
+          name: Step - Yarn Install
+          command: yarn install
+      - run:
+          name: Step - Build Production
+          command: yarn build:production
       - run:
           name: Step - Lint
           command: yarn lint
       - run:
           name: Step - Test
           command: yarn test
-  # deploy:
-  #   steps:
-  #     - run:
-  #         name: Step - Lint
-  #         command: yarn lint
+  build-test-and-deploy:
+    steps:
+      - run:
+          name: Step - Build Production
+          command: echo "Hello, world!"
 
 workflows:
   version: 2
@@ -30,10 +31,10 @@ workflows:
       - build-and-test
   build-test-and-deploy:
     jobs:
-      - build-and-test
-      # - deploy:
-      #     requires:
-      #       - build-and-test
+      - build-test-and-deploy
+        filters:
+          tags:
+            only: /^release-.*/
         
   # deployment:
   #   release:
