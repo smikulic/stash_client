@@ -1,7 +1,6 @@
 version: 2
 jobs:
   build-and-test:
-    working_directory: ~/stash_client
     docker:
       - image: circleci/node:8.1.4
     steps:
@@ -19,6 +18,8 @@ jobs:
           name: Step - Test
           command: yarn test
   build-test-and-deploy:
+    docker:
+      - image: circleci/node:8.1.4
     steps:
       - run:
           name: Step - Build Production
