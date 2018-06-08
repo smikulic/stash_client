@@ -6,8 +6,16 @@ jobs:
       - image: circleci/node:8.1.4
     steps:
       - checkout
-      - run: yarn install
-      - run: yarn build:development
+      - run:
+          name: build
+          command: |
+            yarn install
+            yarn build:production
+      - run:
+          name: lint & test
+          command: |
+            yarn lint
+            yarn test
         
   # deployment:
   #   release:
