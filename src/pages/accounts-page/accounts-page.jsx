@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import symbolFromCurrency from 'currency-symbol-map';
 import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router';
+import { sanitizeValue } from '../../helpers/utils';
+import Dialog from 'material-ui/Dialog';
 import PageItemWrapper from '../../components/page-item-wrapper';
 import AccountsIndex from '../../components/accounts-index';
+import AccountForm from '../../components/account-form';
+import FormSubmit from '../../components/form-submit';
 
 require('./accounts-page.scss');
 
@@ -42,14 +46,18 @@ class AccountsPage extends Component {
 
   submitAccountForm (e) {
     e.preventDefault();
-    const value = sanitizeValue(e.target['value'].value);
+    const balance = sanitizeValue(e.target['balance'].value);
     const account = {
-      // description: e.target['description'].value,
-      // deadline: e.target['deadline'].value,
-      value: value,
+      description: e.target['description'].value,
+      currency: e.target['currency'].value,
+      status: e.target['status'].value,
+      name: e.target['name'].value,
+      balance: balance,
     };
+    if (account.balance && account.name && account.currency && account.status) {
+      this.props.accountsStore.setAccount(this.userId, account);
+    }
 
-    this.props.accountsStore.setAccount(this.userId, account);
     this.closeAccountForm();
   };
 
@@ -63,7 +71,7 @@ class AccountsPage extends Component {
           />
         </PageItemWrapper>
 
-        {/* <Dialog
+        <Dialog
           modal={false}
           bodyClassName="dialog-body"
           contentStyle={customDialogStyle}
@@ -71,14 +79,14 @@ class AccountsPage extends Component {
           onRequestClose={this.closeAccountForm}
         >
           <form onSubmit={this.submitAccountForm}>
-            <SavingGoalForm title="Create new goal" />
+            <AccountForm title="Add bank account" />
             <div className="row">
               <div className="col-xs-5 col-xs-push-7">
-                <FormSubmit text="Create" />
+                <FormSubmit text="Add" />
               </div>
             </div>
           </form>
-        </Dialog> */}
+        </Dialog>
       </div>
     )
   }

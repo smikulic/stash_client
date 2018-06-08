@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// import TextField from 'material-ui/TextField';
-// import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import FormTitle from '../form-title';
 import FormField from '../form-field';

@@ -1,52 +1,84 @@
 import React, { Component } from 'react';
-import { inject, observer } from 'mobx-react';
-import { withRouter } from 'react-router';
-import symbolFromCurrency from 'currency-symbol-map';
 import accounting from 'accounting';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
+import MenuItem from 'material-ui/MenuItem';
 import FormTitle from '../form-title';
+import FormField from '../form-field';
 
 require('./account-form.scss');
 
-@inject('userStore')
-@withRouter
-@observer
 class AccountForm extends Component {
-  constructor(props) {
-    super(props);
-    
-    this.userSettings = props.userStore.userSettings;
+  state = {
+    descriptionValue: '',
+    currencyValue: 'EUR',
+    balanceValue: '',
+    statusValue: 'Primary',
+    nameValue: '',
+  };
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      descriptionValue: nextProps.defaultSettings.description,
+      currencyValue: nextProps.defaultSettings.currency,
+      balanceValue: nextProps.defaultSettings.balance,
+      statusValue: nextProps.defaultSettings.status,
+      nameValue: nextProps.defaultSettings.name,
+    });
   }
+
+  handleChangeDescription = (event, index, descriptionValue) => this.setState({ descriptionValue });
+  handleChangeCurrency = (event, index, currencyValue) => this.setState({ currencyValue });
+  handleChangeBalance = (event, index, balanceValue) => this.setState({ balanceValue });
+  handleChangeStatus = (event, index, statusValue) => this.setState({ statusValue });
+  handleChangeName = (event, index, nameValue) => this.setState({ nameValue });
 
   render() {
     return (
       <div>
         <div className="col-xs-12">
           <FormTitle title={this.props.title} />
-          <div className="row">
-            <div className="col-xs-8 col-xs-push-2">
-              <TextField
-                fullWidth={true}
-                hintText={this.state.presetValues.name || 'Wells Fargo'}
-                floatingLabelText="Bank name"
-                floatingLabelFixed={true}
-                name="name"
-              />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-xs-5 col-xs-push-2">
-              <TextField
-                fullWidth={true}
-                hintText={accounting.formatNumber(this.state.presetValues.balance || '12,000')}
-                floatingLabelText="Account balance"
-                floatingLabelFixed={true}
-                name="balance"
-              />
-              <span className="currency">{symbolFromCurrency(this.userSettings.main_currency)}</span>
-            </div>
-          </div>
+          <FormField
+            label="Bank Name"
+            targetName="name"
+            value={this.state.nameValue}
+            onChangeEvent={this.handleChangeName}
+          />
+          <FormField
+            label="Description"
+            targetName="description"
+            value={this.state.descriptionValue}
+            onChangeEvent={this.handleChangeDescription}
+          />
+          <FormField
+            label="Balance"
+            targetName="balance"
+            value={this.state.balanceValue}
+            onChangeEvent={this.handleChangeBalance}
+          />
+          <FormField
+            label="Currency"
+            targetName="currency"
+            value={this.state.currencyValue}
+            onChangeEvent={this.handleChangeCurrency}
+            selectField
+          >
+            <MenuItem value="EUR" primaryText="(€) EUR" />
+            <MenuItem value="USD" primaryText="($) USD" />
+            <MenuItem value="GBP" primaryText="(£) GBP" />
+            <MenuItem value="CAD" primaryText="($) CAD" />
+            <MenuItem value="JPY" primaryText="(¥) JPY" />
+          </FormField>
+          <FormField
+            label="Status"
+            targetName="status"
+            value={this.state.statusValue}
+            onChangeEvent={this.handleChangeStatus}
+            selectField
+          >
+            <MenuItem value="Primary" primaryText="Primary" />
+            <MenuItem value="Secondary" primaryText="Secondary" />
+          </FormField>
         </div>
       </div>
     );

@@ -5,7 +5,7 @@ import symbolFromCurrency from 'currency-symbol-map';
 import moment from 'moment';
 import accounting from 'accounting';
 import { isEmpty } from 'lodash';
-import { normalizeCreatedDate } from '../../helpers/utils';
+import { sanitizeValue, normalizeCreatedDate } from '../../helpers/utils';
 import {
   Table,
   TableBody,
@@ -67,14 +67,15 @@ class AccountsIndex extends Component {
 
   updateAccount(e) {
     e.preventDefault();
-    const value = sanitizeValue(e.target['value'].value);
+    const balance = sanitizeValue(e.target['balance'].value);
     const account = {
-      // description: e.target['description'].value,
-      // deadline: e.target['deadline'].value,
-      value: value,
+      description: e.target['description'].value,
+      currency: e.target['currency'].value,
+      status: e.target['status'].value,
+      name: e.target['name'].value,
+      balance: balance,
     };
-    if (account.value) {
-      //console.log(this.userId, this.state.selectedAccount.id, account);
+    if (account.balance && account.name && account.currency && account.status) {
       this.props.accountsStore.updateAccount(this.userId, this.state.selectedAccount.id, account);
     }
 
@@ -83,9 +84,6 @@ class AccountsIndex extends Component {
 
   render() {
     const { accounts } = this.props.accountsStore;
-    const currency = this.props.userStore.userSettings ?
-    symbolFromCurrency(this.props.userStore.userSettings.main_currency) :
-    null;
 
     return (
       <span>
