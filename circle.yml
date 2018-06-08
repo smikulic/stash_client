@@ -1,9 +1,0 @@
-machine:
-  node:
-    version: 8.1.4
-deployment:
-  release:
-    tag: /release-.*/
-    commands:
-      - yarn build:production
-      - scp -r dist/* $DO_USER@$DO_IP:/var/www/scroogevault.co/dist/
