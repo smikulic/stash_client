@@ -59,9 +59,9 @@ workflows:
   build-and-test:
     jobs:
       - build-and-test
-  build-and-deploy-production:
-    jobs:
-      - build-and-deploy-production
-        filters:
-          tags:
-            only: /^release-.*/
+  # build-and-deploy-production:
+  #   jobs:
+  #     - build-and-deploy-production
+  #       filters:
+  #         tags:
+  #           only: /^release-.*/
