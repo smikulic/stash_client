@@ -38,6 +38,7 @@ jobs:
       - run:
           name: Step - Test
           command: yarn test
+
   build-and-deploy-production:
     <<: *defaults
     working_directory: ~/stash_client
@@ -55,9 +56,9 @@ jobs:
 
 workflows:
   version: 2
-  build-and-test:
-    jobs:
-      - build-and-test
+  # build-and-test:
+  #   jobs:
+  #     - build-and-test
   build-and-deploy-production:
     jobs:
       - build-and-deploy-production
