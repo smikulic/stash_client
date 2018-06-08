@@ -2,10 +2,15 @@ version: 2
 jobs:
   build:
     node:
+      machine: true
       version: 8.1.4
-deployment:
-  release:
-    tag: /release-.*/
-    commands:
-      - yarn build:production
-      - scp -r dist/* $DO_USER@$DO_IP:/var/www/scroogevault.co/dist/
+  deployment:
+    release:
+      tag: /release-.*/
+      steps:
+        - run:
+            name: Build production
+            command: yarn build:production
+        - run:
+            name: Copy production build to server
+            command: scp -r dist/* $DO_USER@$DO_IP:/var/www/scroogevault.co/dist/
