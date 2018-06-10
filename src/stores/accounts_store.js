@@ -1,41 +1,41 @@
 import request from 'superagent';
 import { apiPath } from '../config/config';
 import { observable, action } from 'mobx';
-import { getIndex, postCreate, putUpdate, deleteEntity } from '../helpers/api';
+import { handleRequest } from '../helpers/api';
 
 export class AccountsStore {
   @observable accounts = [];
 
   @action loadAccounts(userId) {
-    getIndex({
+    handleRequest({
+      method: 'GET',
       endpointPath: `users/${userId}/bank_accounts`,
-      onError: (error) => console.warn(`error: ${error}`),
       onSuccess: (responseBody) => this.accounts = responseBody,
     });
   }
 
   @action setAccount(userId, account) {
-    postCreate({
+    handleRequest({
+      method: 'POST',
       endpointPath: `users/${userId}/bank_accounts`,
       data: account,
-      onError: (error) => console.warn(`error: ${error}`),
       onSuccess: (responseBody) => this.loadAccounts(userId),
     });
   }
 
   @action updateAccount(userId, accountId, account) {
-    putUpdate({
+    handleRequest({
+      method: 'PUT',
       endpointPath: `users/${userId}/bank_accounts/${accountId}`,
       data: account,
-      onError: (error) => console.warn(`error: ${error}`),
       onSuccess: (responseBody) => this.loadAccounts(userId),
     });
   }
 
   @action removeAccount(userId, accountId) {
-    deleteEntity({
+    handleRequest({
+      method: 'DELETE',
       endpointPath: `users/${userId}/bank_accounts/${accountId}`,
-      onError: (error) => console.warn(`error: ${error}`),
       onSuccess: (responseBody) => this.loadAccounts(userId),
     });
   }
