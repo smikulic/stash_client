@@ -51,9 +51,9 @@ jobs:
           name: Step - Build Production
           command: yarn build:production
       - run:
-        name: Fix host authenticity for $DO_IP
-        command: |
-          ssh-keyscan $DO_IP >> ~/.ssh/known_hosts
+          name: Fix host authenticity for $DO_IP
+          command: |
+            ssh-keyscan $DO_IP >> ~/.ssh/known_hosts
       - run:
           name: Step - Deploy (Copy Production Build To Server)
           command: scp -r dist/* $DO_USER@$DO_IP:/var/www/scroogevault.co/dist/
