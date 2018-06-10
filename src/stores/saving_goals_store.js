@@ -1,5 +1,3 @@
-import request from 'superagent';
-import { apiPath } from '../config/config';
 import { observable, action } from 'mobx';
 import { handleRequest } from '../helpers/api';
 
