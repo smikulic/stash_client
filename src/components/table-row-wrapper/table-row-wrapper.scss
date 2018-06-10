@@ -66,3 +66,10 @@
 .table .table-row .table-row--default {
   font-size: 1.8rem;
 }
+
+.table .table-row .table-row--actions {
+  overflow: initial !important;
+  float: right !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
