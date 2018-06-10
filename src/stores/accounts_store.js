@@ -1,62 +1,41 @@
-import request from 'superagent';
-import { apiPath } from '../config/config';
 import { observable, action } from 'mobx';
+import { handleRequest } from '../helpers/api';
 
 export class AccountsStore {
   @observable accounts = [];
 
   @action loadAccounts(userId) {
-    request
-      .get(`${apiPath()}/api/users/${userId}/bank_accounts`)
-      .set('Accept', 'application/json')
-      .end((err, res) => {
-        if (err || !res.ok) {
-          console.warn('error!');
-        } else {
-          this.accounts = res.body;
-        }
-      });
+    handleRequest({
+      method: 'GET',
+      endpointPath: `users/${userId}/bank_accounts`,
+      onSuccess: (responseBody) => this.accounts = responseBody,
+    });
   }
 
   @action setAccount(userId, account) {
-    request
-      .post(`${apiPath()}/api/users/${userId}/bank_accounts`)
-      .send(account)
-      .set('Accept', 'application/json')
-      .end((err, res) => {
-        if (err || !res.ok) {
-          console.warn('error!');
-        } else {
-          this.loadAccounts(userId);
-        }
-      });
+    handleRequest({
+      method: 'POST',
+      endpointPath: `users/${userId}/bank_accounts`,
+      data: account,
+      onSuccess: (responseBody) => this.loadAccounts(userId),
+    });
   }
 
   @action updateAccount(userId, accountId, account) {
-    request
-      .put(`${apiPath()}/api/users/${userId}/bank_accounts/${accountId}`)
-      .send(account)
-      .set('Accept', 'application/json')
-      .end((err, res) => {
-        if (err || !res.ok) {
-          console.warn('error!');
-        } else {
-          this.loadAccounts(userId);
-        }
-      });
+    handleRequest({
+      method: 'PUT',
+      endpointPath: `users/${userId}/bank_accounts/${accountId}`,
+      data: account,
+      onSuccess: (responseBody) => this.loadAccounts(userId),
+    });
   }
 
   @action removeAccount(userId, accountId) {
-    request
-      .delete(`${apiPath()}/api/users/${userId}/bank_accounts/${accountId}`)
-      .set('Accept', 'application/json')
-      .end((err, res) => {
-        if (err || !res.ok) {
-          console.warn('error!');
-        } else {
-          this.loadAccounts(userId);
-        }
-      });
+    handleRequest({
+      method: 'DELETE',
+      endpointPath: `users/${userId}/bank_accounts/${accountId}`,
+      onSuccess: (responseBody) => this.loadAccounts(userId),
+    });
   }
 }
 

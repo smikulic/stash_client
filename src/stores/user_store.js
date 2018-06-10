@@ -1,7 +1,6 @@
-import request from 'superagent';
-import { browserHistory } from 'react-router';
-import { apiPath } from '../config/config';
 import { observable, action } from 'mobx';
+import { browserHistory } from 'react-router';
+import { handleRequest } from '../helpers/api';
 
 export class UserStore {
   @observable userData = JSON.parse(localStorage.SVuserData);
@@ -9,46 +8,39 @@ export class UserStore {
   @observable userSettingsLoading = true;
 
   @action loadUserSettings(userId) {
-    request
-      .get(`${apiPath()}/api/users/${userId}/settings/userSettings`)
-      .set('Accept', 'application/json')
-      .end((err, res) => {
-        if (err || !res.ok) {
-          console.warn('error!');
-        } else {
-          this.userSettings = res.body[0];
-        }
+    handleRequest({
+      method: 'GET',
+      endpointPath: `users/${userId}/settings/userSettings`,
+      onError: (error) => {
+        console.warn(error);
         this.userSettingsLoading = false;
-      });
+      },
+      onSuccess: (responseBody) => {
+        this.userSettings = responseBody[0];
+        this.userSettingsLoading = false;
+      },
+    });
   }
 
   @action setUserSettings(userId, userSettings) {
-    request
-      .post(`${apiPath()}/api/users/${userId}/settings`)
-      .send(userSettings)
-      .set('Accept', 'application/json')
-      .end((err, res) => {
-        if (err || !res.ok) {
-          console.warn('error!');
-        } else {
-          this.userSettings = res.body;
-        }
-      });
+    handleRequest({
+      method: 'POST',
+      endpointPath: `users/${userId}/settings`,
+      data: userSettings,
+      onSuccess: (responseBody) => this.userSettings = responseBody,
+    });
   }
 
   @action updateUserSettings(userId, settingsId, userSettings) {
-    request
-      .patch(`${apiPath()}/api/users/${userId}/settings/${settingsId}`)
-      .send(userSettings)
-      .set('Accept', 'application/json')
-      .end((err, res) => {
-        if (err || !res.ok) {
-          console.warn('error!');
-        } else {
-          this.userSettings = res.body;
-          browserHistory.push('/dashboard');
-        }
-      });
+    handleRequest({
+      method: 'PUT',
+      endpointPath: `users/${userId}/settings/${settingsId}`,
+      data: userSettings,
+      onSuccess: (responseBody) => {
+        this.userSettings = responseBody;
+        browserHistory.push('/dashboard');
+      },
+    });
   }
 }
 
