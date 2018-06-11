@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
+import DatePicker from 'material-ui/DatePicker';
 require('./form-field.scss');
 
 class FormField extends Component {
   fieldProps() {
     return {
-      fullWidth: true,
       floatingLabelText: this.props.label,
-      value: this.props.value,
       onChange: this.props.onChangeEvent,
       floatingLabelFixed: true,
+      value: this.props.value,
+      fullWidth: true,
     };
   }
 
@@ -33,9 +34,11 @@ class FormField extends Component {
               <input name={targetName} type="hidden" value={value} />
             </span>
           )}
-           { !selectField && (
-             <TextField {...this.fieldProps()} name={targetName} />
-           )}
+          { !selectField && (
+            <span>
+              <TextField name={targetName} {...this.fieldProps()} />{children}
+            </span>
+          )}
         </div>
       </div>
     );

@@ -11,25 +11,12 @@ import {
   TableBody,
   TableHeader,
 } from 'material-ui/Table';
-import Dialog from 'material-ui/Dialog';
 import TableToolbarWrapper from '../table-toolbar-wrapper';
 import TableHeaderWrapper from '../table-header-wrapper';
 import TableRowWrapper from '../table-row-wrapper';
-import ProgressBar from '../progress-bar';
-import TableActions from '../table-actions';
+import DialogWrapper from '../dialog-wrapper';
 import AccountForm from '../account-form';
-import FormSubmit from '../form-submit';
 import EmptyAccount from '../empty-account';
-
-require('./accounts-index.scss');
-
-const customDialogStyle = {
-  position: 'absolute',
-  top: '5%',
-  width: '50%',
-  maxWidth: 'none',
-  transform: 'translate(50%, 64px)',
-};
 
 @inject('accountsStore', 'userStore')
 @withRouter
@@ -67,13 +54,12 @@ class AccountsIndex extends Component {
 
   updateAccount(e) {
     e.preventDefault();
-    const balance = sanitizeValue(e.target['balance'].value);
     const account = {
       description: e.target['description'].value,
       currency: e.target['currency'].value,
       status: e.target['status'].value,
       name: e.target['name'].value,
-      balance: balance,
+      balance: sanitizeValue(e.target['balance'].value),
     };
     if (account.balance && account.name && account.currency && account.status) {
       this.props.accountsStore.updateAccount(this.userId, this.state.selectedAccount.id, account);
@@ -96,13 +82,11 @@ class AccountsIndex extends Component {
           {
             accounts && (
               accounts.map((item, index) => {
-                const lastItem = accounts.length === (index + 1);
-                const itemId = item.id;
                 
                 return (
                   <TableRowWrapper
-                    key={itemId}
-                    lastItem={lastItem}
+                    key={item.id}
+                    lastItem={accounts.length === (index + 1)}
                     columns={[
                       {
                         type: 'name',
@@ -128,7 +112,7 @@ class AccountsIndex extends Component {
                         size: 3,
                       },
                     ]}
-                    onRemoveClick={this.handleOnRemoveAccount.bind(this, itemId)}
+                    onRemoveClick={this.handleOnRemoveAccount.bind(this, item.id)}
                   />
                 )
               })
@@ -137,23 +121,14 @@ class AccountsIndex extends Component {
           { isEmpty(accounts) && <EmptyAccount /> }
         </TableBody>
       </Table>
-
-      <Dialog
-          modal={false}
-          bodyClassName="dialog-body"
-          contentStyle={customDialogStyle}
-          open={this.state.accountFormActive}
-          onRequestClose={this.closeAccountForm}
-        >
-          <form onSubmit={this.updateAccount}>
-            <AccountForm title="Update account" defaultSettings={this.state.selectedAccount} />
-            <div className="row">
-              <div className="col-xs-5 col-xs-push-7">
-                <FormSubmit text="Update" />
-              </div>
-            </div>
-          </form>
-        </Dialog>
+      <DialogWrapper
+        open={this.state.accountFormActive}
+        onRequestClose={this.closeAccountForm}
+        onSubmit={this.updateAccount}
+        submitText="Update"
+      >
+        <AccountForm title="Update account" defaultSettings={this.state.selectedAccount} />
+      </DialogWrapper>
       </span>
     );
   }

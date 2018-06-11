@@ -1,23 +1,12 @@
 import React, { Component } from 'react';
-import symbolFromCurrency from 'currency-symbol-map';
-import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router';
+import { inject, observer } from 'mobx-react';
+import symbolFromCurrency from 'currency-symbol-map';
 import { sanitizeValue } from '../../helpers/utils';
-import Dialog from 'material-ui/Dialog';
 import PageItemWrapper from '../../components/page-item-wrapper';
+import DialogWrapper from '../../components/dialog-wrapper';
 import AccountsIndex from '../../components/accounts-index';
 import AccountForm from '../../components/account-form';
-import FormSubmit from '../../components/form-submit';
-
-require('./accounts-page.scss');
-
-const customDialogStyle = {
-  position: 'absolute',
-  top: '5%',
-  width: '50%',
-  maxWidth: 'none',
-  transform: 'translate(50%, 64px)',
-};
 
 @inject('accountsStore', 'userStore')
 @withRouter
@@ -46,13 +35,12 @@ class AccountsPage extends Component {
 
   submitAccountForm (e) {
     e.preventDefault();
-    const balance = sanitizeValue(e.target['balance'].value);
     const account = {
       description: e.target['description'].value,
       currency: e.target['currency'].value,
       status: e.target['status'].value,
       name: e.target['name'].value,
-      balance: balance,
+      balance: sanitizeValue(e.target['balance'].value),
     };
     if (account.balance && account.name && account.currency && account.status) {
       this.props.accountsStore.setAccount(this.userId, account);
@@ -70,23 +58,14 @@ class AccountsPage extends Component {
             handleAddAccount={this.openAccountForm}
           />
         </PageItemWrapper>
-
-        <Dialog
-          modal={false}
-          bodyClassName="dialog-body"
-          contentStyle={customDialogStyle}
+        <DialogWrapper
           open={this.state.accountFormActive}
           onRequestClose={this.closeAccountForm}
+          onSubmit={this.submitAccountForm}
+          submitText="Add"
         >
-          <form onSubmit={this.submitAccountForm}>
-            <AccountForm title="Add bank account" />
-            <div className="row">
-              <div className="col-xs-5 col-xs-push-7">
-                <FormSubmit text="Add" />
-              </div>
-            </div>
-          </form>
-        </Dialog>
+          <AccountForm title="Add bank account" />
+        </DialogWrapper>
       </div>
     )
   }
