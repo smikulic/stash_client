@@ -36,8 +36,7 @@ class FormField extends Component {
           )}
           { !selectField && (
             <span>
-              <TextField name={targetName} {...this.fieldProps()} />
-              {children}
+              <TextField name={targetName} {...this.fieldProps()} />{children}
             </span>
           )}
         </div>
