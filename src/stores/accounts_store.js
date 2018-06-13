@@ -13,6 +13,7 @@ export class AccountsStore {
   }
 
   @action setAccount(userId, account) {
+    amplitude.getInstance().logEvent('CREATE ACCOUNT');
     handleRequest({
       method: 'POST',
       endpointPath: `users/${userId}/bank_accounts`,
@@ -22,6 +23,7 @@ export class AccountsStore {
   }
 
   @action updateAccount(userId, accountId, account) {
+    amplitude.getInstance().logEvent('UPDATE ACCOUNT');
     handleRequest({
       method: 'PUT',
       endpointPath: `users/${userId}/bank_accounts/${accountId}`,
@@ -31,6 +33,7 @@ export class AccountsStore {
   }
 
   @action removeAccount(userId, accountId) {
+    amplitude.getInstance().logEvent('REMOVE ACCOUNT');
     handleRequest({
       method: 'DELETE',
       endpointPath: `users/${userId}/bank_accounts/${accountId}`,
