@@ -3,7 +3,7 @@ import { apiPath, clientPath } from '../config/config';
 
 module.exports = {
   login(email, pass, cb) {
-    amplitude.getInstance().logEvent('LOGIN');
+    // amplitude.getInstance().logEvent('LOGIN');
     cb = arguments[arguments.length - 1];
     if (localStorage.token && localStorage.SVuserData) {
       if (cb) cb(true)
@@ -29,7 +29,7 @@ module.exports = {
   },
 
   register(email, pass, cb) {
-    amplitude.getInstance().logEvent('REGISTER');
+    // amplitude.getInstance().logEvent('REGISTER');
     cb = arguments[arguments.length - 1];
     if (localStorage.token) {
       if (cb) cb(true)

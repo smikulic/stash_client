@@ -32,7 +32,7 @@ export class UserStore {
   }
 
   @action updateUserSettings(userId, settingsId, userSettings) {
-    amplitude.getInstance().logEvent('CHANGE SETTINGS');
+    // amplitude.getInstance().logEvent('CHANGE SETTINGS');
     handleRequest({
       method: 'PUT',
       endpointPath: `users/${userId}/settings/${settingsId}`,
