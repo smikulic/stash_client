@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router';
+import amplitude from 'amplitude-js/amplitude';
 import UserSettingsForm from '../../components/user-settings-form';
 import Paper from 'material-ui/Paper';
 import FormSubmit from '../../components/form-submit';
 import { transformUserSettingsFormData } from '../../helpers/utils';
-
 require('./settings-page.scss');
 
 @inject('userStore')
@@ -14,6 +14,7 @@ require('./settings-page.scss');
 class SettingsPage extends Component {
   constructor(props) {
     super(props);
+    amplitude.getInstance().logEvent('Page load: Settings Page');
     this.updateSettings = this.updateSettings.bind(this);
     this.userId = props.userStore.userData.id;
   }

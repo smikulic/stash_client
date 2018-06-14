@@ -1,4 +1,5 @@
 import { observable, action } from 'mobx';
+import amplitude from 'amplitude-js/amplitude';
 import { handleRequest } from '../helpers/api';
 
 export class AccountsStore {
@@ -13,7 +14,7 @@ export class AccountsStore {
   }
 
   @action setAccount(userId, account) {
-    // amplitude.getInstance().logEvent('CREATE ACCOUNT');
+    amplitude.getInstance().logEvent('CREATED Account');
     handleRequest({
       method: 'POST',
       endpointPath: `users/${userId}/bank_accounts`,
@@ -23,7 +24,7 @@ export class AccountsStore {
   }
 
   @action updateAccount(userId, accountId, account) {
-    // amplitude.getInstance().logEvent('UPDATE ACCOUNT');
+    amplitude.getInstance().logEvent('UPDATED Account');
     handleRequest({
       method: 'PUT',
       endpointPath: `users/${userId}/bank_accounts/${accountId}`,
@@ -33,7 +34,7 @@ export class AccountsStore {
   }
 
   @action removeAccount(userId, accountId) {
-    // amplitude.getInstance().logEvent('REMOVE ACCOUNT');
+    amplitude.getInstance().logEvent('REMOVED Account');
     handleRequest({
       method: 'DELETE',
       endpointPath: `users/${userId}/bank_accounts/${accountId}`,

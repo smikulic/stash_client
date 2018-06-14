@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { inject, observer } from 'mobx-react';
-import symbolFromCurrency from 'currency-symbol-map';
+import amplitude from 'amplitude-js/amplitude';
 import { isEmpty } from 'lodash';
 import { sanitizeValue, transformUserSettingsFormData } from '../../helpers/utils';
 import PageItemWrapper from '../../components/page-item-wrapper';
@@ -17,6 +17,8 @@ import UserSettingsForm from '../../components/user-settings-form';
 class DashboardPage extends Component {
   constructor(props) {
     super(props);
+    amplitude.getInstance().logEvent('Page load: Overview Index');
+
     this.openSavingGoalForm = this.openSavingGoalForm.bind(this);
     this.submitSettingsForm = this.submitSettingsForm.bind(this);
     this.submitSavingGoalForm = this.submitSavingGoalForm.bind(this);
