@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "accounting": "^0.4.1",
+    "amplitude-js": "^4.2.1",
     "currency-symbol-map": "^4.0.0",
     "material-ui": "^0.18.1",
     "mobx": "^2.6.4",

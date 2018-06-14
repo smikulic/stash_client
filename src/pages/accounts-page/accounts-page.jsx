@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { inject, observer } from 'mobx-react';
-import symbolFromCurrency from 'currency-symbol-map';
+import amplitude from 'amplitude-js/amplitude';
 import { sanitizeValue } from '../../helpers/utils';
 import PageItemWrapper from '../../components/page-item-wrapper';
 import DialogWrapper from '../../components/dialog-wrapper';
@@ -14,6 +14,8 @@ import AccountForm from '../../components/account-form';
 class AccountsPage extends Component {
   constructor(props) {
     super(props);
+    amplitude.getInstance().logEvent('Page load: Account Index');
+
     this.openAccountForm = this.openAccountForm.bind(this);
     this.submitAccountForm = this.submitAccountForm.bind(this);
     this.userId = props.userStore.userData.id;

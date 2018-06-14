@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Router, Route, browserHistory } from 'react-router';
 import { Provider } from 'mobx-react';
+import amplitude from 'amplitude-js/amplitude';
 // Stores
 import authStore from './stores/auth_store';
 import savingGoalsStore from './stores/saving_goals_store';
@@ -27,6 +28,13 @@ require('./styles/main.scss');
 // http://stackoverflow.com/a/34015469/988941
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
+
+// Amplitude Analytics
+amplitude.getInstance().init('51522749830c034bbd73e8a7de67160d', null, {
+  // optional configuration options
+  saveEvents: true,
+  includeReferrer: true,
+});
 
 const stores = {
   savingGoalsStore,

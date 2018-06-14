@@ -1,9 +1,9 @@
 import request from 'superagent';
+import amplitude from 'amplitude-js/amplitude';
 import { apiPath, clientPath } from '../config/config';
 
 module.exports = {
   login(email, pass, cb) {
-    // amplitude.getInstance().logEvent('LOGIN');
     cb = arguments[arguments.length - 1];
     if (localStorage.token && localStorage.SVuserData) {
       if (cb) cb(true)
@@ -29,7 +29,6 @@ module.exports = {
   },
 
   register(email, pass, cb) {
-    // amplitude.getInstance().logEvent('REGISTER');
     cb = arguments[arguments.length - 1];
     if (localStorage.token) {
       if (cb) cb(true)
@@ -57,6 +56,7 @@ module.exports = {
   },
 
   logout(cb) {
+    amplitude.getInstance().setUserId(null);
     delete localStorage.token;
     delete localStorage.SVuserData;
     if (cb) cb()
@@ -71,6 +71,9 @@ module.exports = {
 }
 
 function apiLoginRequest(email, pass, cb) {
+  amplitude.getInstance().logEvent(`User ${email} Login`);
+  amplitude.getInstance().setUserId(email);
+  
   request
     .post(apiPath() + '/auth/sign_in')
     .send({ email: email, password: pass })
@@ -90,6 +93,7 @@ function apiLoginRequest(email, pass, cb) {
 }
 
 function apiRegisterRequest(email, pass, cb) {
+  amplitude.getInstance().logEvent(`User ${email} Register`);
   request
     .post(apiPath() + '/auth')
     .send({ email: email, password: pass, password_confirmation: pass,

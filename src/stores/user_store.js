@@ -1,5 +1,6 @@
 import { observable, action } from 'mobx';
 import { browserHistory } from 'react-router';
+import amplitude from 'amplitude-js/amplitude';
 import { handleRequest } from '../helpers/api';
 
 export class UserStore {
@@ -23,6 +24,7 @@ export class UserStore {
   }
 
   @action setUserSettings(userId, userSettings) {
+    amplitude.getInstance().logEvent('CREATED User Settings');
     handleRequest({
       method: 'POST',
       endpointPath: `users/${userId}/settings`,
@@ -32,7 +34,7 @@ export class UserStore {
   }
 
   @action updateUserSettings(userId, settingsId, userSettings) {
-    // amplitude.getInstance().logEvent('CHANGE SETTINGS');
+    amplitude.getInstance().logEvent('UPDATED User Settings');
     handleRequest({
       method: 'PUT',
       endpointPath: `users/${userId}/settings/${settingsId}`,

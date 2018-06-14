@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import amplitude from 'amplitude-js/amplitude';
 import FeatureBox from '../../components/feature-box';
 
 class WelcomePage extends Component {
   render() {
+    amplitude.getInstance().logEvent('Page load: Welcome Page');
+
     return (
       <div>
         <div className="section-main">

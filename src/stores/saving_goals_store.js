@@ -1,4 +1,5 @@
 import { observable, action } from 'mobx';
+import amplitude from 'amplitude-js/amplitude';
 import { handleRequest } from '../helpers/api';
 
 export class SavingGoalsStore {
@@ -13,7 +14,7 @@ export class SavingGoalsStore {
   }
 
   @action setSavingGoal(userId, savingGoal) {
-    // amplitude.getInstance().logEvent('CREATE GOAL');
+    amplitude.getInstance().logEvent('CREATED Saving Goal');
     handleRequest({
       method: 'POST',
       endpointPath: `users/${userId}/saving_goals`, 
@@ -23,7 +24,7 @@ export class SavingGoalsStore {
   }
 
   @action updateSavingGoal(userId, savingGoalId, savingGoal) {
-    // amplitude.getInstance().logEvent('UPDATE GOAL');
+    amplitude.getInstance().logEvent('UPDATED Saving Goal');
     handleRequest({
       method: 'PUT',
       endpointPath: `users/${userId}/saving_goals/${savingGoalId}`,
@@ -33,7 +34,7 @@ export class SavingGoalsStore {
   }
 
   @action removeSavingGoal(userId, savingGoalId) {
-    // amplitude.getInstance().logEvent('REMOVE GOAL');
+    amplitude.getInstance().logEvent('REMOVED Saving Goal');
     handleRequest({
       method: 'DELETE',
       endpointPath: `users/${userId}/saving_goals/${savingGoalId}`,
