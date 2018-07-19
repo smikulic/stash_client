@@ -47,6 +47,20 @@ module.exports = {
     })
   },
 
+  resetPassword(email, redirectUrl) {
+    apiResetPasswordRequest(email, redirectUrl);
+  },
+
+  newPassword(pass, passConfirmation, headers, cb) {
+    cb = arguments[arguments.length - 1];
+    if (localStorage.token) {
+      if (cb) cb(true)
+      this.onChange(true)
+      return
+    }
+    apiNewPasswordRequest(pass, passConfirmation, headers);
+  },
+
   getToken() {
     return JSON.parse(localStorage.getItem('SVuserData')).token;
   },
@@ -109,4 +123,35 @@ function apiRegisterRequest(email, pass, cb) {
         });
      }
    });
+  }
+
+function apiResetPasswordRequest(email, redirectUrl) {
+  amplitude.getInstance().logEvent(`User ${email} Reset Password`);
+  request
+    .post(apiPath() + '/auth/password')
+    .send({ email: email, redirect_url: `${clientPath()}/${redirectUrl}` })
+    .set('Accept', 'application/json')
+    .end(function(err, res){
+      if (err || !res.ok) {
+        console.warn(err);
+      }
+    });
+  }
+
+function apiNewPasswordRequest(pass, passConfirmation, headers) {
+  const updatedHeaders = {
+    'Accept': 'application/json',
+    ...headers,
+  }
+  request
+    .put(apiPath() + '/auth/password')
+    .send({ password: pass, password_confirmation: passConfirmation, ...headers })
+    .set(updatedHeaders)
+    .end(function(err, res){
+      if (err || !res.ok) {
+        console.warn(err);
+      } else {
+        window.location = `${clientPath()}/login`;
+      }
+    });
   }

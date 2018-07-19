@@ -88,6 +88,11 @@ const LoginPage = withRouter(
                 link="/signup"
                 linkMessage="Sign up"
               />
+              <FormSignInQuestion
+                question="Forgot your password?"
+                link="/reset_password"
+                linkMessage="Reset password"
+              />
             </div>
           </div>
         </div>
