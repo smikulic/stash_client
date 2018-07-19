@@ -1,8 +1,8 @@
 @import "../../styles/config/settings.scss";
 
 .form-sign-in-question {
-  position: absolute;
-  bottom: 3rem;
+  position: relative;
+  margin-bottom: 5px;
   font-size: $fontSize-small;
   color: $grayLight;
 }
