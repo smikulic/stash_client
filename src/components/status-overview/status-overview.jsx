@@ -11,7 +11,6 @@ import {
 import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router';
 import StatusOverviewBox from '../status-overview-box';
-
 require('./status-overview.scss');
 
 @inject('savingGoalsStore', 'userStore')
@@ -62,9 +61,9 @@ class StatusOverview extends Component {
         <StatusOverviewBox label="Available this month"
           value={`${currency} ${accounting.formatNumber(freeToSpendThisMonth)}`}
         />
-        <StatusOverviewBox label="Total savings"
+        {/* <StatusOverviewBox label="Total savings"
           value={`${currency} ${accounting.formatNumber(totalSavings)}`}
-        />
+        /> */}
       </span>
     );
   }
