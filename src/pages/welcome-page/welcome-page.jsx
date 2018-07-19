@@ -3,6 +3,9 @@ import { Link } from 'react-router';
 import Carousel from 'nuka-carousel';
 import amplitude from 'amplitude-js/amplitude';
 import FeatureBox from '../../components/feature-box';
+import ProductDemoImgOne from './scroogevault_demo_1.png';
+import ProductDemoImgTwo from './scroogevault_demo_2.png';
+import ProductDemoImgThree from './scroogevault_demo_3.png';
 
 class WelcomePage extends Component {
   render() {
@@ -35,9 +38,9 @@ class WelcomePage extends Component {
           />
           <FeatureBox>
             <Carousel {...sliderSettings}>
-              <img src="../../assets/scroogevault_demo_1.png" alt="Scroogevault Demo"/>
-              <img src="../../assets/scroogevault_demo_2.png" alt="Scroogevault Demo"/>
-              <img src="../../assets/scroogevault_demo_3.png" alt="Scroogevault Demo"/>
+              <img src={ProductDemoImgOne} alt="Scroogevault Demo"/>
+              <img src={ProductDemoImgTwo} alt="Scroogevault Demo"/>
+              <img src={ProductDemoImgThree} alt="Scroogevault Demo"/>
             </Carousel>
           </FeatureBox>
           <FeatureBox>
