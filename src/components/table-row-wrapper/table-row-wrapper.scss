@@ -3,11 +3,9 @@
 .table, .table-row {
   font-family: "Khula", sans-serif;
   font-weight: 300;
+  height: 7rem !important;
+  border-bottom: 1px solid transparent !important;
   background-color: $darkPrimaryColor !important;
-}
-
-.table .table-row {
-  height: 6rem !important;
 }
 
 .table .table-row.last {
@@ -72,4 +70,5 @@
   float: right !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
+  padding-top: 5px;
 }

@@ -8,6 +8,11 @@ body {
 }
 
 .app-wrapper {
-  background: $background;
+  //background: $background;
   min-height: 100vh;
+  background: #6ee7d1;
+  background: -moz-linear-gradient(left, #6ee7d1 0%, #54ace9 90%);
+  background: -webkit-linear-gradient(left, #6ee7d1 0%,#54ace9 90%);
+  background: linear-gradient(to right, #6ee7d1 0%,#54ace9 90%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6ee7d1', endColorstr='#54ace9',GradientType=1 );
 }

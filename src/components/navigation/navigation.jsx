@@ -17,9 +17,9 @@ class Navigation extends Component {
         <Link to="/dashboard">
           <li className="navigation-element navigation--item">Overview</li>
         </Link>
-        <Link to="/accounts">
+        {/* <Link to="/accounts">
           <li className="navigation-element navigation--item">Accounts</li>
-        </Link>
+        </Link> */}
         <li className="navigation-element navigation--dropdown">
           <IconMenu
             iconButtonElement={ <IconButton><MoreVertIcon className="navigation--user-dropdown-icon" /></IconButton> }

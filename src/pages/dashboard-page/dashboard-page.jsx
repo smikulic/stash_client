@@ -9,9 +9,11 @@ import DialogWrapper from '../../components/dialog-wrapper';
 import SavingGoalsIndex from '../../components/saving-goals-index';
 import SavingGoalForm from '../../components/saving-goal-form';
 import StatusOverview from '../../components/status-overview';
+import AccountsIndex from '../../components/accounts-index';
+import AccountForm from '../../components/account-form';
 import UserSettingsForm from '../../components/user-settings-form';
 
-@inject('savingGoalsStore', 'userStore')
+@inject('savingGoalsStore', 'accountsStore', 'userStore')
 @withRouter
 @observer
 class DashboardPage extends Component {
@@ -24,7 +26,13 @@ class DashboardPage extends Component {
     this.submitSavingGoalForm = this.submitSavingGoalForm.bind(this);
     this.userId = props.userStore.userData.id;
 
-    this.state = { savingGoalFormActive: false };
+    this.openAccountForm = this.openAccountForm.bind(this);
+    this.submitAccountForm = this.submitAccountForm.bind(this);
+
+    this.state = {
+      savingGoalFormActive: false,
+      accountFormActive: false,
+    };
   }
 
   componentWillMount() {
@@ -57,20 +65,56 @@ class DashboardPage extends Component {
     this.closeSavingGoalForm();
   };
 
+  openAccountForm = () => {
+    this.setState({ accountFormActive: true });
+  };
+
+  closeAccountForm = () => {
+    this.setState({ accountFormActive: false });
+  };
+
+  submitAccountForm (e) {
+    e.preventDefault();
+    const account = {
+      description: e.target['description'].value,
+      currency: e.target['currency'].value,
+      status: e.target['status'].value,
+      name: e.target['name'].value,
+      balance: sanitizeValue(e.target['balance'].value),
+    };
+    if (account.balance && account.name && account.currency && account.status) {
+      this.props.accountsStore.setAccount(this.userId, account);
+    }
+
+    this.closeAccountForm();
+  };
+
   render() {
     return (
       <div className="container-fluid">
-        <PageItemWrapper>
-          <StatusOverview
-            userData={this.props.userStore.userSettings}
-          />
-        </PageItemWrapper>
-        <PageItemWrapper>
-          <SavingGoalsIndex
-            userData={this.props.userStore.userSettings}
-            handleAddSavingGoal={this.openSavingGoalForm}
-          />
-        </PageItemWrapper>
+        <div className="col-xs-4">
+          <PageItemWrapper>
+            <StatusOverview
+              userData={this.props.userStore.userSettings}
+            />
+          </PageItemWrapper>
+        </div>
+        <div className="col-xs-8">
+          <PageItemWrapper>
+            <AccountsIndex
+              userData={this.props.userStore.userSettings}
+              handleAddAccount={this.openAccountForm}
+            />
+          </PageItemWrapper>
+        </div>
+        <div className="col-xs-12">
+          <PageItemWrapper>
+            <SavingGoalsIndex
+              userData={this.props.userStore.userSettings}
+              handleAddSavingGoal={this.openSavingGoalForm}
+            />
+          </PageItemWrapper>
+        </div>
         <DialogWrapper
           open={this.state.savingGoalFormActive}
           onRequestClose={this.closeSavingGoalForm}
@@ -86,6 +130,14 @@ class DashboardPage extends Component {
           submitText="Start Saving"
         >
           <UserSettingsForm title="Welcome! Let's get started!" />
+        </DialogWrapper>
+        <DialogWrapper
+          open={this.state.accountFormActive}
+          onRequestClose={this.closeAccountForm}
+          onSubmit={this.submitAccountForm}
+          submitText="Add"
+        >
+          <AccountForm title="Add bank account" />
         </DialogWrapper>
       </div>
     )

@@ -5,7 +5,6 @@ import {
 } from 'material-ui/Table';
 import TableActions from '../table-actions';
 import ProgressBar from '../progress-bar';
-
 require('./table-row-wrapper.scss');
 
 class TableRowWrapper extends Component {
