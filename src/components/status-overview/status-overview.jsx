@@ -41,14 +41,14 @@ class StatusOverview extends Component {
     const { userData } = this.props;
     let currency = userData ? symbolFromCurrency(userData.main_currency) : '';
     let monthlyFixedIncome = userData ? userData.average_monthly_incomes : 0;
-    let totalSavings = userData ? userData.total_savings : 0;
+    //let totalSavings = userData ? userData.total_savings : 0;
     let monthlyFixedExpenses = userData ? userData.average_monthly_expenses : 0;
     let monthlySavingExpenses = this._getMonthlySavingExpenses();
     let freeToSpendThisMonth = monthlyFixedIncome - monthlyFixedExpenses - monthlySavingExpenses;
 
     return (
       <span className="status-overview">
-        <h3 className="status-overview--title">{moment().format('MMMM YYYY')}</h3>
+        <h3 className="status-overview--title">Overview</h3>
         <StatusOverviewBox label="Income per month"
           value={`${currency} ${accounting.formatNumber(monthlyFixedIncome)}`}
         />

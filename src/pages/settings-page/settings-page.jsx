@@ -37,9 +37,9 @@ class SettingsPage extends Component {
     return (
       <div className="container-fluid">
         <div className="row">
-          <div className="col-xs-12">
+          <div className="col-xs-push-1 col-xs-10">
             <Paper className="settings-page" zDepth={1}>
-              <h3 className="settings-page--title">User Settings</h3>
+              <h3 className="col-xs-push-2 col-xs-8 settings-page--title">User Settings</h3>
               <form onSubmit={this.updateSettings}>
                 <UserSettingsForm defaultSettings={this.props.userStore.userSettings} />
                 <FormSubmit text="Save" />

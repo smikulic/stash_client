@@ -10,6 +10,15 @@
   width: 25px;
   padding-right: 2px;
   height: 10px;
+
+  @media screen and (max-width: 992px) {
+    width: 18px;
+    padding-right: 2px;
+  }
+  @media screen and (max-width: 767px) {
+    width: 12px;
+    padding-right: 1px;
+  }
 }
 
 .progress .progress-bar--filled-cell .cell,

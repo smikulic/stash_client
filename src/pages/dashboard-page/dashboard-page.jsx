@@ -92,14 +92,14 @@ class DashboardPage extends Component {
   render() {
     return (
       <div className="container-fluid">
-        <div className="col-xs-4">
+        <div className="col-xs-12 col-sm-4 col-md-3">
           <PageItemWrapper>
             <StatusOverview
               userData={this.props.userStore.userSettings}
             />
           </PageItemWrapper>
         </div>
-        <div className="col-xs-8">
+        <div className="col-xs-12 col-sm-8 col-md-9">
           <PageItemWrapper>
             <AccountsIndex
               userData={this.props.userStore.userSettings}

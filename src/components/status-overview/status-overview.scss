@@ -6,8 +6,13 @@
 }
 
 .status-overview .status-overview--title {
+  margin-top: 7px;
   padding-left: 3rem;
-  color: $grayLight;
+  font-family: 'Roboto', sans-serif;
+  font-size: $fontSize-large;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: $purple;
 }
 
 .status-overview .status-overview--label {
