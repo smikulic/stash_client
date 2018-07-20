@@ -3,9 +3,9 @@ import { Link } from 'react-router';
 import Carousel from 'nuka-carousel';
 import amplitude from 'amplitude-js/amplitude';
 import FeatureBox from '../../components/feature-box';
-import ProductDemoImgOne from './scroogevault_demo_1.png';
-import ProductDemoImgTwo from './scroogevault_demo_2.png';
-import ProductDemoImgThree from './scroogevault_demo_3.png';
+import ProductDemoImgOne from './scroogevault_demo_11.png';
+import ProductDemoImgTwo from './scroogevault_demo_22.png';
+import ProductDemoImgThree from './scroogevault_demo_33.png';
 
 class WelcomePage extends Component {
   render() {
