@@ -1,4 +1,5 @@
 // Font size
+$fontSize-gigantic:             3.2rem;
 $fontSize-extraLarge:           2.4rem;
 $fontSize-veryLarge:            2.2rem;
 $fontSize-large:                2rem;
@@ -18,13 +19,15 @@ $lightAccentColor:              rgba($accentColor, 0.5);
 $primaryTextColor:              #212121;
 $secondaryTextColor:            #727272;
 $dividerColor:                  #B6B6B6;
-$navigationBackgroundColor:     #323A45;
+$navigationBackgroundColor:     #FFFFFF;
 
 $background:                    #919DAF;
 $blackLight:                    #5B666F;
 $grayLight:                     #818C9D;
 $blue:                          #16A2E0;
 $blueLight:                     #74c4e9;
+$purple:                        #6048fa;
+$purpleLight:                   #c5bcf9;
 
 // Z-index
 $zIndex-overlay:                400;

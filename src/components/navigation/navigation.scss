@@ -1,3 +1,5 @@
+@import "../../styles/config/settings.scss";
+
 div[role=menu] {
   padding: 0 !important;
 }
@@ -8,4 +10,5 @@ div[role=menu] {
   min-height: 38px !important;
   height: 40px !important;
   line-height: 39px !important;
+  color: $grayLight !important;
 }

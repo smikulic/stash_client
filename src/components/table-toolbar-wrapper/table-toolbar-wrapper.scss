@@ -3,7 +3,11 @@
 .table-toolbar {
   padding: 10px 25px;
   height: 40px;
-  background-color: $blueLight;
+  border-radius: 5px;
+  // background: #7f39ef;
+  // background: -moz-linear-gradient(left, #7f39ef 0%, $purple 100%);
+  // background: -webkit-linear-gradient(left, #7f39ef 0%,$purple 100%);
+  // background: linear-gradient(to right, #7f39ef 0%,$purple 100%);
 }
 
 .table-toolbar .table-toolbar--title,
@@ -12,24 +16,27 @@
 }
 
 .table-toolbar .table-toolbar--title {
-  color: $textPrimaryColor;
-  font-size: $fontSize-normal;
+  color: $purple;
+  font-size: $fontSize-large;
+  font-weight: 600;
+  margin-top: -3px;
+  letter-spacing: 2px;
 }
 
 .table-toolbar .table-toolbar--button {
   float: right;
-  padding: 6px 24px;
-  margin: -10px -25px 0 0;
-  font-size: $fontSize-large;
-  color: $textPrimaryColor;
-  background-color: $blue;
+  padding: 4px 24px;
+  margin: -13px -25px 0 0;
+  font-size: $fontSize-extraLarge;
+  color: $purple;
+  border-radius: 15px;
   transition: all 350ms ease-in-out;
   cursor: pointer;
 }
 
 .table-toolbar .table-toolbar--button:hover {
-  color: $blue;
-  background-color: $blueLight;
+  color: $purple;
+  background-color: $purpleLight;
 }
 
 .table-toolbar .table-toolbar--button:active {

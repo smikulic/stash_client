@@ -25,6 +25,7 @@ class DialogWrapper extends Component {
       <Dialog
         modal={false}
         bodyClassName="dialog-body"
+        className="dialog-body-wrapper"
         contentStyle={customDialogStyle}
         open={open}
         onRequestClose={onRequestClose}

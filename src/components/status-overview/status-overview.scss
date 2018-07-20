@@ -6,16 +6,21 @@
 }
 
 .status-overview .status-overview--title {
-  padding-left: 20px;
-  color: $grayLight;
+  margin-top: 7px;
+  padding-left: 3rem;
+  font-family: 'Roboto', sans-serif;
+  font-size: $fontSize-large;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: $purple;
 }
 
 .status-overview .status-overview--label {
-  font-size: $fontSize-medium;
+  font-size: $fontSize-normal;
   color: $grayLight;
 }
 
 .status-overview .status-overview--value {
-  font-size: $fontSize-extraLarge;
+  font-size: $fontSize-gigantic;
   color: $blue;
 }
