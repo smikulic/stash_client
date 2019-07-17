@@ -1,75 +1,111 @@
 @import "../../styles/config/settings.scss";
 
-.section-main {
-  position: relative;
-  height: 100vh;
-  width: 100%;
-  text-align: center;
-  background-image: url('../../assets/welcome.jpg');
-  background-position: top center;
-  background-size: cover;
-  .content {
-    position: relative;
-    padding-top: 20px;
-    margin: 0 auto;
-    width: 100%;
-    height: 100%;
-    font-family: 'Noto Sans', sans-serif;
+.oval-wrapper {
+  display: inline-block;
+  position: absolute;
+  top: -12rem;
+  left: 0;
+  width: 180%;
+  padding-bottom: 100%;
+  vertical-align: middle;
+  overflow: hidden;
+
+  @media (max-width: 1199px) {
+    top: 0;
   }
-  .title span,
-  .subtitle span {
-    padding: 15px;
-    color: $darkPrimaryColor;
-    background: rgba($primaryColor, 0.5);    
+
+  @media screen and (max-width: 991px) {
+    left: -14rem;
+    width: 220%;
+  }
+  @media screen and (max-width: 767px) {
+    top: -2rem;
+    left: -22rem;
+    width: 250%;
+  }
+  @media screen and (max-width: 575px) {
+    width: 300%;
+    left: -36rem;
+  }
+}
+.oval-wrapper svg {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.button {
+  display: inline-block;
+  margin: 0 auto;
+  width: 12rem;
+  height: 4.4rem;
+  line-height: 4.2rem;
+  text-align: center;
+  font-size: 1.6rem;
+  color: $darkPrimaryColor;
+  background: $primaryColor;
+  border-radius: 25px;
+  border: 2px solid $primaryColor;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+.button:hover, .button:active, .button:focus {
+  color: $primaryColor;
+  background: white;
+  text-decoration: none;
+}
+.btn-get-started {
+  width: 18rem;
+  height: 5rem;
+  line-height: 4.8rem;
+}
+.btn-start {
+  position: relative;
+  top: 0.5rem;
+  right: 0.5rem;
+  margin-bottom: 4rem;
+}
+
+.section-main {
+  padding: 0 4rem;
+  margin-bottom: 4rem;
+  text-align: right;
+  .content {
+    text-align: center;
+  }
+  .content .btn-get-started {
+    margin-bottom: 4rem;
   }
   h1.title {
-    margin-top: 17%;
-    margin-left: 3%;
-    line-height: 90px;
+    margin: 0 0 4rem 0;
+    line-height: 58px;
+    font-size: 60px;
     text-align: left;
-    font-size: 90px;
-    
   }
-  h2.subtitle {
-    margin-top: -40px;
-    margin-left: 36%;
-    line-height: 40px;
-    text-align: left;
-    font-style: italic;
-    font-size: 40px;
+  h1.title span:nth-child(3) {
+    color: $primaryColor;
   }
 
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 991px) {
     h1.title {
-      font-size: 74px;
-    }
-    h2.subtitle {
-      font-size: 32px;
+      font-size: 54px;
+      text-align: center;
     }
   }
-
   @media screen and (max-width: 767px) {
+    .btn-start {
+      display: none;
+    }
     h1.title {
-      font-size: 60px;
-    }
-    h2.subtitle {
-      font-size: 22px;
-    }
-  }
-
-  @media screen and (max-width: 479px) {
-    h1.title {
-      font-size: 38px;
-    }
-    h2.subtitle {
-      font-size: 16px;
+      font-size: 40px;
     }
   }
 }
 
 .features {
   margin: 0 auto;
-  padding: 20px 0 80px;
+  padding: 2.5rem 0 10rem;
   width: 100%;
   max-width: 1280px;
   overflow: hidden;
@@ -82,55 +118,9 @@
 
 @media screen and (max-height: 800px) {
   .features {
-    padding: 0 0 50px;
+    padding: 0 0 5rem;
   }
 }
-
-.btn-start,
-.btn-get-started {
-  display: block;
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
-}
-
-.btn-start {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 100px;
-  height: 34px;
-  line-height: 30px;
-  border: 2px solid $primaryColor;
-  color: $primaryColor;
-  border-radius: $bRadius-default;
-}
-.btn-start:hover, .btn-start:active, .btn-start:focus {
-  color: white;
-  border-color: white;
-  text-decoration: none;
-}
-
-.btn-get-started {
-  position: relative;
-  margin: 0 auto;
-  width: 120px;
-  height: 44px;
-  line-height: 43px;
-  text-align: center;
-  color: $darkPrimaryColor;
-  background: $primaryColor;
-  border-radius: 25px;
-  border: 2px solid $primaryColor;
-}
-.btn-get-started:hover, .btn-get-started:active, .btn-get-started:focus {
-  background: white;
-  color: $primaryColor;
-  text-decoration: none;
-}
-.btn-get-started:active {
-  top: 1px;
-}
-
 
 // LOGIN & REGISTRATION
 .section-main.login {
