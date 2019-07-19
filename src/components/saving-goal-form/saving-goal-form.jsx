@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router';
 import symbolFromCurrency from 'currency-symbol-map';
-import accounting from 'accounting';
-import TextField from 'material-ui/TextField';
-import DatePicker from 'material-ui/DatePicker';
+import TextField from '@material-ui/core/TextField';
 import FormTitle from '../form-title';
 import FormField from '../form-field';
 require('./saving-goal-form.scss');
@@ -61,17 +59,15 @@ class SavingGoalForm extends Component {
           </FormField>
           <div className="row">
             <div className="col-xs-8 col-xs-push-2">
-              <DatePicker
-                fullWidth={true}
-                floatingLabelText="Deadline Date"
-                floatingLabelFixed={true}
-                container="inline"
-                autoOk={this.state.autoOk}
-                minDate={this.state.minDate}
-                disableYearSelection={this.state.disableYearSelection}
-                hideCalendarDate
-                hintText={this.state.deadlineValue}
-                name="deadline"
+              <TextField
+                id="date"
+                label="Deadline Date"
+                type="date"
+                defaultValue={this.state.minDate}
+                className={classes.textField}
+                InputLabelProps={{
+                  shrink: true,
+                }}
               />
             </div>
           </div>

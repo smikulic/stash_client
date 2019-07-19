@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import {
-  Table,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
 import ProgressBar from '../../components/progress-bar';
 
 require('./empty-saving-goal.scss');
@@ -19,22 +16,22 @@ class EmptySavingGoal extends Component {
   render() {
     return (
       <TableRow className="table-row table-row--example last">
-        <TableRowColumn colSpan="4">
+        <TableCell colSpan="4">
           <div className="table-row--name">Holiday Dream House</div>
           <div className="table-row--due"><span className="circle"></span>in 10 months</div>
-        </TableRowColumn>
-        <TableRowColumn colSpan="4">
+        </TableCell>
+        <TableCell colSpan="4">
           <div className="table-row--saved">
             <ProgressBar savedValue={90} />
           </div>
-        </TableRowColumn>
-        <TableRowColumn colSpan="2">
+        </TableCell>
+        <TableCell colSpan="2">
           <div className="table-row--value">{this.currency} 170,000</div>
-        </TableRowColumn>
-        <TableRowColumn colSpan="2">
+        </TableCell>
+        <TableCell colSpan="2">
           <div className="table-row--value">{this.currency} 1,700</div>
-        </TableRowColumn>
-        <TableRowColumn colSpan="1"></TableRowColumn>
+        </TableCell>
+        <TableCell colSpan="1"></TableCell>
       </TableRow>
     );
   }

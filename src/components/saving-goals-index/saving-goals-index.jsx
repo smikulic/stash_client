@@ -13,11 +13,9 @@ import {
   savedUntilNowValue,
   dueDateMessage,
 } from '../../helpers/utils';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-} from 'material-ui/Table';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableHead from '@material-ui/core/TableHead';
 import TableToolbarWrapper from '../table-toolbar-wrapper';
 import TableHeaderWrapper from '../table-header-wrapper';
 import TableRowWrapper from '../table-row-wrapper';
@@ -83,10 +81,10 @@ class SavingGoalsIndex extends Component {
       <span>
       <TableToolbarWrapper title="Saving Goals" onPlusClick={this.props.handleAddSavingGoal} />
       <Table className="table">
-        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+        <TableHead>
           <TableHeaderWrapper columns={{'Goal': 4, 'Goal progress': 4, 'Total budget': 2, 'Each month': 2 }} />
-        </TableHeader>
-        <TableBody displayRowCheckbox={false}>
+        </TableHead>
+        <TableBody>
           {
             savingGoals && (
               savingGoals.map((item, index) => {

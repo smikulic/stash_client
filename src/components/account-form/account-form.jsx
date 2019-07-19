@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import accounting from 'accounting';
-import TextField from 'material-ui/TextField';
-import DatePicker from 'material-ui/DatePicker';
-import MenuItem from 'material-ui/MenuItem';
+import MenuItem from '@material-ui/core/MenuItem';
 import FormTitle from '../form-title';
 import FormField from '../form-field';
-
 require('./account-form.scss');
 
 class AccountForm extends Component {

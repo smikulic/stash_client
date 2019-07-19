@@ -19,7 +19,7 @@ export class AccountsStore {
       method: 'POST',
       endpointPath: `users/${userId}/bank_accounts`,
       data: account,
-      onSuccess: (responseBody) => this.loadAccounts(userId),
+      onSuccess: () => this.loadAccounts(userId),
     });
   }
 
@@ -29,7 +29,7 @@ export class AccountsStore {
       method: 'PUT',
       endpointPath: `users/${userId}/bank_accounts/${accountId}`,
       data: account,
-      onSuccess: (responseBody) => this.loadAccounts(userId),
+      onSuccess: () => this.loadAccounts(userId),
     });
   }
 
@@ -38,7 +38,7 @@ export class AccountsStore {
     handleRequest({
       method: 'DELETE',
       endpointPath: `users/${userId}/bank_accounts/${accountId}`,
-      onSuccess: (responseBody) => this.loadAccounts(userId),
+      onSuccess: () => this.loadAccounts(userId),
     });
   }
 }

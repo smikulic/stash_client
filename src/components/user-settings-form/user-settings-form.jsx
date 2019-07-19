@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MenuItem from 'material-ui/MenuItem';
+import MenuItem from '@material-ui/core/MenuItem';
 import FormTitle from '../form-title';
 import FormField from '../form-field';
 

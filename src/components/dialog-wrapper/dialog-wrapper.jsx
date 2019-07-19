@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import Dialog from 'material-ui/Dialog';
+import Dialog from '@material-ui/core/Dialog';
 import FormSubmit from '../../components/form-submit';
 require('./dialog-wrapper.scss');
 
-const customDialogStyle = {
-  position: 'absolute',
-  top: '5%',
-  width: '50%',
-  maxWidth: 'none',
-  transform: 'translate(50%, 64px)',
-};
+// const customDialogStyle = {
+//   position: 'absolute',
+//   top: '5%',
+//   width: '50%',
+//   maxWidth: 'none',
+//   transform: 'translate(50%, 64px)',
+// };
 
 class DialogWrapper extends Component {
   render() {
@@ -23,12 +23,12 @@ class DialogWrapper extends Component {
 
     return (
       <Dialog
-        modal={false}
-        bodyClassName="dialog-body"
+        // modal={false}
+        // bodyClassName="dialog-body"
         className="dialog-body-wrapper"
-        contentStyle={customDialogStyle}
+        // contentStyle={customDialogStyle}
         open={open}
-        onRequestClose={onRequestClose}
+        // onRequestClose={onRequestClose}
       >
         <form onSubmit={onSubmit}>
           {children}

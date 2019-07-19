@@ -1,10 +1,11 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import { withRouter } from 'react-router';
 import authStore from '../../stores/auth_store';
 import FormSignIn from '../../components/form-sign-in';
 
 const ResetPasswordPage = withRouter(
-  React.createClass({
+  createReactClass({
 
     getInitialState() {
       return {

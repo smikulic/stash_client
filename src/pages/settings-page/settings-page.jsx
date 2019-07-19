@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router';
 import amplitude from 'amplitude-js/amplitude';
 import UserSettingsForm from '../../components/user-settings-form';
-import Paper from 'material-ui/Paper';
+import Paper from '@material-ui/core/Paper';
 import FormSubmit from '../../components/form-submit';
 import { transformUserSettingsFormData } from '../../helpers/utils';
 require('./settings-page.scss');
@@ -38,7 +38,7 @@ class SettingsPage extends Component {
       <div className="container-fluid">
         <div className="row">
           <div className="col-xs-push-1 col-xs-10">
-            <Paper className="settings-page" zDepth={1}>
+            <Paper className="settings-page">
               <h3 className="col-xs-push-2 col-xs-8 settings-page--title">User Settings</h3>
               <form onSubmit={this.updateSettings}>
                 <UserSettingsForm defaultSettings={this.props.userStore.userSettings} />

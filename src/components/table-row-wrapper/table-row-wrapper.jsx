@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import {
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
 import TableActions from '../table-actions';
 import ProgressBar from '../progress-bar';
 require('./table-row-wrapper.scss');
@@ -35,7 +33,7 @@ class TableRowWrapper extends Component {
 
               if (type === 'name') {
                 return (
-                  <TableRowColumn key={value + index} colSpan={size}>
+                  <TableCell key={value + index} colSpan={size}>
                     <div className="table-row--name">
                       {value}
                       { onEditClick && (
@@ -48,34 +46,34 @@ class TableRowWrapper extends Component {
                     { extraInfo && (
                       <div className="table-row--extra-info"><span className="circle"></span>{extraInfo}</div>
                     )}
-                  </TableRowColumn>
+                  </TableCell>
                 );
               }
 
               if (type === 'progress') {
                 return (
-                  <TableRowColumn key={value + index} colSpan={size}>
+                  <TableCell key={value + index} colSpan={size}>
                     <div className="table-row--progress">
                       <ProgressBar savedValue={value} />
                     </div>
-                  </TableRowColumn>
+                  </TableCell>
                 );
               }
 
               if (type === 'default') {
                 return (
-                  <TableRowColumn key={value + index} colSpan={size}>
+                  <TableCell key={value + index} colSpan={size}>
                     <div className="table-row--default">{value}</div>
-                  </TableRowColumn>
+                  </TableCell>
                 );
               }
             })
           )
         }
 
-        <TableRowColumn colSpan="1" className="table-row--actions">
+        <TableCell colSpan="1" className="table-row--actions">
           <TableActions handleOnRemove={onRemoveClick} />
-        </TableRowColumn>
+        </TableCell>
       </TableRow>
     );
   }

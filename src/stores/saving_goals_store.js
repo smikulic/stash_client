@@ -19,7 +19,7 @@ export class SavingGoalsStore {
       method: 'POST',
       endpointPath: `users/${userId}/saving_goals`, 
       data: savingGoal,
-      onSuccess: (responseBody) => this.loadSavingGoals(userId),
+      onSuccess: () => this.loadSavingGoals(userId),
     });
   }
 
@@ -29,7 +29,7 @@ export class SavingGoalsStore {
       method: 'PUT',
       endpointPath: `users/${userId}/saving_goals/${savingGoalId}`,
       data: savingGoal,
-      onSuccess: (responseBody) => this.loadSavingGoals(userId),
+      onSuccess: () => this.loadSavingGoals(userId),
     });
   }
 
@@ -38,7 +38,7 @@ export class SavingGoalsStore {
     handleRequest({
       method: 'DELETE',
       endpointPath: `users/${userId}/saving_goals/${savingGoalId}`,
-      onSuccess: (responseBody) => this.loadSavingGoals(userId),
+      onSuccess: () => this.loadSavingGoals(userId),
     });
   }
 }

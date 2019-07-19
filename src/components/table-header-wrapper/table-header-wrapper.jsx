@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
-import {
-  TableHeaderColumn,
-  TableRow,
-} from 'material-ui/Table';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
 
 require('./table-header-wrapper.scss');
 
@@ -16,14 +13,14 @@ class TableHeaderWrapper extends Component {
           columns && (
             Object.keys(columns).map((columnName, index) => {
               return (
-                <TableHeaderColumn key={columnName + index} colSpan={columns[columnName]}>
+                <TableCell key={columnName + index} colSpan={columns[columnName]}>
                   {columnName}
-                </TableHeaderColumn>
+                </TableCell>
               );
             })
           )
         }
-        <TableHeaderColumn colSpan="1"></TableHeaderColumn>
+        <TableCell colSpan="1"></TableCell>
       </TableRow>
     );
   }

@@ -1,47 +1,57 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link, browserHistory } from 'react-router';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 require('./navigation.scss');
 
-class Navigation extends Component {
-  render() {
-    return (
-      <ul className="navigation">
-        <Link to="/dashboard">
-          <li className="navigation-element navigation--logo"></li>
-          <li className="navigation-element navigation--title">Scroogevault</li>
-        </Link>
-        <Link to="/dashboard">
-          <li className="navigation-element navigation--item">Overview</li>
-        </Link>
-        <Link to="/accounts">
-          <li className="navigation-element navigation--item">Accounts</li>
-        </Link>
-        <li className="navigation-element navigation--dropdown">
-          <IconMenu
-            iconButtonElement={ <IconButton><MoreVertIcon className="navigation--user-dropdown-icon" /></IconButton> }
-            targetOrigin={{horizontal: 'middle', vertical: 'top'}}
-            anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-          >
-            <MenuItem onClick={() => browserHistory.push('/settings')}
-              className="navigation--menu-item"
-              primaryText="Settings"
-            />
-            <MenuItem onClick={this.props.handleSignOut}
-              className="navigation--menu-item"
-              primaryText="Sign out"
-            />
-          </IconMenu>
-        </li>
-        <li className="navigation-element navigation--user-email">
-          {this.props.authStore.getUserData() && this.props.authStore.getUserData().email.replace(/^"(.+(?="$))"$/, '$1')}
-        </li>
-      </ul>
-    );
-  }
-}
+export default function Navigation(props) {
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
-export default Navigation;
+  function handleClickMenu(event) {
+    setAnchorEl(event.currentTarget);
+  }
+
+  function handleCloseMenu() {
+    setAnchorEl(null);
+  }
+
+  return (
+    <ul className="navigation">
+      <Link to="/dashboard">
+        <li className="navigation-element navigation--logo"></li>
+        <li className="navigation-element navigation--title">Scroogevault</li>
+      </Link>
+      <Link to="/dashboard">
+        <li className="navigation-element navigation--item">Overview</li>
+      </Link>
+      <Link to="/accounts">
+        <li className="navigation-element navigation--item">Accounts</li>
+      </Link>
+      <li className="navigation-element navigation--dropdown">
+        <IconButton onClick={handleClickMenu}><MoreVertIcon className="navigation--user-dropdown-icon" /></IconButton>
+        <Menu
+          id="sv-dots-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleCloseMenu}
+        >
+          <MenuItem onClick={() => {
+            handleCloseMenu()
+            browserHistory.push('/settings')
+          }}>
+            Settings
+          </MenuItem>
+          <MenuItem onClick={props.handleSignOut}>
+            Sign out
+          </MenuItem>
+        </Menu>
+      </li>
+      <li className="navigation-element navigation--user-email">
+        {props.authStore.getUserData() && props.authStore.getUserData().email.replace(/^"(.+(?="$))"$/, '$1')}
+      </li>
+    </ul>
+  );
+}

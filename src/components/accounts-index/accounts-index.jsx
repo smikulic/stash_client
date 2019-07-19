@@ -5,12 +5,10 @@ import symbolFromCurrency from 'currency-symbol-map';
 import moment from 'moment';
 import accounting from 'accounting';
 import { isEmpty } from 'lodash';
-import { sanitizeValue, normalizeCreatedDate } from '../../helpers/utils';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-} from 'material-ui/Table';
+import { sanitizeValue } from '../../helpers/utils';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableHead from '@material-ui/core/TableHead';
 import TableToolbarWrapper from '../table-toolbar-wrapper';
 import TableHeaderWrapper from '../table-header-wrapper';
 import TableRowWrapper from '../table-row-wrapper';
@@ -72,13 +70,13 @@ class AccountsIndex extends Component {
     const { accounts } = this.props.accountsStore;
 
     return (
-      <span>
+      <React.Fragment>
       <TableToolbarWrapper title="Bank Accounts" onPlusClick={this.props.handleAddAccount} />
       <Table className="table">
-        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+        <TableHead>
           <TableHeaderWrapper columns={{'Bank name': 4, 'Balance': 3, 'Status': 2, 'Last update': 3 }} />
-        </TableHeader>
-        <TableBody displayRowCheckbox={false}>
+        </TableHead>
+        <TableBody>
           {
             accounts && (
               accounts.map((item, index) => {
@@ -102,7 +100,7 @@ class AccountsIndex extends Component {
                       },
                       {
                         type: 'default',
-                        /* TODO: Make status with icon and tooltip to describe */
+                        // TODO: Make status with icon and tooltip to describe
                         value: item.status,
                         size: 2,
                       },
@@ -129,7 +127,7 @@ class AccountsIndex extends Component {
       >
         <AccountForm title="Update account" defaultSettings={this.state.selectedAccount} />
       </DialogWrapper>
-      </span>
+      </React.Fragment>
     );
   }
 }
