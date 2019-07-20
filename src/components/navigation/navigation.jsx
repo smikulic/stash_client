@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 require('./navigation.scss');
 
-export default function Navigation(props) {
+export default function Navigation({ authStore, handleSignOut }) {
   const [navigationDropdownMenuOpen, setNavigationDropdownMenuOpen] = React.useState(false);
   
   const toggleNavigationDropdownMenu = () => setNavigationDropdownMenuOpen(!navigationDropdownMenuOpen);
@@ -34,7 +34,7 @@ export default function Navigation(props) {
 
       <div className="navigation-right">
         <div className="navigation-element navigation-element-user">
-          {props.authStore.getUserData() && props.authStore.getUserData().email.replace(/^"(.+(?="$))"$/, '$1')}
+          {authStore.getUserData() && authStore.getUserData().email.replace(/^"(.+(?="$))"$/, '$1')}
         </div>
         <div className="navigation-element">
           <IconButton onClick={toggleNavigationDropdownMenu}>
@@ -53,10 +53,7 @@ export default function Navigation(props) {
               <div className="navigation--dropdown-menu-item" onClick={() => linkTo('/settings')}>
                 Settings
               </div>
-              <div
-                className="navigation--dropdown-menu-item"
-                onClick={props.handleSignOut}
-              >
+              <div className="navigation--dropdown-menu-item" onClick={handleSignOut}>
                 Sign out
               </div>
             </div>

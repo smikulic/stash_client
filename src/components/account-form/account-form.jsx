@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import MenuItem from '@material-ui/core/MenuItem';
 import FormTitle from '../form-title';
 import FormField from '../form-field';
 require('./account-form.scss');
@@ -33,52 +32,52 @@ class AccountForm extends Component {
 
   render() {
     return (
-      <div>
-        <div className="col-xs-12">
-          <FormTitle title={this.props.title} />
-          <FormField
-            label="Bank Name"
-            targetName="name"
-            value={this.state.nameValue}
-            onChangeEvent={this.handleChangeName}
-          />
-          <FormField
-            label="Description"
-            targetName="description"
-            value={this.state.descriptionValue}
-            onChangeEvent={this.handleChangeDescription}
-          />
-          <FormField
-            label="Balance"
-            targetName="balance"
-            value={this.state.balanceValue}
-            onChangeEvent={this.handleChangeBalance}
-          />
-          <FormField
-            label="Currency"
-            targetName="currency"
-            value={this.state.currencyValue}
-            onChangeEvent={this.handleChangeCurrency}
-            selectField
-          >
-            <MenuItem value="EUR" primaryText="(€) EUR" />
-            <MenuItem value="USD" primaryText="($) USD" />
-            <MenuItem value="GBP" primaryText="(£) GBP" />
-            <MenuItem value="CAD" primaryText="($) CAD" />
-            <MenuItem value="JPY" primaryText="(¥) JPY" />
-          </FormField>
-          <FormField
-            label="Status"
-            targetName="status"
-            value={this.state.statusValue}
-            onChangeEvent={this.handleChangeStatus}
-            selectField
-          >
-            <MenuItem value="Primary" primaryText="Primary" />
-            <MenuItem value="Secondary" primaryText="Secondary" />
-          </FormField>
-        </div>
-      </div>
+      <React.Fragment>
+        <FormTitle title={this.props.title} />
+        <FormField
+          label="Bank Name"
+          targetName="name"
+          value={this.state.nameValue}
+          onChangeEvent={this.handleChangeName}
+        />
+        <FormField
+          label="Description"
+          targetName="description"
+          value={this.state.descriptionValue}
+          onChangeEvent={this.handleChangeDescription}
+        />
+        <FormField
+          label="Balance"
+          targetName="balance"
+          value={this.state.balanceValue}
+          onChangeEvent={this.handleChangeBalance}
+        />
+        <FormField
+          label="Currency"
+          targetName="currency"
+          value={this.state.currencyValue}
+          onChangeEvent={this.handleChangeCurrency}
+          selectField
+          defaultValue="USD"
+        >
+          <option value="USD">($) USD</option>
+          <option value="EUR">(€) EUR</option>
+          <option value="GBP">(£) GBP</option>
+          <option value="CAD">($) CAD</option>
+          <option value="JPY">(¥) JPY</option>
+        </FormField>
+        <FormField
+          label="Status"
+          targetName="status"
+          value={this.state.statusValue}
+          onChangeEvent={this.handleChangeStatus}
+          selectField
+          defaultValue="Primary"
+        >
+          <option value="Primary">Primary</option>
+          <option value="Secondary">Secondary</option>
+        </FormField>
+      </React.Fragment>
     );
   }
 }

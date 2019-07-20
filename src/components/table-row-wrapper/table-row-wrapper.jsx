@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import TableActions from '../table-actions';
 import ProgressBar from '../progress-bar';
 require('./table-row-wrapper.scss');
 
@@ -11,12 +10,13 @@ class TableRowWrapper extends Component {
       lastItem,
       inactive,
       columns,
-      onRemoveClick,
+      placeholderExample,
     } = this.props;
     let tableRowClass = 'table-row';
     
     tableRowClass += inactive ? ' inactive' : '';
     tableRowClass += lastItem ? ' last' : '';
+    tableRowClass += placeholderExample ? ' table-row--example' : '';
 
     return (
       <TableRow className={tableRowClass}>
@@ -28,6 +28,7 @@ class TableRowWrapper extends Component {
                 size,
                 value,
                 onEditClick,
+                onRemoveClick,
                 extraInfo,
               } = column;
 
@@ -40,6 +41,12 @@ class TableRowWrapper extends Component {
                         <i
                           className="table-row--edit fa fa-pencil"
                           onClick={onEditClick}
+                        />
+                      )}
+                      { onRemoveClick && (
+                        <i
+                          className="table-row--edit fa fa-trash"
+                          onClick={onRemoveClick}
                         />
                       )}
                     </div>
@@ -70,10 +77,6 @@ class TableRowWrapper extends Component {
             })
           )
         }
-
-        <TableCell colSpan="1" className="table-row--actions">
-          <TableActions handleOnRemove={onRemoveClick} />
-        </TableCell>
       </TableRow>
     );
   }

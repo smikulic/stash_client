@@ -1,15 +1,22 @@
 @import "../../styles/config/settings.scss";
 
 .table, .table-row {
-  font-family: "Khula", sans-serif;
-  font-weight: 300;
   height: 7rem !important;
   border-bottom: 1px solid transparent !important;
   background-color: $darkPrimaryColor !important;
 }
 
-.table .table-row.last {
-  border-bottom: 1px solid transparent !important;
+.table .table-row--example {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.table .table-row td {
+  font-family: "Khula", sans-serif;
+}
+
+.table .table-row.last td {
+  border-bottom: 1px solid transparent;
 }
 
 .table .table-row.inactive {
@@ -63,12 +70,4 @@
 
 .table .table-row .table-row--default {
   font-size: 1.8rem;
-}
-
-.table .table-row .table-row--actions {
-  overflow: initial !important;
-  float: right !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  padding-top: 5px;
 }

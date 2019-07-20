@@ -1,7 +1,29 @@
 @import "../../styles/config/settings.scss";
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0 36px $darkPrimaryColor inset !important;
+input, select {
+  width: 100%;
+  outline: 0;
+  background: transparent;
+}
+
+.form-field {
+  margin-bottom: 1rem;
+}
+
+input.form-input {
+  padding: 2rem 1rem 1rem 1rem;
+  border: 0;
+  border-bottom: 1px solid $secondaryTextColor;
+
+  &:hover {
+    border-bottom: 1px solid $primaryTextColor;
+  }
+
+  &:focus {
+    border-bottom: 1px solid $blue;
+  }
+}
+
+select.form-select {
+  height: 4rem;
 }
