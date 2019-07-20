@@ -1,57 +1,64 @@
 import React from 'react';
 import { Link, browserHistory } from 'react-router';
 import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 require('./navigation.scss');
 
 export default function Navigation(props) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  function handleClickMenu(event) {
-    setAnchorEl(event.currentTarget);
+  const [navigationDropdownMenuOpen, setNavigationDropdownMenuOpen] = React.useState(false);
+  
+  function toggleNavigationDropdownMenu() {
+    setNavigationDropdownMenuOpen(!navigationDropdownMenuOpen);
   }
 
   function handleCloseMenu() {
-    setAnchorEl(null);
+    setNavigationDropdownMenuOpen(false);
   }
 
   return (
-    <ul className="navigation">
-      <Link to="/dashboard">
-        <li className="navigation-element navigation--logo"></li>
-        <li className="navigation-element navigation--title">Scroogevault</li>
-      </Link>
-      <Link to="/dashboard">
-        <li className="navigation-element navigation--item">Overview</li>
-      </Link>
-      <Link to="/accounts">
-        <li className="navigation-element navigation--item">Accounts</li>
-      </Link>
-      <li className="navigation-element navigation--dropdown">
-        <IconButton onClick={handleClickMenu}><MoreVertIcon className="navigation--user-dropdown-icon" /></IconButton>
-        <Menu
-          id="sv-dots-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleCloseMenu}
-        >
-          <MenuItem onClick={() => {
-            handleCloseMenu()
-            browserHistory.push('/settings')
-          }}>
-            Settings
-          </MenuItem>
-          <MenuItem onClick={props.handleSignOut}>
-            Sign out
-          </MenuItem>
-        </Menu>
-      </li>
-      <li className="navigation-element navigation--user-email">
-        {props.authStore.getUserData() && props.authStore.getUserData().email.replace(/^"(.+(?="$))"$/, '$1')}
-      </li>
-    </ul>
+    <div className="navigation">
+      <div className="navigation-left">
+        <Link to="/dashboard" onClick={handleCloseMenu} className="navigation-logo-wrapper">
+          <div className="navigation-element navigation--logo"></div>
+          <div className="navigation-element">Scroogevault</div>
+        </Link>
+        <Link to="/dashboard" onClick={handleCloseMenu}>
+          <div className="navigation-element">Overview</div>
+        </Link>
+        <Link to="/accounts" onClick={handleCloseMenu}>
+          <div className="navigation-element">Accounts</div>
+        </Link>
+      </div>
+
+      <div className="navigation-right">
+        <div className="navigation-element">
+          {props.authStore.getUserData() && props.authStore.getUserData().email.replace(/^"(.+(?="$))"$/, '$1')}
+        </div>
+        <div className="navigation-element">
+          <IconButton onClick={toggleNavigationDropdownMenu}>
+            <MoreVertIcon className="navigation--user-dropdown-icon" />
+          </IconButton>
+          { navigationDropdownMenuOpen && (
+            <div className="navigation--dropdown-menu">
+              <div
+                className="navigation--dropdown-menu-item"
+                onClick={() => {
+                  handleCloseMenu()
+                  browserHistory.push('/settings')
+                }}
+              >
+                Settings
+              </div>
+              <div
+                className="navigation--dropdown-menu-item"
+                onClick={props.handleSignOut}
+              >
+                Sign out
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
