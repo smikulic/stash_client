@@ -6,26 +6,33 @@
   padding: 0;
   width: 100%;
   height: 6rem;
-  list-style-type: none;
 	background-color: $navigationBackgroundColor;
   box-shadow: 0px 0px 6px 1px $grayLight;
 }
 
-.navigation a:hover {
-  text-decoration: none;
-}
-
 .navigation .navigation-left,
 .navigation .navigation-right,
+.navigation .navigation-left--mobile,
 .navigation .navigation-logo-wrapper {
   display: flex;
   align-items: center;
+}
+
+.navigation .navigation-left--mobile {
+  visibility: visible;
+
+  @media screen and (max-width: 991px) {
+    visibility: hidden;
+    height: 0;
+    width: 0;
+  }
 }
 
 .navigation .navigation-element {
   margin: 0 1rem;
   font-size: $fontSize-normal;
   color: $grayLight;
+  cursor: pointer;
 
   &:hover {
     color: $blackLight;
@@ -33,11 +40,15 @@
 }
 
 .navigation .navigation--logo {
-  width: 4.2rem;
+  width: 4.3rem;
   height: 3.8rem;
   background-image: url('../../dist/favicon.png');
   background-position: top center;
   background-size: cover;
+}
+
+.navigation .navigation-element-user {
+  cursor: default;
 }
 
 .navigation .navigation--user-dropdown-icon {
@@ -49,11 +60,26 @@
 .navigation .navigation--dropdown-menu {
   z-index: 1;
   position: absolute;
-  top: 5rem;
-  right: 1rem;
+  top: 6rem;
+  right: 0;
   width: 10rem;
   background: white;
   box-shadow: 0 1px 2px 0 $grayLight;
+
+  @media screen and (max-width: 991px) {
+    left: 0;
+    width: 100%;
+  }
+}
+
+.navigation .navigation--dropdown-menu--mobile {
+  visibility: hidden;
+  height: 0;
+
+  @media screen and (max-width: 991px) {
+    visibility: visible;
+    height: auto;
+  }
 }
 
 .navigation .navigation--dropdown-menu-item {

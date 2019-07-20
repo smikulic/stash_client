@@ -7,31 +7,33 @@ require('./navigation.scss');
 export default function Navigation(props) {
   const [navigationDropdownMenuOpen, setNavigationDropdownMenuOpen] = React.useState(false);
   
-  function toggleNavigationDropdownMenu() {
-    setNavigationDropdownMenuOpen(!navigationDropdownMenuOpen);
-  }
+  const toggleNavigationDropdownMenu = () => setNavigationDropdownMenuOpen(!navigationDropdownMenuOpen);
 
-  function handleCloseMenu() {
-    setNavigationDropdownMenuOpen(false);
+  const closeNavigationDropdownMenu = () => setNavigationDropdownMenuOpen(false);
+
+  const linkTo = (url) => {
+    closeNavigationDropdownMenu()
+    browserHistory.push(url)
   }
 
   return (
     <div className="navigation">
       <div className="navigation-left">
-        <Link to="/dashboard" onClick={handleCloseMenu} className="navigation-logo-wrapper">
+        <div className="navigation-logo-wrapper" onClick={() => linkTo('/dashboard')}>
           <div className="navigation-element navigation--logo"></div>
-          <div className="navigation-element">Scroogevault</div>
-        </Link>
-        <Link to="/dashboard" onClick={handleCloseMenu}>
-          <div className="navigation-element">Overview</div>
-        </Link>
-        <Link to="/accounts" onClick={handleCloseMenu}>
-          <div className="navigation-element">Accounts</div>
-        </Link>
+        </div>
+        <div className="navigation-left--mobile">
+          <div className="navigation-element" onClick={() => linkTo('/dashboard')}>
+            Overview
+          </div>
+          <div className="navigation-element" onClick={() => linkTo('/accounts')}>
+            Accounts
+          </div>
+        </div>
       </div>
 
       <div className="navigation-right">
-        <div className="navigation-element">
+        <div className="navigation-element navigation-element-user">
           {props.authStore.getUserData() && props.authStore.getUserData().email.replace(/^"(.+(?="$))"$/, '$1')}
         </div>
         <div className="navigation-element">
@@ -40,13 +42,15 @@ export default function Navigation(props) {
           </IconButton>
           { navigationDropdownMenuOpen && (
             <div className="navigation--dropdown-menu">
-              <div
-                className="navigation--dropdown-menu-item"
-                onClick={() => {
-                  handleCloseMenu()
-                  browserHistory.push('/settings')
-                }}
-              >
+              <div className="navigation--dropdown-menu--mobile">
+                <div className="navigation--dropdown-menu-item" onClick={() => linkTo('/dashboard')}>
+                  Overview
+                </div>
+                <div className="navigation--dropdown-menu-item" onClick={() => linkTo('/accounts')}>
+                  Accounts
+                </div>
+              </div>
+              <div className="navigation--dropdown-menu-item" onClick={() => linkTo('/settings')}>
                 Settings
               </div>
               <div
