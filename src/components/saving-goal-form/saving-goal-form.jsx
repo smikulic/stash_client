@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router';
-import symbolFromCurrency from 'currency-symbol-map';
-import FormTitle from '../form-title';
-import FormField from '../form-field';
+import FormBuilder from '../form-builder';
 require('./saving-goal-form.scss');
 
 @inject('userStore')
@@ -37,30 +35,14 @@ class SavingGoalForm extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        <FormTitle title={this.props.title} />
-        <FormField
-          label="Goal Description"
-          targetName="description"
-          value={this.state.descriptionValue}
-          onChangeEvent={this.handleChangeDescription}
-        />
-        <FormField
-          label="Goal Budget"
-          targetName="budget"
-          value={this.state.budgetValue}
-          onChangeEvent={this.handleChangeBudget}
-        >
-          <span className="currency">{symbolFromCurrency(this.userSettings.main_currency)}</span>
-        </FormField>
-        <FormField
-          label="Deadline Date"
-          targetName="deadline"
-          value={this.state.deadlineValue}
-          onChangeEvent={this.handleChangeDeadline}
-          dateField
-        />
-      </React.Fragment>
+      <FormBuilder
+        title={this.props.title}
+        formFields={[
+          { label: 'Goal Description', targetName: 'description', value: this.state.descriptionValue, onChangeEvent: this.handleChangeDescription },
+          { label: 'Goal Budget', targetName: 'budget', value: this.state.budgetValue, onChangeEvent: this.handleChangeBudget },
+          { label: 'Deadline Date', targetName: 'deadline', value: this.state.deadlineValue, onChangeEvent: this.handleChangeDeadline, type: 'date' },
+        ]}
+      />
     );
   }
 }

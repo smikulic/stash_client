@@ -1,4 +1,6 @@
 import moment from 'moment';
+import { browserHistory } from 'react-router';
+import authStore from '../stores/auth_store';
 
 export function sanitizeValue(value) {
   return value.replace(/[,. ]+/g, '').trim();
@@ -45,4 +47,9 @@ export function transformUserSettingsFormData(eventTarget) {
     average_monthly_expenses: eventTarget['avgExpenses'].value,
     main_currency: eventTarget['currency'].value,
   };
+}
+
+export function handleSignOut() {
+  authStore.logout();
+  browserHistory.push('/');
 }

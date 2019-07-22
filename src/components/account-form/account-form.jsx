@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import FormTitle from '../form-title';
-import FormField from '../form-field';
+import FormBuilder from '../form-builder';
 require('./account-form.scss');
 
 class AccountForm extends Component {
@@ -32,52 +31,32 @@ class AccountForm extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        <FormTitle title={this.props.title} />
-        <FormField
-          label="Bank Name"
-          targetName="name"
-          value={this.state.nameValue}
-          onChangeEvent={this.handleChangeName}
-        />
-        <FormField
-          label="Description"
-          targetName="description"
-          value={this.state.descriptionValue}
-          onChangeEvent={this.handleChangeDescription}
-        />
-        <FormField
-          label="Balance"
-          targetName="balance"
-          value={this.state.balanceValue}
-          onChangeEvent={this.handleChangeBalance}
-        />
-        <FormField
-          label="Currency"
-          targetName="currency"
-          value={this.state.currencyValue}
-          onChangeEvent={this.handleChangeCurrency}
-          defaultValue="USD"
-          selectField
-        >
-          <option value="USD">($) USD</option>
-          <option value="EUR">(€) EUR</option>
-          <option value="GBP">(£) GBP</option>
-          <option value="CAD">($) CAD</option>
-          <option value="JPY">(¥) JPY</option>
-        </FormField>
-        <FormField
-          label="Status"
-          targetName="status"
-          value={this.state.statusValue}
-          onChangeEvent={this.handleChangeStatus}
-          selectField
-          defaultValue="Primary"
-        >
-          <option value="Primary">Primary</option>
-          <option value="Secondary">Secondary</option>
-        </FormField>
-      </React.Fragment>
+      <FormBuilder
+        title={this.props.title}
+        formFields={[
+          { label: 'Bank Name', targetName: 'name', value: this.state.nameValue, onChangeEvent: this.handleChangeName },
+          { label: 'Description', targetName: 'description', value: this.state.descriptionValue, onChangeEvent: this.handleChangeDescription },
+          { label: 'Balance', targetName: 'balance', value: this.state.balanceValue, onChangeEvent: this.handleChangeBalance },
+          {
+            label: 'Currency',
+            targetName: 'currency',
+            value: this.state.currencyValue,
+            onChangeEvent: this.handleChangeCurrency,
+            type: 'select', 
+            options: { USD: '($) USD', EUR: '(€) EUR', GBP: '(£) GBP', CAD: '($) CAD', JPY: '(¥) JPY' },
+            defaultValue: 'USD',
+          },
+          { 
+            label: 'Status',
+            targetName: 'status',
+            value: this.state.statusValue,
+            onChangeEvent: this.handleChangeStatus,
+            type: 'select',
+            options: { Primary: 'Primary', Secondary: 'Secondary' },
+            defaultValue: 'Primary',
+          },
+        ]}
+      />
     );
   }
 }

@@ -28,7 +28,6 @@ export default function FormField({
           name={targetName}
           className="form-input"
           data-lpignore="true"
-          placeholder={label}
           value={value}
           onChange={onChangeEvent}
         />
