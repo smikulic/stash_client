@@ -1,11 +1,10 @@
 @import "../../styles/config/settings.scss";
 
-.dialog-body-wrapper > div > div,
-.dialog-body-wrapper > div > div > div {
+.MuiPaper-rounded {
   border-radius: 15px !important;
 }
 
-.dialog-body {
+.dialog-body-form {
+  padding: 4rem;
   background-color: $darkPrimaryColor;
-  border-radius: 15px;
 }

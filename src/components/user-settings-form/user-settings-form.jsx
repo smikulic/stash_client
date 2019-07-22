@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import MenuItem from 'material-ui/MenuItem';
-import FormTitle from '../form-title';
-import FormField from '../form-field';
+import { getCurrencyField } from '../../helpers/form-utils';
+import FormBuilder from '../form-builder';
 
 class UserSettingsForm extends Component {
   state = {
@@ -24,36 +23,23 @@ class UserSettingsForm extends Component {
 
   render() {
     return (
-      <div>
-        <div className="row">
-        <FormTitle title={this.props.title} />
-        <FormField
-          label="Income"
-          targetName="avgIncome"
-          value={this.state.avgIncomesValue}
-          onChangeEvent={this.handleChangeAvgIncomesValue}
-        />
-        <FormField
-          label="Expenses"
-          targetName="avgExpenses"
-          value={this.state.avgExpensesValue}
-          onChangeEvent={this.handleChangeAvgExpensesValue}
-        />
-        <FormField
-          label="Currency"
-          targetName="currency"
-          value={this.state.currencyValue}
-          onChangeEvent={this.handleChangeCurrency}
-          selectField
-        >
-          <MenuItem value="EUR" primaryText="(€) EUR" />
-          <MenuItem value="USD" primaryText="($) USD" />
-          <MenuItem value="GBP" primaryText="(£) GBP" />
-          <MenuItem value="CAD" primaryText="($) CAD" />
-          <MenuItem value="JPY" primaryText="(¥) JPY" />
-        </FormField>
-        </div>
-      </div>
+      <FormBuilder
+        title={this.props.title}
+        formFields={[
+          { label: 'Income', targetName: 'avgIncome', value: this.state.avgIncomesValue, onChangeEvent: this.handleChangeAvgIncomesValue },
+          { label: 'Expenses', targetName: 'avgExpenses', value: this.state.avgExpensesValue, onChangeEvent: this.handleChangeAvgExpensesValue },
+          getCurrencyField(this.state.currencyValue, this.handleChangeCurrency),
+          // {
+          //   label: 'Currency',
+          //   targetName: 'currency',
+          //   value: this.state.currencyValue,
+          //   onChangeEvent: this.handleChangeCurrency,
+          //   type: 'select', 
+          //   options: { USD: '($) USD', EUR: '(€) EUR', GBP: '(£) GBP', CAD: '($) CAD', JPY: '(¥) JPY' },
+          //   defaultValue: 'USD',
+          // },
+        ]}
+      />
     );
   }
 }

@@ -5,18 +5,14 @@ import symbolFromCurrency from 'currency-symbol-map';
 import moment from 'moment';
 import accounting from 'accounting';
 import { isEmpty } from 'lodash';
-import { sanitizeValue, normalizeCreatedDate } from '../../helpers/utils';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-} from 'material-ui/Table';
+import { sanitizeValue } from '../../helpers/utils';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
 import TableToolbarWrapper from '../table-toolbar-wrapper';
 import TableHeaderWrapper from '../table-header-wrapper';
 import TableRowWrapper from '../table-row-wrapper';
 import DialogWrapper from '../dialog-wrapper';
 import AccountForm from '../account-form';
-import EmptyAccount from '../empty-account';
 
 @inject('accountsStore', 'userStore')
 @withRouter
@@ -72,18 +68,14 @@ class AccountsIndex extends Component {
     const { accounts } = this.props.accountsStore;
 
     return (
-      <span>
-      <TableToolbarWrapper title="Bank Accounts" onPlusClick={this.props.handleAddAccount} />
-      <Table className="table">
-        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-          <TableHeaderWrapper columns={{'Bank name': 4, 'Balance': 3, 'Status': 2, 'Last update': 3 }} />
-        </TableHeader>
-        <TableBody displayRowCheckbox={false}>
-          {
-            accounts && (
-              accounts.map((item, index) => {
-                
-                return (
+      <React.Fragment>
+        <TableToolbarWrapper title="Bank Accounts" onPlusClick={this.props.handleAddAccount} />
+        <Table className="table">
+          <TableHeaderWrapper columns={{'Bank name': 5, 'Balance': 3, 'Status': 2, 'Last update': 3 }} />
+          <TableBody>
+            {
+              accounts && (
+                accounts.map((item, index) => (
                   <TableRowWrapper
                     key={item.id}
                     lastItem={accounts.length === (index + 1)}
@@ -91,8 +83,9 @@ class AccountsIndex extends Component {
                       {
                         type: 'name',
                         value: item.name,
-                        size: 4,
+                        size: 5,
                         onEditClick: this.handleOnUpdateAccount.bind(this, item),
+                        onRemoveClick: this.handleOnRemoveAccount.bind(this, item.id),
                         extraInfo: item.description,
                       },
                       {
@@ -102,7 +95,7 @@ class AccountsIndex extends Component {
                       },
                       {
                         type: 'default',
-                        /* TODO: Make status with icon and tooltip to describe */
+                        // TODO: Make status with icon and tooltip to describe
                         value: item.status,
                         size: 2,
                       },
@@ -112,24 +105,33 @@ class AccountsIndex extends Component {
                         size: 3,
                       },
                     ]}
-                    onRemoveClick={this.handleOnRemoveAccount.bind(this, item.id)}
                   />
-                )
-              })
-            )
-          }
-          { isEmpty(accounts) && <EmptyAccount /> }
-        </TableBody>
-      </Table>
-      <DialogWrapper
-        open={this.state.accountFormActive}
-        onRequestClose={this.closeAccountForm}
-        onSubmit={this.updateAccount}
-        submitText="Update"
-      >
-        <AccountForm title="Update account" defaultSettings={this.state.selectedAccount} />
-      </DialogWrapper>
-      </span>
+                ))
+              )
+            }
+            { isEmpty(accounts) && (
+              <TableRowWrapper
+                placeholderExample={true}
+                lastItem={true}
+                columns={[
+                  { type: 'name', value: 'Wells Fargo', size: 5, extraInfo: 'US Savings account' },
+                  { type: 'default', value: '$12,000', size: 3 },
+                  { type: 'default', value: 'Primary', size: 2 },
+                  { type: 'default', value: moment('20190603', 'YYYYMMDD').fromNow(), size: 3 },
+                ]}
+              />
+            )}
+          </TableBody>
+        </Table>
+        <DialogWrapper
+          open={this.state.accountFormActive}
+          onRequestClose={this.closeAccountForm}
+          onSubmit={this.updateAccount}
+          submitText="Update"
+        >
+          <AccountForm title="Update account" defaultSettings={this.state.selectedAccount} />
+        </DialogWrapper>
+      </React.Fragment>
     );
   }
 }

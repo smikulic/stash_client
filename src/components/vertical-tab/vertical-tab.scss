@@ -1,0 +1,29 @@
+@import "../../styles/config/settings.scss";
+
+.tab {
+  position: relative;
+  padding: 0 1rem;
+  height: 4rem;
+  line-height: 4rem;
+  color: $grayLight;
+  border-bottom: 1px solid $grayLight;
+  text-align: left;
+  cursor: pointer;
+}
+.tab.selected {
+  color: $primaryTextColor;
+}
+.tab:hover {
+  color: $blue;
+}
+.tab.selected:hover {
+  color: black;
+}
+.tab i {
+  position: absolute;
+  top: 1.5rem;
+  right: 1rem;
+}
+.tab:last-child {
+  border-color: transparent;
+}

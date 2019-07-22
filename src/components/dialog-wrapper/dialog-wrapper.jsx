@@ -1,46 +1,24 @@
-import React, { Component } from 'react';
-import Dialog from 'material-ui/Dialog';
+import React from 'react';
+import Dialog from '@material-ui/core/Dialog';
 import FormSubmit from '../../components/form-submit';
 require('./dialog-wrapper.scss');
 
-const customDialogStyle = {
-  position: 'absolute',
-  top: '5%',
-  width: '50%',
-  maxWidth: 'none',
-  transform: 'translate(50%, 64px)',
-};
-
-class DialogWrapper extends Component {
-  render() {
-    const {
-      open,
-      onRequestClose,
-      submitText,
-      onSubmit,
-      children,
-    } = this.props;
-
-    return (
-      <Dialog
-        modal={false}
-        bodyClassName="dialog-body"
-        className="dialog-body-wrapper"
-        contentStyle={customDialogStyle}
-        open={open}
-        onRequestClose={onRequestClose}
+export default function DialogWrapper({ open, onRequestClose, submitText, onSubmit, children }) {
+  return (
+    <Dialog
+      fullWidth={true}
+      maxWidth="xs"
+      open={open}
+      onClose={onRequestClose}
+    >
+      <form
+        className="dialog-body-form"
+        autoComplete="off"
+        onSubmit={onSubmit}
       >
-        <form onSubmit={onSubmit}>
-          {children}
-          <div className="row">
-            <div className="col-xs-5 col-xs-push-7">
-              <FormSubmit text={submitText} />
-            </div>
-          </div>
-        </form>
-      </Dialog>
-    );
-  }
+        {children}
+        <FormSubmit text={submitText} />
+      </form>
+    </Dialog>
+  );
 }
-
-export default DialogWrapper;

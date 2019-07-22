@@ -2,11 +2,18 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router';
 import amplitude from 'amplitude-js/amplitude';
+import PageItemWrapper from '../../components/page-item-wrapper';
 import UserSettingsForm from '../../components/user-settings-form';
-import Paper from 'material-ui/Paper';
+import VerticalTab from '../../components/vertical-tab';
 import FormSubmit from '../../components/form-submit';
-import { transformUserSettingsFormData } from '../../helpers/utils';
+import { transformUserSettingsFormData, handleSignOut } from '../../helpers/utils';
 require('./settings-page.scss');
+
+const userSettingsTabs = {
+  1: 'Main Info',
+  2: 'Notifications',
+  3: 'Account',
+}
 
 @inject('userStore')
 @withRouter
@@ -16,7 +23,12 @@ class SettingsPage extends Component {
     super(props);
     amplitude.getInstance().logEvent('Page load: Settings Page');
     this.updateSettings = this.updateSettings.bind(this);
+    this.setUserSettingsTab = this.setUserSettingsTab.bind(this);
     this.userId = props.userStore.userData.id;
+
+    this.state = {
+      userSettingsTabSelected: userSettingsTabs[1],
+    }
   }
 
   componentWillMount() {
@@ -33,19 +45,45 @@ class SettingsPage extends Component {
     );
   };
 
+  setUserSettingsTab(tabSelected) {
+    this.setState({ userSettingsTabSelected: tabSelected });
+  }
+
+  selectTabClass(tabName) {
+    return this.state.userSettingsTabSelected === tabName ? 'tab selected' : 'tab';
+  }
+
   render() {
+    const { userSettingsTabSelected } = this.state;
     return (
       <div className="container-fluid">
-        <div className="row">
-          <div className="col-xs-push-1 col-xs-10">
-            <Paper className="settings-page" zDepth={1}>
-              <h3 className="col-xs-push-2 col-xs-8 settings-page--title">User Settings</h3>
+        <div className="col-xs-12 col-sm-4 col-md-3">
+          <PageItemWrapper>
+            <ul className="settings-page--tab-navigation">
+              { Object.values(userSettingsTabs).map((value, key) => {
+                return <VerticalTab key={key} tabName={value} tabClass={this.selectTabClass(value)} onClick={this.setUserSettingsTab} />
+              })}
+            </ul>
+          </PageItemWrapper>
+        </div>
+        <div className="col-xs-12 col-sm-8 col-md-9">
+          <PageItemWrapper>
+            <h3 className="settings-page--title">User Preferences - {userSettingsTabSelected}</h3>
+            { userSettingsTabSelected === userSettingsTabs[1] && (
               <form onSubmit={this.updateSettings}>
                 <UserSettingsForm defaultSettings={this.props.userStore.userSettings} />
                 <FormSubmit text="Save" />
               </form>
-            </Paper>
-          </div>
+            )}
+            { userSettingsTabSelected === userSettingsTabs[2] && (
+              <div>N/A at this moment</div>
+            )}
+            { userSettingsTabSelected === userSettingsTabs[3] && (
+              <div>
+                <a className="sign-out" onClick={handleSignOut}>Sign out</a>
+              </div>
+            )}
+          </PageItemWrapper>
         </div>
       </div>
     )

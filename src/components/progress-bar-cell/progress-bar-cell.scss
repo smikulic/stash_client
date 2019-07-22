@@ -7,7 +7,8 @@
 
 .progress .progress-bar--filled-cell,
 .progress .progress-bar--empty-cell {
-  width: 25px;
+  width: 10%;
+  max-width: 30px;
   padding-right: 2px;
   height: 10px;
 

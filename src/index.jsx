@@ -17,19 +17,10 @@ import ResetPasswordPage from './pages/reset-password-page';
 import NewPasswordPage from './pages/new-password-page';
 import RegisterPage from './pages/register-page';
 import DashboardPage from './pages/dashboard-page';
-// import AccountsPage from './pages/accounts-page';
+import AccountsPage from './pages/accounts-page';
 import SettingsPage from './pages/settings-page';
-// Third party components
-import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
 require('./styles/main.scss');
 
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
 
 // Amplitude Analytics
 amplitude.getInstance().init('51522749830c034bbd73e8a7de67160d', null, {
@@ -75,12 +66,10 @@ class App extends Component {
     }
     if (this.state.loggedIn) {
       return (
-        <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-          <div className="app-wrapper">
-            <Navigation authStore={authStore} handleSignOut={this.handleSignOut} />
-            {this.props.children}
-          </div>
-        </MuiThemeProvider>
+        <div className="app-wrapper">
+          <Navigation authStore={authStore} handleSignOut={this.handleSignOut} />
+          {this.props.children}
+        </div>
       );
     }
     return <WelcomePage />;
@@ -105,7 +94,7 @@ render((
       <Route path="reset_password" component={ResetPasswordPage} />
       <Route path="/" component={App}>
         <Route path="dashboard" component={DashboardPage} onEnter={requireAuth} />
-        {/* <Route path="accounts" component={AccountsPage} onEnter={requireAuth} /> */}
+        <Route path="accounts" component={AccountsPage} onEnter={requireAuth} />
         <Route path="settings" component={SettingsPage} onEnter={requireAuth} />
       </Route>
     </Router>

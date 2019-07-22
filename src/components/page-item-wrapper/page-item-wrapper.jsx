@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
-import Paper from 'material-ui/Paper';
-
+import Paper from '@material-ui/core/Paper';
 require('./page-item-wrapper.scss');
 
 class PageItemWrapper extends Component {
@@ -9,7 +7,7 @@ class PageItemWrapper extends Component {
     return (
       <div className="row">
         <div className="col-xs-12">
-          <Paper className="page-item--wrapper" zDepth={1}>
+          <Paper className="page-item--wrapper">
             {this.props.children}
           </Paper>
         </div>

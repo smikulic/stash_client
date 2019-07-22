@@ -1,32 +1,22 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router';
-import {
-  TableHeaderColumn,
-  TableRow,
-} from 'material-ui/Table';
-
+import React from 'react';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
 require('./table-header-wrapper.scss');
 
-class TableHeaderWrapper extends Component {
-  render() {
-    const columns = this.props.columns;
-    return (
+export default function TableHeaderWrapper({ columns }) {
+  return (
+    <tbody>
       <TableRow className="table-row-header">
         {
           columns && (
-            Object.keys(columns).map((columnName, index) => {
-              return (
-                <TableHeaderColumn key={columnName + index} colSpan={columns[columnName]}>
-                  {columnName}
-                </TableHeaderColumn>
-              );
-            })
+            Object.keys(columns).map((columnName, index) => (
+              <TableCell key={columnName + index} colSpan={columns[columnName]} align="left">
+                {columnName}
+              </TableCell>
+            ))
           )
         }
-        <TableHeaderColumn colSpan="1"></TableHeaderColumn>
       </TableRow>
-    );
-  }
+    </tbody>
+  );
 };
-
-export default TableHeaderWrapper;

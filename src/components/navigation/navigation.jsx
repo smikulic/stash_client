@@ -1,47 +1,54 @@
-import React, { Component } from 'react';
-import { Link, browserHistory } from 'react-router';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import React from 'react';
+import { browserHistory } from 'react-router';
+import IconButton from '@material-ui/core/IconButton';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import NavigationLink from '../navigation-link';
 require('./navigation.scss');
 
-class Navigation extends Component {
-  render() {
-    return (
-      <ul className="navigation">
-        <Link to="/dashboard">
-          <li className="navigation-element navigation--logo"></li>
-          <li className="navigation-element navigation--title">Scroogevault</li>
-        </Link>
-        <Link to="/dashboard">
-          <li className="navigation-element navigation--item">Overview</li>
-        </Link>
-        {/* <Link to="/accounts">
-          <li className="navigation-element navigation--item">Accounts</li>
-        </Link> */}
-        <li className="navigation-element navigation--dropdown">
-          <IconMenu
-            iconButtonElement={ <IconButton><MoreVertIcon className="navigation--user-dropdown-icon" /></IconButton> }
-            targetOrigin={{horizontal: 'middle', vertical: 'top'}}
-            anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-          >
-            <MenuItem onClick={() => browserHistory.push('/settings')}
-              className="navigation--menu-item"
-              primaryText="Settings"
-            />
-            <MenuItem onClick={this.props.handleSignOut}
-              className="navigation--menu-item"
-              primaryText="Sign out"
-            />
-          </IconMenu>
-        </li>
-        <li className="navigation-element navigation--user-email">
-          {this.props.authStore.getUserData() && this.props.authStore.getUserData().email.replace(/^"(.+(?="$))"$/, '$1')}
-        </li>
-      </ul>
-    );
-  }
-}
+export default function Navigation({ authStore, handleSignOut }) {
+  const [navigationDropdownMenuOpen, setNavigationDropdownMenuOpen] = React.useState(false);
+  
+  const toggleNavigationDropdownMenu = () => setNavigationDropdownMenuOpen(!navigationDropdownMenuOpen);
 
-export default Navigation;
+  const closeNavigationDropdownMenu = () => setNavigationDropdownMenuOpen(false);
+
+  const linkTo = (url) => {
+    closeNavigationDropdownMenu()
+    browserHistory.push(url)
+  }
+
+  return (
+    <div className="navigation">
+      <div className="navigation-left">
+        <div className="navigation-logo-wrapper" onClick={() => linkTo('/dashboard')}>
+          <div className="navigation-element navigation--logo"></div>
+        </div>
+        <div className="navigation-left--mobile">
+          <NavigationLink linkClass="navigation-element" onClick={() => linkTo('/dashboard')} linkText="Overview" />
+          <NavigationLink linkClass="navigation-element" onClick={() => linkTo('/accounts')} linkText="Accounts" />
+        </div>
+      </div>
+
+      <div className="navigation-right">
+        <div className="navigation-element navigation-element-user" onClick={() => linkTo('/settings')}>
+          {authStore.getUserData() && authStore.getUserData().email.replace(/^"(.+(?="$))"$/, '$1')}
+        </div>
+        <div className="navigation-element">
+          <IconButton onClick={toggleNavigationDropdownMenu}>
+            <MoreVertIcon className="navigation--user-dropdown-icon" />
+          </IconButton>
+          { navigationDropdownMenuOpen && (
+            <div className="navigation--dropdown-menu">
+              <div className="navigation--dropdown-menu--mobile">
+                <NavigationLink linkClass="navigation--dropdown-menu-item" onClick={() => linkTo('/dashboard')} linkText="Overview" />
+                <NavigationLink linkClass="navigation--dropdown-menu-item" onClick={() => linkTo('/accounts')} linkText="Accounts" />
+              </div>
+              <NavigationLink linkClass="navigation--dropdown-menu-item" onClick={() => linkTo('/settings')} linkText="Settings" />
+              <NavigationLink linkClass="navigation--dropdown-menu-item" onClick={handleSignOut} linkText="Sign out" />
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

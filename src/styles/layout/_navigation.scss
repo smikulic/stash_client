@@ -1,59 +1,95 @@
 .navigation {
+  display: flex;
+  justify-content: space-between;
   overflow: hidden;
   margin: 0;
   padding: 0;
   width: 100%;
-	@include m-height(60px);
+  height: 6rem;
 	background-color: $navigationBackgroundColor;
   box-shadow: 0px 0px 6px 1px $grayLight;
 }
 
+.navigation .navigation-left,
+.navigation .navigation-right,
+.navigation .navigation-left--mobile,
+.navigation .navigation-logo-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.navigation .navigation-left--mobile {
+  visibility: visible;
+
+  @media screen and (max-width: 991px) {
+    visibility: hidden;
+    height: 0;
+    width: 0;
+  }
+}
+
 .navigation .navigation-element {
-  display: inline-block;
-  float: left;
-  margin-left: 2rem;
+  margin: 0 1rem;
+  font-size: $fontSize-normal;
+  color: $grayLight;
+  cursor: pointer;
+
+  &:hover {
+    color: $blackLight;
+  }
 }
 
 .navigation .navigation--logo {
-  margin-top: 1rem;
-  width: 4.1rem;
+  width: 4.3rem;
   height: 3.8rem;
   background-image: url('../../dist/favicon.png');
   background-position: top center;
   background-size: cover;
 }
 
-.navigation .navigation--title {
-  margin-top: 0.4rem;
-  font-size: $fontSize-large;
-  font-weight: 100;
-  color: $grayLight;
-}
-
-.navigation--item {
-  margin-top: 0.4rem;
-  font-size: $fontSize-large;
-  font-weight: 100;
-  color: $grayLight;
-}
-
-.navigation--item:hover {
-  color: $darkPrimaryColor;
-}
-
-.navigation .navigation--dropdown {
-  margin: 0 0.4rem 0 0;
-  float: right;
-}
-
-.navigation .navigation--user-email {
-  margin: 0.4rem 1rem 0 0;
-  float: right;
-  color: $grayLight;
+.navigation .navigation-element-user {
+  cursor: default;
 }
 
 .navigation .navigation--user-dropdown-icon {
-  color: $grayLight !important;
-  height: 18px !important;
-  width: 18px !important;
+  color: $grayLight;
+  height: 2rem;
+  width: 2rem;
+}
+
+.navigation .navigation--dropdown-menu {
+  z-index: 1;
+  position: absolute;
+  top: 6rem;
+  right: 0;
+  width: 10rem;
+  background: white;
+  box-shadow: 0 1px 2px 0 $grayLight;
+
+  @media screen and (max-width: 991px) {
+    left: 0;
+    width: 100%;
+  }
+}
+
+.navigation .navigation--dropdown-menu--mobile {
+  visibility: hidden;
+  height: 0;
+
+  @media screen and (max-width: 991px) {
+    visibility: visible;
+    height: auto;
+  }
+}
+
+.navigation .navigation--dropdown-menu-item {
+  height: 4.4rem;
+  line-height: 4.2rem;
+  color: $grayLight;
+  text-align: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $darkPrimaryColor;
+  }
 }

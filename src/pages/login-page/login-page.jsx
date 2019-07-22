@@ -1,20 +1,12 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import { withRouter } from 'react-router';
 import authStore from '../../stores/auth_store';
 import FormSignIn from '../../components/form-sign-in';
 import FormSignInQuestion from '../../components/form-sign-in-question';
-import Dialog from 'material-ui/Dialog';
-
-const customDialogStyle = {
-  position: 'absolute',
-  top: '5%',
-  width: '50%',
-  maxWidth: 'none',
-  transform: 'translate(50%, 64px)',
-};
 
 const LoginPage = withRouter(
-  React.createClass({
+  createReactClass({
 
     getInitialState() {
       return {

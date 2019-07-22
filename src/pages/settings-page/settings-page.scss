@@ -1,17 +1,16 @@
 @import "../../styles/config/settings.scss";
 
-.settings-page {
-  margin: 10px auto;
-  padding: 25px;
-  width: 100%;
-  height: auto;
-  display: inline-block;
-  background-color: $darkPrimaryColor !important;
-  font-family: 'Khula', sans-serif;
-  font-weight: 300;
+.settings-page--tab-navigation {
+  list-style-type: none;
+  margin: 0;
+  padding: 0 1rem;
 }
 
 .settings-page--title {
+  margin-left: 0.5rem;
   color: $grayLight;
-  margin-left: -20px;
+}
+
+.sign-out {
+  cursor: pointer;
 }

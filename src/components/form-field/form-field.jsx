@@ -1,48 +1,37 @@
-import React, { Component } from 'react';
-import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
-import DatePicker from 'material-ui/DatePicker';
+import React from 'react';
 require('./form-field.scss');
 
-class FormField extends Component {
-  fieldProps() {
-    return {
-      floatingLabelText: this.props.label,
-      onChange: this.props.onChangeEvent,
-      floatingLabelFixed: true,
-      value: this.props.value,
-      fullWidth: true,
-    };
-  }
-
-  render() {
-    const {
-      selectField,
-      targetName,
-      value,
-      children,
-    } = this.props;
-
-    return (
-      <div className="row">
-        <div className="col-xs-8 col-xs-push-2">
-          { selectField && (
-            <span>
-              <SelectField {...this.fieldProps()}>
-                {children}
-              </SelectField>
-              <input name={targetName} type="hidden" value={value} />
-            </span>
-          )}
-          { !selectField && (
-            <span>
-              <TextField name={targetName} {...this.fieldProps()} />{children}
-            </span>
-          )}
-        </div>
-      </div>
-    );
-  }
+export default function FormField({
+  onChangeEvent,
+  defaultValue,
+  selectField,
+  targetName,
+  dateField,
+  children,
+  label,
+  value,
+}) {
+  return (
+    <div className="form-field">
+      <label htmlFor={targetName}>{label}</label>
+      { selectField && (
+        <select name={targetName} className="form-select" defaultValue={defaultValue} onChange={onChangeEvent}>
+          {children}
+        </select>
+      )}
+      { dateField && (
+        <input type="date" name={targetName} className="form-input" value={value} onChange={onChangeEvent} />
+      )}
+      { !selectField && !dateField && (
+        <input
+          type="text" 
+          name={targetName}
+          className="form-input"
+          data-lpignore="true"
+          value={value}
+          onChange={onChangeEvent}
+        />
+      )}
+    </div>
+  );
 }
-
-export default FormField;

@@ -1,33 +1,30 @@
 .feature-box {
   position: relative;
-  padding: 80px 30%;
+  padding: 6rem 30%;
   width: 100%;
   text-align: center;
+  font-family: 'Khula', sans-serif;
+}
+.feature-box a {
+  font-family: 'Noto Sans', sans-serif;
 }
 .feature-box .feature-box--title {
   margin: 0;
   margin-bottom: 14px;
-  font-size: 20px;
+  font-size: 2.2rem;
   line-height: 1.2;
 }
 .feature-box .feature-box--description {
   margin: 0;
-  font-size: 18px;
+  font-size: 1.8rem;
 }
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 991px) {
   .feature-box {
-    padding: 70px 25%;
-  }
-  .feature-box .feature-box--description {
-    font-size: 16px;
+    padding: 4rem 25%;
   }
 }
 @media screen and (max-width: 767px) {
   .feature-box {
-    padding: 50px 20%;
-    font-size: 18px;
-  }
-  .feature-box .feature-box--description {
-    font-size: 14px;
+    padding: 4rem 20%;
   }
 }

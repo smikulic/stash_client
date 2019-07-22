@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 require('./table-toolbar-wrapper.scss');
 
 class TableToolbarWrapper extends Component {
