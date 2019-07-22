@@ -79,7 +79,7 @@ class SavingGoalsIndex extends Component {
       <React.Fragment>
         <TableToolbarWrapper title="Saving Goals" onPlusClick={this.props.handleAddSavingGoal} />
         <Table className="table">
-          <TableHeaderWrapper columns={{'Goal': 5, 'Goal progress': 4, 'Total budget': 2, 'Each month': 2 }} />
+          <TableHeaderWrapper columns={{'Goal': 0, 'Goal progress': 0, '': 0, 'Total budget': 0, 'Each month': 0 }} />
           <TableBody>
             {
               savingGoals && (
@@ -101,7 +101,7 @@ class SavingGoalsIndex extends Component {
                         {
                           type: 'name',
                           value: item.description,
-                          size: 4,
+                          size: 0,
                           onEditClick: this.handleOnUpdateSavingGoal.bind(this, item),
                           onRemoveClick: this.handleOnRemoveSavingGoal.bind(this, item.id),
                           extraInfo: dueDateMessage(normalizedDeadline),
@@ -109,17 +109,17 @@ class SavingGoalsIndex extends Component {
                         {
                           type: 'progress',
                           value: saved,
-                          size: 4,
+                          size: 2,
                         },
                         {
                           type: 'default',
                           value: `${currency} ${accounting.formatNumber(item.value)}`,
-                          size: 2,
+                          size: 0,
                         },
                         {
                           type: 'default',
                           value: `${currency} ${accounting.formatNumber(monthly)}`,
-                          size: 2,
+                          size: 0,
                         },
                       ]}
                     />
@@ -132,10 +132,10 @@ class SavingGoalsIndex extends Component {
                 placeholderExample={true}
                 lastItem={true}
                 columns={[
-                  { type: 'name', value: 'Holiday Dream House', size: 5, extraInfo: 'in 10 months' },
-                  { type: 'progress', value: 90, size: 4 },
-                  { type: 'default', value: '$170,000', size: 2 },
-                  { type: 'default', value: '1,700', size: 2 },
+                  { type: 'name', value: 'Holiday Dream House', size: 0, extraInfo: 'in 10 months' },
+                  { type: 'progress', value: 90, size: 2 },
+                  { type: 'default', value: '$170,000', size: 0 },
+                  { type: 'default', value: '1,700', size: 0 },
                 ]}
               />
             )}

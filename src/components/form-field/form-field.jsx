@@ -1,38 +1,36 @@
 import React from 'react';
 require('./form-field.scss');
 
-export default function FormField({ targetName, onChangeEvent, selectField, dateField, value, children, label, defaultValue }) {
+export default function FormField({
+  onChangeEvent,
+  defaultValue,
+  selectField,
+  targetName,
+  dateField,
+  children,
+  label,
+  value,
+}) {
   return (
     <div className="form-field">
+      <label htmlFor={targetName}>{label}</label>
       { selectField && (
-        <select
-        name={targetName}
-          className="form-select"
-          defaultValue={defaultValue}
-          onChange={onChangeEvent}
-        >
+        <select name={targetName} className="form-select" defaultValue={defaultValue} onChange={onChangeEvent}>
           {children}
         </select>
       )}
       { dateField && (
-        <input
-          type="date"
-          name={targetName}
-          className="form-input"
-          placeholder={label}
-          value={value}
-          onChange={onChangeEvent}
-        />
+        <input type="date" name={targetName} className="form-input" value={value} onChange={onChangeEvent} />
       )}
       { !selectField && !dateField && (
         <input
-          type="text"
+          type="text" 
           name={targetName}
           className="form-input"
+          data-lpignore="true"
           placeholder={label}
           value={value}
           onChange={onChangeEvent}
-          data-lpignore="true"
         />
       )}
     </div>

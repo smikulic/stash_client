@@ -57,8 +57,8 @@ class AccountForm extends Component {
           targetName="currency"
           value={this.state.currencyValue}
           onChangeEvent={this.handleChangeCurrency}
-          selectField
           defaultValue="USD"
+          selectField
         >
           <option value="USD">($) USD</option>
           <option value="EUR">(€) EUR</option>

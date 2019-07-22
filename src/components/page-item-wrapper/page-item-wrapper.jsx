@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
-
 require('./page-item-wrapper.scss');
 
 class PageItemWrapper extends Component {

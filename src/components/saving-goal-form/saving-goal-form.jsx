@@ -25,12 +25,9 @@ class SavingGoalForm extends Component {
     const deadlineValue = defaultSettings ? defaultSettings.deadline : minDate;
 
     this.state = {
-      disableYearSelection: false,
       descriptionValue,
       deadlineValue,
-      autoOk: true,
       budgetValue,
-      minDate,
     };
   }
 

@@ -10,7 +10,7 @@ export default function TableHeaderWrapper({ columns }) {
         {
           columns && (
             Object.keys(columns).map((columnName, index) => (
-              <TableCell key={columnName + index} colSpan={columns[columnName]}>
+              <TableCell key={columnName + index} colSpan={columns[columnName]} align="left">
                 {columnName}
               </TableCell>
             ))

@@ -34,7 +34,7 @@ class TableRowWrapper extends Component {
 
               if (type === 'name') {
                 return (
-                  <TableCell key={value + index} colSpan={size}>
+                  <TableCell key={value + index} colSpan={size} align="left">
                     <div className="table-row--name">
                       {value}
                       { onEditClick && (
@@ -59,7 +59,7 @@ class TableRowWrapper extends Component {
 
               if (type === 'progress') {
                 return (
-                  <TableCell key={value + index} colSpan={size}>
+                  <TableCell key={value + index} colSpan={size} align="left">
                     <div className="table-row--progress">
                       <ProgressBar savedValue={value} />
                     </div>
@@ -69,7 +69,7 @@ class TableRowWrapper extends Component {
 
               if (type === 'default') {
                 return (
-                  <TableCell key={value + index} colSpan={size}>
+                  <TableCell key={value + index} colSpan={size} align="left">
                     <div className="table-row--default">{value}</div>
                   </TableCell>
                 );

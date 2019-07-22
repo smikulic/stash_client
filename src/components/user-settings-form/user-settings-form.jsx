@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import MenuItem from '@material-ui/core/MenuItem';
 import FormTitle from '../form-title';
 import FormField from '../form-field';
 
@@ -11,6 +10,7 @@ class UserSettingsForm extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps.defaultSettings.average_monthly_expenses)
     this.setState({
       currencyValue: nextProps.defaultSettings.main_currency,
       avgIncomesValue: nextProps.defaultSettings.average_monthly_incomes,
@@ -24,8 +24,7 @@ class UserSettingsForm extends Component {
 
   render() {
     return (
-      <div>
-        <div className="row">
+      <React.Fragment>
         <FormTitle title={this.props.title} />
         <FormField
           label="Income"
@@ -44,16 +43,16 @@ class UserSettingsForm extends Component {
           targetName="currency"
           value={this.state.currencyValue}
           onChangeEvent={this.handleChangeCurrency}
+          defaultValue="USD"
           selectField
         >
-          <MenuItem value="EUR" primaryText="(€) EUR" />
-          <MenuItem value="USD" primaryText="($) USD" />
-          <MenuItem value="GBP" primaryText="(£) GBP" />
-          <MenuItem value="CAD" primaryText="($) CAD" />
-          <MenuItem value="JPY" primaryText="(¥) JPY" />
+          <option value="USD">($) USD</option>
+          <option value="EUR">(€) EUR</option>
+          <option value="GBP">(£) GBP</option>
+          <option value="CAD">($) CAD</option>
+          <option value="JPY">(¥) JPY</option>
         </FormField>
-        </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

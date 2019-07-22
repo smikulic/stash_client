@@ -1,17 +1,44 @@
 @import "../../styles/config/settings.scss";
 
-.settings-page {
-  margin: 10px auto;
-  padding: 25px;
-  width: 100%;
-  height: auto;
-  display: inline-block;
-  background-color: $darkPrimaryColor !important;
-  font-family: 'Khula', sans-serif;
-  font-weight: 300;
+.settings-page--tab-navigation {
+  list-style-type: none;
+  margin: 0;
+  padding: 0 1rem;
+}
+
+.settings-page--tab-navigation .tab {
+  position: relative;
+  padding: 0 1rem;
+  height: 4rem;
+  line-height: 4rem;
+  color: $grayLight;
+  border-bottom: 1px solid $grayLight;
+  text-align: left;
+  cursor: pointer;
+}
+.settings-page--tab-navigation .tab.selected {
+  color: $primaryTextColor;
+}
+.settings-page--tab-navigation .tab:hover {
+  color: $blue;
+}
+.settings-page--tab-navigation .tab.selected:hover {
+  color: black;
+}
+.settings-page--tab-navigation i {
+  position: absolute;
+  top: 1.5rem;
+  right: 1rem;
+}
+.settings-page--tab-navigation .tab:last-child {
+  border-color: transparent;
 }
 
 .settings-page--title {
+  margin-left: 0.5rem;
   color: $grayLight;
-  margin-left: -20px;
+}
+
+.sign-out {
+  cursor: pointer;
 }

@@ -54,20 +54,22 @@ class AccountsPage extends Component {
   render() {
     return (
       <div className="container-fluid">
-        <PageItemWrapper>
-          <AccountsIndex
-            userData={this.props.userStore.userSettings}
-            handleAddAccount={this.openAccountForm}
-          />
-        </PageItemWrapper>
-        <DialogWrapper
-          open={this.state.accountFormActive}
-          onRequestClose={this.closeAccountForm}
-          onSubmit={this.submitAccountForm}
-          submitText="Add"
-        >
-          <AccountForm title="Add bank account" />
-        </DialogWrapper>
+        <div className="col-xs-12">
+          <PageItemWrapper>
+            <AccountsIndex
+              userData={this.props.userStore.userSettings}
+              handleAddAccount={this.openAccountForm}
+            />
+          </PageItemWrapper>
+          <DialogWrapper
+            open={this.state.accountFormActive}
+            onRequestClose={this.closeAccountForm}
+            onSubmit={this.submitAccountForm}
+            submitText="Add"
+          >
+            <AccountForm title="Add bank account" />
+          </DialogWrapper>
+        </div>
       </div>
     )
   }

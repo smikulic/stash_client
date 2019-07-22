@@ -33,7 +33,7 @@ export default function Navigation({ authStore, handleSignOut }) {
       </div>
 
       <div className="navigation-right">
-        <div className="navigation-element navigation-element-user">
+        <div className="navigation-element navigation-element-user" onClick={() => linkTo('/settings')}>
           {authStore.getUserData() && authStore.getUserData().email.replace(/^"(.+(?="$))"$/, '$1')}
         </div>
         <div className="navigation-element">
