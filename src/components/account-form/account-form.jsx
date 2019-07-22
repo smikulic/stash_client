@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { getCurrencyField } from '../../helpers/form-utils';
 import FormBuilder from '../form-builder';
 require('./account-form.scss');
 
@@ -37,15 +38,7 @@ class AccountForm extends Component {
           { label: 'Bank Name', targetName: 'name', value: this.state.nameValue, onChangeEvent: this.handleChangeName },
           { label: 'Description', targetName: 'description', value: this.state.descriptionValue, onChangeEvent: this.handleChangeDescription },
           { label: 'Balance', targetName: 'balance', value: this.state.balanceValue, onChangeEvent: this.handleChangeBalance },
-          {
-            label: 'Currency',
-            targetName: 'currency',
-            value: this.state.currencyValue,
-            onChangeEvent: this.handleChangeCurrency,
-            type: 'select', 
-            options: { USD: '($) USD', EUR: '(€) EUR', GBP: '(£) GBP', CAD: '($) CAD', JPY: '(¥) JPY' },
-            defaultValue: 'USD',
-          },
+          getCurrencyField(this.state.currencyValue, this.handleChangeCurrency),
           { 
             label: 'Status',
             targetName: 'status',

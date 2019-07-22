@@ -2,6 +2,7 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import NavigationLink from '../navigation-link';
 require('./navigation.scss');
 
 export default function Navigation({ authStore, handleSignOut }) {
@@ -23,12 +24,8 @@ export default function Navigation({ authStore, handleSignOut }) {
           <div className="navigation-element navigation--logo"></div>
         </div>
         <div className="navigation-left--mobile">
-          <div className="navigation-element" onClick={() => linkTo('/dashboard')}>
-            Overview
-          </div>
-          <div className="navigation-element" onClick={() => linkTo('/accounts')}>
-            Accounts
-          </div>
+          <NavigationLink linkClass="navigation-element" onClick={() => linkTo('/dashboard')} linkText="Overview" />
+          <NavigationLink linkClass="navigation-element" onClick={() => linkTo('/accounts')} linkText="Accounts" />
         </div>
       </div>
 
@@ -43,19 +40,11 @@ export default function Navigation({ authStore, handleSignOut }) {
           { navigationDropdownMenuOpen && (
             <div className="navigation--dropdown-menu">
               <div className="navigation--dropdown-menu--mobile">
-                <div className="navigation--dropdown-menu-item" onClick={() => linkTo('/dashboard')}>
-                  Overview
-                </div>
-                <div className="navigation--dropdown-menu-item" onClick={() => linkTo('/accounts')}>
-                  Accounts
-                </div>
+                <NavigationLink linkClass="navigation--dropdown-menu-item" onClick={() => linkTo('/dashboard')} linkText="Overview" />
+                <NavigationLink linkClass="navigation--dropdown-menu-item" onClick={() => linkTo('/accounts')} linkText="Accounts" />
               </div>
-              <div className="navigation--dropdown-menu-item" onClick={() => linkTo('/settings')}>
-                Settings
-              </div>
-              <div className="navigation--dropdown-menu-item" onClick={handleSignOut}>
-                Sign out
-              </div>
+              <NavigationLink linkClass="navigation--dropdown-menu-item" onClick={() => linkTo('/settings')} linkText="Settings" />
+              <NavigationLink linkClass="navigation--dropdown-menu-item" onClick={handleSignOut} linkText="Sign out" />
             </div>
           )}
         </div>

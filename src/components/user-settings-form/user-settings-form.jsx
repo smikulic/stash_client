@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { getCurrencyField } from '../../helpers/form-utils';
 import FormBuilder from '../form-builder';
 
 class UserSettingsForm extends Component {
@@ -27,15 +28,16 @@ class UserSettingsForm extends Component {
         formFields={[
           { label: 'Income', targetName: 'avgIncome', value: this.state.avgIncomesValue, onChangeEvent: this.handleChangeAvgIncomesValue },
           { label: 'Expenses', targetName: 'avgExpenses', value: this.state.avgExpensesValue, onChangeEvent: this.handleChangeAvgExpensesValue },
-          {
-            label: 'Currency',
-            targetName: 'currency',
-            value: this.state.currencyValue,
-            onChangeEvent: this.handleChangeCurrency,
-            type: 'select', 
-            options: { USD: '($) USD', EUR: '(€) EUR', GBP: '(£) GBP', CAD: '($) CAD', JPY: '(¥) JPY' },
-            defaultValue: 'USD',
-          },
+          getCurrencyField(this.state.currencyValue, this.handleChangeCurrency),
+          // {
+          //   label: 'Currency',
+          //   targetName: 'currency',
+          //   value: this.state.currencyValue,
+          //   onChangeEvent: this.handleChangeCurrency,
+          //   type: 'select', 
+          //   options: { USD: '($) USD', EUR: '(€) EUR', GBP: '(£) GBP', CAD: '($) CAD', JPY: '(¥) JPY' },
+          //   defaultValue: 'USD',
+          // },
         ]}
       />
     );
