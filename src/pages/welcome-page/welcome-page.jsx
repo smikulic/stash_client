@@ -20,9 +20,9 @@ class WelcomePage extends Component {
     return (
       <div>
         <div className="oval-wrapper">
-          <svg viewBox="200 0 500 500" preserveAspectRatio="xMinYMin meet">
-            <path d="M0,170 C150,220 400,0 500,120 L500,00 L0,0 Z" style={{stroke: 'none', fill: '#c5bcf9', opacity: '0.4'}} />
-            <path d="M0,100 C150,200 350,0 500,120 L500,00 L0,0 Z" style={{stroke: 'none', fill: '#c5bcf9', opacity: '0.3'}} />
+          <svg viewBox="400 0 500 500" preserveAspectRatio="xMinYMin meet">
+            <path d="M0,290 C170,240 900,0 1000,140 L1000,00 L0,0 Z" style={{stroke: 'none', fill: '#c5bcf9', opacity: '0.4'}} />
+            <path d="M0,220 C170,220 750,0 1000,140 L1000,00 L0,0 Z" style={{stroke: 'none', fill: '#c5bcf9', opacity: '0.3'}} />
           </svg>
         </div>
         <div className="features">
