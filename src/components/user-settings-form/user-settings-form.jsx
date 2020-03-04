@@ -10,11 +10,13 @@ class UserSettingsForm extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      currencyValue: nextProps.defaultSettings.main_currency,
-      avgIncomesValue: nextProps.defaultSettings.average_monthly_incomes,
-      avgExpensesValue: nextProps.defaultSettings.average_monthly_expenses,
-    });
+    if (nextProps.defaultSettings) {
+      this.setState({
+        currencyValue: nextProps.defaultSettings.main_currency,
+        avgIncomesValue: nextProps.defaultSettings.average_monthly_incomes,
+        avgExpensesValue: nextProps.defaultSettings.average_monthly_expenses,
+      })
+    }
   }
 
   handleChangeCurrency = (event, index, currencyValue) => this.setState({ currencyValue });
