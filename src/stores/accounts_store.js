@@ -5,10 +5,11 @@ import { handleRequest } from '../helpers/api';
 export class AccountsStore {
   @observable accounts = [];
 
-  @action loadAccounts(userId) {
+  @action loadAccounts(userId, sortByQuery) {
+    const sortQuery = sortByQuery || '';
     handleRequest({
       method: 'GET',
-      endpointPath: `users/${userId}/bank_accounts`,
+      endpointPath: `users/${userId}/bank_accounts${sortQuery}`,
       onSuccess: (responseBody) => this.accounts = responseBody,
     });
   }

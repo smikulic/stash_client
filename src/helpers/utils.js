@@ -49,6 +49,24 @@ export function transformUserSettingsFormData(eventTarget) {
   };
 }
 
+export function buildSortQuery(columnName, currentDirection = 'default') {
+  const dbColumnNameMap = {
+    'Goal': 'description',
+    'Goal progress': 'deadline',
+    'Total budget': 'value',
+    'Bank name': 'name',
+    'Balance': 'balance',
+    'Status': 'status',
+    'Last update': 'updated_at',
+  };
+  let newSortDirection = currentDirection !== 'desc' ? 'desc' : 'asc';
+
+  return {
+    sortQuery: `?sort_by=${dbColumnNameMap[columnName]}&sort_direction=${newSortDirection.toUpperCase()}`,
+    sortedBy: { columnName: columnName, direction: newSortDirection },
+  };
+}
+
 export function handleSignOut() {
   authStore.logout();
   browserHistory.push('/');

@@ -9,3 +9,18 @@
   font-family: "Khula", sans-serif;
   font-size: $fontSize-medium;
 }
+
+.table .table-row-header .button-sort {
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+.table .table-row-header .fa-sort-asc,
+.table .table-row-header .fa-sort-desc {
+  top: 0.25rem;
+  position: relative;
+}
+
+.table .table-row-header .fa-sort-desc {
+  top: -0.25rem;
+}

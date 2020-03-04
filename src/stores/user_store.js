@@ -33,7 +33,7 @@ export class UserStore {
     });
   }
 
-  @action updateUserSettings(userId, settingsId, userSettings) {
+  @action updateUserSettings(userId, settingsId, userSettings, redirectUrl) {
     amplitude.getInstance().logEvent('UPDATED User Settings');
     handleRequest({
       method: 'PUT',
@@ -41,7 +41,9 @@ export class UserStore {
       data: userSettings,
       onSuccess: (responseBody) => {
         this.userSettings = responseBody;
-        browserHistory.push('/dashboard');
+        if (redirectUrl) {
+          browserHistory.push(redirectUrl);
+        }
       },
     });
   }

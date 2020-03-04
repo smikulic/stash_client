@@ -31,7 +31,7 @@ class SettingsPage extends Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.userStore.loadUserSettings(this.userId);
   }
 
@@ -69,7 +69,7 @@ class SettingsPage extends Component {
         <div className="col-xs-12 col-sm-8 col-md-9">
           <PageItemWrapper>
             <h3 className="settings-page--title">User Preferences - {userSettingsTabSelected}</h3>
-            { userSettingsTabSelected === userSettingsTabs[1] && (
+            { userSettingsTabSelected === userSettingsTabs[1] && !this.props.userStore.userSettingsLoading && (
               <form onSubmit={this.updateSettings}>
                 <UserSettingsForm defaultSettings={this.props.userStore.userSettings} />
                 <FormSubmit text="Save" />

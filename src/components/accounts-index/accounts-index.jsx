@@ -5,7 +5,7 @@ import symbolFromCurrency from 'currency-symbol-map';
 import moment from 'moment';
 import accounting from 'accounting';
 import { isEmpty } from 'lodash';
-import { sanitizeValue } from '../../helpers/utils';
+import { sanitizeValue, buildSortQuery } from '../../helpers/utils';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableToolbarWrapper from '../table-toolbar-wrapper';
@@ -14,6 +14,7 @@ import TableRowWrapper from '../table-row-wrapper';
 import DialogWrapper from '../dialog-wrapper';
 import AccountForm from '../account-form';
 
+
 @inject('accountsStore', 'userStore')
 @withRouter
 @observer
@@ -21,11 +22,13 @@ class AccountsIndex extends Component {
   constructor(props) {
     super(props);
     this.updateAccount = this.updateAccount.bind(this);
+    this.handleSortAction = this.handleSortAction.bind(this);
     this.userId = props.userStore.userData.id;
 
     this.state = {
       accountFormActive: false,
       selectedAccount: {},
+      sortedBy: { columnName: '', direction: '' },
     };
   }
 
@@ -36,6 +39,12 @@ class AccountsIndex extends Component {
   closeAccountForm = () => {
     this.setState({ accountFormActive: false });
   };
+
+  handleSortAction(columnName, currentDirection) {
+    const { sortQuery, sortedBy } = buildSortQuery(columnName, currentDirection);
+    this.props.accountsStore.loadAccounts(this.userId, sortQuery);
+    this.setState({ sortedBy: sortedBy });
+  }
 
   handleOnRemoveAccount(accountlId) {
     this.props.accountsStore.removeAccount(this.userId, accountlId);
@@ -66,12 +75,22 @@ class AccountsIndex extends Component {
 
   render() {
     const { accounts } = this.props.accountsStore;
+    const { sortedBy } = this.state;
 
     return (
       <React.Fragment>
         <TableToolbarWrapper title="Bank Accounts" onPlusClick={this.props.handleAddAccount} />
         <Table className="table">
-          <TableHeaderWrapper columns={{'Bank name': 5, 'Balance': 3, 'Status': 2, 'Last update': 3 }} />
+          <TableHeaderWrapper
+            columns={{
+              'Bank name': { span: 5 },
+              'Balance': { span: 3 },
+              'Status': { span: 2 },
+              'Last update': { span: 3 },
+            }}
+            sortedBy={sortedBy}
+            handleSortAction={this.handleSortAction}
+          />
           <TableBody>
             {
               accounts && (

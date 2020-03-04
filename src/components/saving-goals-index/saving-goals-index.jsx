@@ -12,6 +12,7 @@ import {
   monthlyValue,
   savedUntilNowValue,
   dueDateMessage,
+  buildSortQuery,
 } from '../../helpers/utils';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -21,6 +22,7 @@ import TableRowWrapper from '../table-row-wrapper';
 import DialogWrapper from '../dialog-wrapper';
 import SavingGoalForm from '../../components/saving-goal-form';
 
+
 @inject('savingGoalsStore', 'userStore')
 @withRouter
 @observer
@@ -28,11 +30,13 @@ class SavingGoalsIndex extends Component {
   constructor(props) {
     super(props);
     this.updateSavingGoal = this.updateSavingGoal.bind(this);
+    this.handleSortAction = this.handleSortAction.bind(this);
     this.userId = props.userStore.userData.id;
 
     this.state = {
       savingGoalFormActive: false,
       selectedSavingGoal: {},
+      sortedBy: { columnName: '', direction: '' },
     };
   }
 
@@ -46,6 +50,12 @@ class SavingGoalsIndex extends Component {
 
   handleOnRemoveSavingGoal(savingGoalId) {
     this.props.savingGoalsStore.removeSavingGoal(this.userId, savingGoalId);
+  }
+
+  handleSortAction(columnName, currentDirection) {
+    const { sortQuery, sortedBy } = buildSortQuery(columnName, currentDirection);
+    this.props.savingGoalsStore.loadSavingGoals(this.userId, sortQuery);
+    this.setState({ sortedBy: sortedBy });
   }
 
   handleOnUpdateSavingGoal(savingGoal) {
@@ -70,16 +80,25 @@ class SavingGoalsIndex extends Component {
   };
 
   render() {
-    const { savingGoals } = this.props.savingGoalsStore;
-    const currency = this.props.userStore.userSettings ?
-    symbolFromCurrency(this.props.userStore.userSettings.main_currency) :
-    null;
+    const { savingGoalsStore, userStore, handleAddSavingGoal } = this.props;
+    const { sortedBy, savingGoalFormActive, selectedSavingGoal } = this.state;
+    const { savingGoals } = savingGoalsStore;
+    const currency = userStore.userSettings ? symbolFromCurrency(userStore.userSettings.main_currency) : null;
 
     return (
       <React.Fragment>
-        <TableToolbarWrapper title="Saving Goals" onPlusClick={this.props.handleAddSavingGoal} />
+        <TableToolbarWrapper title="Saving Goals" onPlusClick={handleAddSavingGoal} />
         <Table className="table">
-          <TableHeaderWrapper columns={{'Goal': 0, 'Goal progress': 0, '': 0, 'Total budget': 0, 'Each month': 0 }} />
+          <TableHeaderWrapper
+            columns={{
+              'Goal': { span: 2 },
+              'Goal progress': { span: 4 },
+              'Total budget': { span: 1 },
+              'Each month': { span: 1, sort: false },
+            }}
+            sortedBy={sortedBy}
+            handleSortAction={this.handleSortAction}
+          />
           <TableBody>
             {
               savingGoals && (
@@ -101,7 +120,7 @@ class SavingGoalsIndex extends Component {
                         {
                           type: 'name',
                           value: item.description,
-                          size: 0,
+                          size: 2,
                           onEditClick: this.handleOnUpdateSavingGoal.bind(this, item),
                           onRemoveClick: this.handleOnRemoveSavingGoal.bind(this, item.id),
                           extraInfo: dueDateMessage(normalizedDeadline),
@@ -109,17 +128,17 @@ class SavingGoalsIndex extends Component {
                         {
                           type: 'progress',
                           value: saved,
-                          size: 2,
+                          size: 4,
                         },
                         {
                           type: 'default',
                           value: `${currency} ${accounting.formatNumber(item.value)}`,
-                          size: 0,
+                          size: 1,
                         },
                         {
                           type: 'default',
                           value: `${currency} ${accounting.formatNumber(monthly)}`,
-                          size: 0,
+                          size: 1,
                         },
                       ]}
                     />
@@ -132,22 +151,22 @@ class SavingGoalsIndex extends Component {
                 placeholderExample={true}
                 lastItem={true}
                 columns={[
-                  { type: 'name', value: 'Holiday Dream House', size: 0, extraInfo: 'in 10 months' },
-                  { type: 'progress', value: 90, size: 2 },
-                  { type: 'default', value: '$170,000', size: 0 },
-                  { type: 'default', value: '1,700', size: 0 },
+                  { type: 'name', value: 'Holiday Dream House', size: 2, extraInfo: 'in 10 months' },
+                  { type: 'progress', value: 90, size: 4 },
+                  { type: 'default', value: '$170,000', size: 1 },
+                  { type: 'default', value: '1,700', size: 1 },
                 ]}
               />
             )}
           </TableBody>
         </Table>
         <DialogWrapper
-          open={this.state.savingGoalFormActive}
+          open={savingGoalFormActive}
           onRequestClose={this.closeSavingGoalForm}
           onSubmit={this.updateSavingGoal}
           submitText="Update"
         >
-          <SavingGoalForm title="Update goal" defaultSettings={this.state.selectedSavingGoal} />
+          <SavingGoalForm title="Update goal" defaultSettings={selectedSavingGoal} />
         </DialogWrapper>
       </React.Fragment>
     );

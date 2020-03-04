@@ -5,7 +5,7 @@ export function getCurrencyField(value, onChangeEvent) {
 		value: value,
 		onChangeEvent: onChangeEvent,
 		type: 'select', 
-		options: { USD: '($) USD', EUR: '(€) EUR', GBP: '(£) GBP', CAD: '($) CAD', JPY: '(¥) JPY' },
+		options: { USD: '($) USD', EUR: '(€) EUR', GBP: '(£) GBP', CAD: '($) CAD', JPY: '(¥) JPY', HRK: '(kn) HRK' },
 		defaultValue: 'USD',
 	};
 }

@@ -5,10 +5,11 @@ import { handleRequest } from '../helpers/api';
 export class SavingGoalsStore {
   @observable savingGoals = [];
 
-  @action loadSavingGoals(userId) {
+  @action loadSavingGoals(userId, sortByQuery) {
+    const sortQuery = sortByQuery || '';
     handleRequest({
       method: 'GET',
-      endpointPath: `users/${userId}/saving_goals`,
+      endpointPath: `users/${userId}/saving_goals${sortQuery}`,
       onSuccess: (responseBody) => this.savingGoals = responseBody,
     });
   }

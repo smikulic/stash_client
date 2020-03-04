@@ -3,18 +3,14 @@ import { getCurrencyField } from '../../helpers/form-utils';
 import FormBuilder from '../form-builder';
 
 class UserSettingsForm extends Component {
-  state = {
-    currencyValue: 'EUR',
-    avgIncomesValue: '',
-    avgExpensesValue: '',
-  };
+  constructor(props) {
+    super(props);
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      currencyValue: nextProps.defaultSettings.main_currency,
-      avgIncomesValue: nextProps.defaultSettings.average_monthly_incomes,
-      avgExpensesValue: nextProps.defaultSettings.average_monthly_expenses,
-    });
+    this.state = {
+      currencyValue: props.defaultSettings ? props.defaultSettings.main_currency : 'EUR',
+      avgIncomesValue: props.defaultSettings? props.defaultSettings.average_monthly_incomes : '',
+      avgExpensesValue: props.defaultSettings ? props.defaultSettings.average_monthly_expenses : '',
+    };
   }
 
   handleChangeCurrency = (event, index, currencyValue) => this.setState({ currencyValue });
@@ -29,15 +25,6 @@ class UserSettingsForm extends Component {
           { label: 'Income', targetName: 'avgIncome', value: this.state.avgIncomesValue, onChangeEvent: this.handleChangeAvgIncomesValue },
           { label: 'Expenses', targetName: 'avgExpenses', value: this.state.avgExpensesValue, onChangeEvent: this.handleChangeAvgExpensesValue },
           getCurrencyField(this.state.currencyValue, this.handleChangeCurrency),
-          // {
-          //   label: 'Currency',
-          //   targetName: 'currency',
-          //   value: this.state.currencyValue,
-          //   onChangeEvent: this.handleChangeCurrency,
-          //   type: 'select', 
-          //   options: { USD: '($) USD', EUR: '(€) EUR', GBP: '(£) GBP', CAD: '($) CAD', JPY: '(¥) JPY' },
-          //   defaultValue: 'USD',
-          // },
         ]}
       />
     );
